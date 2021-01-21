@@ -8,9 +8,9 @@ public class ManagerTest {
 
     @Test
     void createIssueTest() {
-        Issue socialIssue = DefaultIssue.builder().title().images().description().build();
+        Issue socialIssue = DefaultIssue.builder().title("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image","image2").description("내용").build();
         Manager manager = new IssueManager();
-        int created = manager.create(socialIssue);
+        int created = manager.createIssue(socialIssue);
 
         assertEquals(1, created);
     }
