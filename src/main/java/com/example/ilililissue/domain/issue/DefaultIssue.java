@@ -1,16 +1,42 @@
 package com.example.ilililissue.domain.issue;
 
 import com.example.ilililissue.domain.manager.Manager;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
+
+@Getter
+@NoArgsConstructor
+@Entity
 public class DefaultIssue implements Issue {
 
-    private final Manager creator;
-    private final String title;
-    private final String[] images;
-    private final String description;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "MANAGER_ID")
+    private Manager creator;
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "images")
+    @ElementCollection
+    private List<String> images;
+
+    @Column(name = "description")
+    private String description;
+
+    public DefaultIssue(Manager creator, String title, List<String> images, String description) {
+        this.creator = creator;
+        this.title = title;
+        this.images = images;
+        this.description = description;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -24,7 +50,7 @@ public class DefaultIssue implements Issue {
     public static class Builder {
         private Manager creator;
         private String title;
-        private String[] images;
+        private List<String> images;
         private String description;
 
         public Builder creator(Manager creator) {
@@ -38,7 +64,7 @@ public class DefaultIssue implements Issue {
         }
 
         public Builder images(String... images) {
-            this.images = images;
+            this.images = Arrays.asList(images);
             return this;
         }
 
