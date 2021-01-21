@@ -1,11 +1,13 @@
 package com.example.ilililissue.domain.issue;
 
+import com.example.ilililissue.domain.manager.Manager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class DefaultIssue implements Issue {
 
+    private final Manager creator;
     private final String title;
     private final String[] images;
     private final String description;
@@ -14,10 +16,21 @@ public class DefaultIssue implements Issue {
         return new Builder();
     }
 
+    @Override
+    public int createIssue() {
+        return 1;
+    }
+
     public static class Builder {
+        private Manager creator;
         private String title;
         private String[] images;
         private String description;
+
+        public Builder creator(Manager creator) {
+            this.creator = creator;
+            return this;
+        }
 
         public Builder title(String title) {
             this.title = title;
@@ -35,7 +48,7 @@ public class DefaultIssue implements Issue {
         }
 
         public DefaultIssue build() {
-            return new DefaultIssue(title, images, description);
+            return new DefaultIssue(creator, title, images, description);
         }
     }
 }
