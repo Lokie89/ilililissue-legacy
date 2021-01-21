@@ -1,2 +1,5 @@
-package com.example.ilililissue.domain.like;public interface Like {
+package com.example.ilililissue.domain.like;
+
+public interface Like {
+    int createLike();
 }
