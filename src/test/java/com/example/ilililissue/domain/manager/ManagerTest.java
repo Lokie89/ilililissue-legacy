@@ -1,5 +1,7 @@
 package com.example.ilililissue.domain.manager;
 
+import com.example.ilililissue.domain.issue.DefaultIssue;
+import com.example.ilililissue.domain.issue.Issue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
