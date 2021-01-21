@@ -2,6 +2,8 @@ package com.example.ilililissue.domain.comment;
 
 import com.example.ilililissue.domain.issue.DefaultIssue;
 import com.example.ilililissue.domain.issue.Issue;
+import com.example.ilililissue.domain.member.IssueMember;
+import com.example.ilililissue.domain.member.Member;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
