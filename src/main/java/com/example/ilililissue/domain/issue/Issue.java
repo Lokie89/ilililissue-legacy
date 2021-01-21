@@ -1,2 +1,4 @@
-package com.example.ilililissue.domain.issue;public interface Issue {
+package com.example.ilililissue.domain.issue;
+
+public interface Issue {
 }
