@@ -1,8 +1,9 @@
 package com.example.ilililissue.domain.issue;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class DefaultIssue implements Issue {
 
     private final String title;
