@@ -7,10 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Getter
 @AllArgsConstructor
@@ -18,11 +15,15 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Entity
 public class CommentLike implements Like {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "ISSUEMEMBER_ID")
     private IssueMember member;
-    @OneToMany
+
+    @ManyToOne
     @JoinColumn(name = "ISSUECOMMENT_ID")
     private IssueComment comment;
 
