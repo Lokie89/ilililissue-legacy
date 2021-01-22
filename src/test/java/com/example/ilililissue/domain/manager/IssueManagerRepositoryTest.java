@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Transactional
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "application-test.properties")
 public class IssueManagerRepositoryTest {
@@ -16,8 +20,9 @@ public class IssueManagerRepositoryTest {
 
     @Test
     void saveManagerTest() {
-        IssueManager issueManager = new IssueManager();
+        IssueManager issueManager = new IssueManager("master");
         repository.save(issueManager);
-        assertEquals(1, issueManager.getId());
+        List<IssueManager> managerList = repository.findAll();
+        assertEquals("master", managerList.get(0).getRole());
     }
 }
