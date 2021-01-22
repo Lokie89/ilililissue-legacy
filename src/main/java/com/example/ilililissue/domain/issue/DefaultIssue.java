@@ -17,7 +17,7 @@ public class DefaultIssue implements Issue {
     @Id
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ISSUEMANAGER_ID")
     private IssueManager creator;
 
