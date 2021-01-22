@@ -19,11 +19,11 @@ public class IssueComment implements Comment {
     @Id
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ISSUEMEMBER_ID")
     private IssueMember member;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "DEFAULTISSUE_ID")
     private DefaultIssue issue;
 
