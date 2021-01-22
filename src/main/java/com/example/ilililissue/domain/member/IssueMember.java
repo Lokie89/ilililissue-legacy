@@ -3,10 +3,7 @@ package com.example.ilililissue.domain.member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -16,4 +13,11 @@ public class IssueMember implements Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+
+    @Column(name = "name")
+    private String name;
+
+    public IssueMember(String name) {
+        this.name = name;
+    }
 }
