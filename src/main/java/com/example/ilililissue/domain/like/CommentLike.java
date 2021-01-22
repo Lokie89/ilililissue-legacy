@@ -19,11 +19,11 @@ public class CommentLike implements Like {
     @Id
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ISSUEMEMBER_ID")
     private IssueMember member;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ISSUECOMMENT_ID")
     private IssueComment comment;
 
