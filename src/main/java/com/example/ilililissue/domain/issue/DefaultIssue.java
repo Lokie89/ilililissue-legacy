@@ -1,6 +1,6 @@
 package com.example.ilililissue.domain.issue;
 
-import com.example.ilililissue.domain.manager.Manager;
+import com.example.ilililissue.domain.manager.IssueManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,8 +18,8 @@ public class DefaultIssue implements Issue {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "MANAGER_ID")
-    private Manager creator;
+    @JoinColumn(name = "ISSUEMANAGER_ID")
+    private IssueManager creator;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -31,7 +31,7 @@ public class DefaultIssue implements Issue {
     @Column(name = "description")
     private String description;
 
-    public DefaultIssue(Manager creator, String title, List<String> images, String description) {
+    public DefaultIssue(IssueManager creator, String title, List<String> images, String description) {
         this.creator = creator;
         this.title = title;
         this.images = images;
@@ -48,12 +48,12 @@ public class DefaultIssue implements Issue {
     }
 
     public static class Builder {
-        private Manager creator;
+        private IssueManager creator;
         private String title;
         private List<String> images;
         private String description;
 
-        public Builder creator(Manager creator) {
+        public Builder creator(IssueManager creator) {
             this.creator = creator;
             return this;
         }
