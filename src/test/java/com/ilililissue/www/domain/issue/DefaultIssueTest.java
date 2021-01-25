@@ -2,6 +2,7 @@ package com.ilililissue.www.domain.issue;
 
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
+import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
