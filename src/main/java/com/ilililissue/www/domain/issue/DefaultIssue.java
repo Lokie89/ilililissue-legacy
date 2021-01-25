@@ -1,6 +1,7 @@
 package com.ilililissue.www.domain.issue;
 
 import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +19,7 @@ public class DefaultIssue implements Issue {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ISSUEMANAGER_ID")
+    @JoinColumn(name = "ISSUEMANAGER_ID", nullable = false)
     private IssueManager creator;
 
     @Column(name = "title", nullable = false)
@@ -45,7 +46,7 @@ public class DefaultIssue implements Issue {
 
     private void validateCreateIssue(IssueManager creator) {
         if (!creator.hasControl()) {
-            throw new RuntimeException("권한이 없습니다");
+            throw new NotAuthorizedManagerException();
         }
     }
 
