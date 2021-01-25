@@ -32,35 +32,32 @@ public class DefaultIssue implements Issue {
     private String description;
 
     public DefaultIssue(IssueManager creator, String title, List<String> images, String description) {
+        validateCreateIssue(creator);
         this.creator = creator;
         this.title = title;
         this.images = images;
         this.description = description;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static Builder builder(IssueManager creator, String title) {
+        return new Builder(creator, title);
     }
 
-    @Override
-    public int createIssue() {
-        return 1;
+    private void validateCreateIssue(IssueManager creator) {
+        if (!creator.hasControl()) {
+            throw new RuntimeException("권한이 없습니다");
+        }
     }
 
     public static class Builder {
-        private IssueManager creator;
-        private String title;
+        private final IssueManager creator;
+        private final String title;
         private List<String> images;
         private String description;
 
-        public Builder creator(IssueManager creator) {
+        public Builder(IssueManager creator, String title) {
             this.creator = creator;
-            return this;
-        }
-
-        public Builder title(String title) {
             this.title = title;
-            return this;
         }
 
         public Builder images(String... images) {
