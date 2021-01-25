@@ -20,9 +20,9 @@ public class IssueManagerRepositoryTest {
 
     @Test
     void saveManagerTest() {
-        IssueManager issueManager = new IssueManager("master");
+        IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
         repository.save(issueManager);
         List<IssueManager> managerList = repository.findAll();
-        assertEquals("master", managerList.get(0).getRole());
+        assertEquals("MASTER", managerList.get(0).getRole().name());
     }
 }

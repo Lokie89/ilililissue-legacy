@@ -2,6 +2,7 @@ package com.ilililissue.www.domain.comment;
 
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,8 +25,8 @@ public class IssueCommentRepositoryTest {
     @Test
     void saveIssueCommentTest() {
         IssueMember member = new IssueMember("회원1");
-        IssueManager manager = new IssueManager("매니저1");
-        DefaultIssue defaultIssue = DefaultIssue.builder().creator(manager).title("애플도 VR을?… “고성능·고가형 헤드셋 개발 중”").images("apple1", "vr1").description("페이스북 자회사 오큘러스의 VR 헤드셋 '오큘러스 퀘스트2'. 애플이 개발 중인 헤드셋도 이와 유사할 것으로 예측된다.").build();
+        IssueManager manager = new IssueManager(ManagerRole.MASTER);
+        DefaultIssue defaultIssue = DefaultIssue.builder(manager, "애플도 VR을?… “고성능·고가형 헤드셋 개발 중”").images("apple1", "vr1").description("페이스북 자회사 오큘러스의 VR 헤드셋 '오큘러스 퀘스트2'. 애플이 개발 중인 헤드셋도 이와 유사할 것으로 예측된다.").build();
         IssueComment issueComment = IssueComment.builder().member(member).issue(defaultIssue).comment("저건 얼마나 비쌀라나??").build();
 
         repository.save(issueComment);
@@ -37,6 +38,6 @@ public class IssueCommentRepositoryTest {
         DefaultIssue commentedIssue = savedIssueComment.getIssue();
         assertEquals("애플도 VR을?… “고성능·고가형 헤드셋 개발 중”", commentedIssue.getTitle());
         IssueManager commentedIssueManager = commentedIssue.getCreator();
-        assertEquals("매니저1", commentedIssueManager.getRole());
+        assertEquals("MASTER", commentedIssueManager.getRole().name());
     }
 }

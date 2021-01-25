@@ -14,10 +14,17 @@ public class IssueManager implements Manager {
     @Id
     private Long id;
 
+    @Enumerated
     @Column(name = "role")
-    private String role;
+    private ManagerRole role;
 
-    public IssueManager(String role) {
+    public IssueManager(ManagerRole role) {
         this.role = role;
     }
+
+    @Override
+    public boolean hasControl() {
+        return role.isOverAuthorized(ManagerRole.LV3);
+    }
+
 }
