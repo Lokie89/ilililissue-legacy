@@ -15,7 +15,7 @@ public class IssueManagerService {
         this.issueManagerRepository = issueManagerRepository;
     }
 
-    public void save(IssueManager issueManager) {
+    public void create(IssueManager issueManager) {
         issueManagerRepository.save(issueManager);
     }
 

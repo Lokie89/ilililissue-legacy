@@ -24,7 +24,7 @@ public class IssueServiceTest {
     void saveTest() {
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
         DefaultIssue defaultIssue = DefaultIssue.builder(issueManager, "여긴 제목").images().description("설명").build();
-        issueService.save(defaultIssue);
+        issueService.create(defaultIssue);
         assertEquals("여긴 제목", issueService.getAll().get(0).getTitle());
     }
 

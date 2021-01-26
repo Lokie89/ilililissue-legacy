@@ -25,16 +25,16 @@ public class IssueManagerServiceTest {
     @Test
     void saveIssueManager() {
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
-        issueManagerService.save(issueManager);
+        issueManagerService.create(issueManager);
         assertEquals(issueManager, issueManagerService.getAll().get(0));
     }
 
     @Test
     void getAllIssueManager() {
         IssueManager issueManager1 = new IssueManager(ManagerRole.MASTER);
-        issueManagerService.save(issueManager1);
+        issueManagerService.create(issueManager1);
         IssueManager issueManager2 = new IssueManager(ManagerRole.MASTER);
-        issueManagerService.save(issueManager2);
+        issueManagerService.create(issueManager2);
         List<IssueManager> issueManagers = issueManagerService.getAll();
         assertEquals(2, issueManagers.size());
     }

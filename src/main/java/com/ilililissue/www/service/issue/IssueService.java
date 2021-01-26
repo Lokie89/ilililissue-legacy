@@ -14,7 +14,7 @@ public class IssueService {
         this.defaultIssueRepository = defaultIssueRepository;
     }
 
-    public void save(DefaultIssue defaultIssue) {
+    public void create(DefaultIssue defaultIssue) {
         defaultIssueRepository.save(defaultIssue);
     }
 
