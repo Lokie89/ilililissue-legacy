@@ -18,4 +18,14 @@ public class CommentTest {
         assertEquals("코로나 스탑!!", issueComment.getComment());
     }
 
+    @Test
+    void equalIssueCommentTest() {
+        IssueManager manager = new IssueManager(ManagerRole.MASTER);
+        IssueMember issueMember = new IssueMember();
+        DefaultIssue socialIssue = DefaultIssue.builder(manager, "신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image", "image2").description("내용").build();
+        IssueComment issueComment1 = IssueComment.builder().member(issueMember).issue(socialIssue).comment("코로나 스탑!!").build();
+        IssueComment issueComment2 = IssueComment.builder().member(issueMember).issue(socialIssue).comment("코로나 스탑!!").build();
+        assertEquals(issueComment1, issueComment2);
+    }
+
 }
