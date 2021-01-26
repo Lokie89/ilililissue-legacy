@@ -2,13 +2,11 @@ package com.ilililissue.www.domain.comment;
 
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.member.IssueMember;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode
 @Getter
 @AllArgsConstructor
 @Builder
