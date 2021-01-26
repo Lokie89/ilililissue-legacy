@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @Entity
-public class IssueComment implements Comment {
+public class IssueComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -30,8 +30,4 @@ public class IssueComment implements Comment {
     @Column(name = "comment")
     private String comment;
 
-    @Override
-    public int createComment() {
-        return 1;
-    }
 }

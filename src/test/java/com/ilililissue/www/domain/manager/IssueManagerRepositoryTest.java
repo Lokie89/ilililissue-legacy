@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(properties = "application-test.properties")
 public class IssueManagerRepositoryTest {
     @Autowired
-    ManagerRepository repository;
+    IssueManagerRepository repository;
 
     @Test
     void saveManagerTest() {
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
         repository.save(issueManager);
-        List<Manager> managerList = repository.findAll();
-//        assertEquals("MASTER", managerList.get(0).getRole().name());
+        List<IssueManager> managerList = repository.findAll();
+        assertEquals("MASTER", managerList.get(0).getRole().name());
     }
 }

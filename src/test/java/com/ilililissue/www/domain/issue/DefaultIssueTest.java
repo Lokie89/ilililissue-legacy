@@ -18,7 +18,7 @@ public class DefaultIssueTest {
     @Test
     void notAuthorizedManagerDefaultIssueTest2() {
         IssueManager issueManager = new IssueManager();
-        assertThrows(NotAuthorizedManagerException.class, () -> DefaultIssue.builder(issueManager, "33").build());
+        assertThrows(NullPointerException.class, () -> DefaultIssue.builder(issueManager, "33").build());
     }
 
 

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class IssueManager implements Manager {
+public class IssueManager {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -22,7 +22,6 @@ public class IssueManager implements Manager {
         this.role = role;
     }
 
-    @Override
     public boolean hasControl() {
         return role.isOverAuthorized(ManagerRole.LV3);
     }

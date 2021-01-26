@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @Entity
-public class CommentLike implements Like {
+public class CommentLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -27,8 +27,4 @@ public class CommentLike implements Like {
     @JoinColumn(name = "ISSUECOMMENT_ID")
     private IssueComment comment;
 
-    @Override
-    public int createLike() {
-        return 1;
-    }
 }

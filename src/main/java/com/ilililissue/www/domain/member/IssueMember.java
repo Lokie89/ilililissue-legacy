@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class IssueMember implements Member {
+public class IssueMember {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

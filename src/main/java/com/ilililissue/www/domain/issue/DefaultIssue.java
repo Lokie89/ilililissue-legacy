@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class DefaultIssue implements Issue {
+public class DefaultIssue {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
