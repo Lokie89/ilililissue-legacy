@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = false)
 @Getter
 @AllArgsConstructor
 @Builder
