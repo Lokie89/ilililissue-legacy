@@ -37,4 +37,8 @@ public class IssueComment extends BaseTimeEntity {
     public void delete() {
         status = 'n';
     }
+
+    public void drop() {
+        status = 'd';
+    }
 }

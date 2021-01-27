@@ -22,8 +22,11 @@ public class IssueManager {
         this.role = role;
     }
 
-    public boolean hasControl() {
+    public boolean hasIssueControl() {
         return role.isOverAuthorized(ManagerRole.LV3);
+    }
+    public boolean hasIssueCommentControl() {
+        return role.isOverAuthorized(ManagerRole.LV2);
     }
 
 }

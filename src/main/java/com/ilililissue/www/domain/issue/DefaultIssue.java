@@ -45,7 +45,7 @@ public class DefaultIssue {
     }
 
     private void validateCreateIssue(IssueManager creator) {
-        if (!creator.hasControl()) {
+        if (!creator.hasIssueControl()) {
             throw new NotAuthorizedManagerException();
         }
     }
