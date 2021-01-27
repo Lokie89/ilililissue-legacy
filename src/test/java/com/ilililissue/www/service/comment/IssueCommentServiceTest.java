@@ -115,4 +115,16 @@ public class IssueCommentServiceTest {
         IssueMember issueMember = new IssueMember();
         assertThrows(CanNotRemoveCommentException.class, () -> issueCommentService.remove(savedIssueComment, issueMember));
     }
+
+    @Test
+    void removeCommentByManagerTest(){
+        createIssueComment();
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+        IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
+        issueCommentService.remove(savedIssueComment, issueManager);
+
+        IssueComment deletedIssueComment = issueCommentService.getAll().get(0);
+        assertEquals('n', deletedIssueComment.getStatus());
+    }
 }
