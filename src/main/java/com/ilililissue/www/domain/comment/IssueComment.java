@@ -29,4 +29,10 @@ public class IssueComment extends BaseTimeEntity {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "plating")
+    private char plating = 'y';
+
+    public void delete() {
+        plating = 'n';
+    }
 }
