@@ -17,7 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
 @ExtendWith(SpringExtension.class)
@@ -76,5 +77,7 @@ public class IssueCommentServiceTest {
         IssueComment savedIssueComment = issueCommentService.getAll().get(0);
         savedIssueComment.setComment("코로나 백신 언제나오냐!!");
         issueCommentService.update(savedIssueComment);
+        IssueComment updatedIssueComment = issueCommentService.getAll().get(0);
+        assertEquals("코로나 백신 언제나오냐!!", updatedIssueComment.getComment());
     }
 }
