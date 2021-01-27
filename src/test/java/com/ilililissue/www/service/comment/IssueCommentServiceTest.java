@@ -80,4 +80,19 @@ public class IssueCommentServiceTest {
         IssueComment updatedIssueComment = issueCommentService.getAll().get(0);
         assertEquals("코로나 백신 언제나오냐!!", updatedIssueComment.getComment());
     }
+
+    @Test
+    void cannotUpdateComment() {
+        IssueMember issueMember = issueMemberService.getAll().get(0);
+        DefaultIssue getIssue = issueService.getAll().get(0);
+        IssueComment issueComment = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
+        issueCommentService.create(issueComment);
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+        savedIssueComment.setComment("코로나 백신 언제나오냐!!");
+        issueCommentService.update(savedIssueComment);
+        IssueComment updatedIssueComment = issueCommentService.getAll().get(0);
+        updatedIssueComment.setComment("코로나 백신 안나올거같아 진짜");
+        assertThrows(CanNotUpdateCommentException.class, () -> issueCommentService.update(updatedIssueComment));
+    }
 }
