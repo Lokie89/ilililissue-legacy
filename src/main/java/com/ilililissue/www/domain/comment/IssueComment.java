@@ -19,7 +19,7 @@ public class IssueComment extends BaseTimeEntity {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ISSUEMEMBER_ID")
-    private IssueMember member;
+    private IssueMember author;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "DEFAULTISSUE_ID")

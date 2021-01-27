@@ -27,13 +27,13 @@ public class IssueCommentRepositoryTest {
         IssueMember member = new IssueMember("회원1");
         IssueManager manager = new IssueManager(ManagerRole.MASTER);
         DefaultIssue defaultIssue = DefaultIssue.builder(manager, "애플도 VR을?… “고성능·고가형 헤드셋 개발 중”").images("apple1", "vr1").description("페이스북 자회사 오큘러스의 VR 헤드셋 '오큘러스 퀘스트2'. 애플이 개발 중인 헤드셋도 이와 유사할 것으로 예측된다.").build();
-        IssueComment issueComment = IssueComment.builder().member(member).issue(defaultIssue).comment("저건 얼마나 비쌀라나??").build();
+        IssueComment issueComment = IssueComment.builder().author(member).issue(defaultIssue).comment("저건 얼마나 비쌀라나??").build();
 
         repository.save(issueComment);
         List<IssueComment> issueCommentList = repository.findAll();
         IssueComment savedIssueComment = issueCommentList.get(0);
         assertEquals("저건 얼마나 비쌀라나??", savedIssueComment.getComment());
-        IssueMember commentMember = savedIssueComment.getMember();
+        IssueMember commentMember = savedIssueComment.getAuthor();
         assertEquals("회원1", commentMember.getName());
         DefaultIssue commentedIssue = savedIssueComment.getIssue();
         assertEquals("애플도 VR을?… “고성능·고가형 헤드셋 개발 중”", commentedIssue.getTitle());

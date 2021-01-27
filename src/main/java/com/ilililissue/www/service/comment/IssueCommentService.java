@@ -27,7 +27,7 @@ public class IssueCommentService {
     }
 
     private boolean exist(IssueComment issueComment) {
-        return issueCommentRepository.existsByIssueAndMember(issueComment.getIssue(), issueComment.getMember());
+        return issueCommentRepository.existsByIssueAndAuthor(issueComment.getIssue(), issueComment.getAuthor());
     }
 
     public List<IssueComment> getAll() {
@@ -52,6 +52,6 @@ public class IssueCommentService {
     }
 
     private boolean isCommentAuthor(IssueComment issueComment, IssueMember author) {
-        return issueComment.getMember().equals(author);
+        return issueComment.getAuthor().equals(author);
     }
 }

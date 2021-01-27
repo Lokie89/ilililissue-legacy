@@ -52,7 +52,7 @@ public class IssueCommentServiceTest {
     private void createIssueComment() {
         IssueMember issueMember = issueMemberService.getAll().get(0);
         DefaultIssue getIssue = issueService.getAll().get(0);
-        IssueComment issueComment = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
+        IssueComment issueComment = IssueComment.builder().author(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
         issueCommentService.create(issueComment);
     }
 
@@ -66,9 +66,9 @@ public class IssueCommentServiceTest {
     void cannotRegisterComment() {
         IssueMember issueMember = issueMemberService.getAll().get(0);
         DefaultIssue getIssue = issueService.getAll().get(0);
-        IssueComment issueComment1 = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
+        IssueComment issueComment1 = IssueComment.builder().author(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
         issueCommentService.create(issueComment1);
-        IssueComment issueComment2 = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!! 두번째!!!").build();
+        IssueComment issueComment2 = IssueComment.builder().author(issueMember).issue(getIssue).comment("코로나 스탑!! 두번째!!!").build();
         assertThrows(CanNotRegisterCommentException.class, () -> issueCommentService.create(issueComment2));
     }
 

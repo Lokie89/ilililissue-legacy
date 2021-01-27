@@ -5,5 +5,5 @@ import com.ilililissue.www.domain.member.IssueMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IssueCommentRepository extends JpaRepository<IssueComment, Long> {
-    boolean existsByIssueAndMember(DefaultIssue issue, IssueMember member);
+    boolean existsByIssueAndAuthor(DefaultIssue issue, IssueMember author);
 }
