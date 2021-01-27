@@ -8,6 +8,7 @@ import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
 import com.ilililissue.www.service.issue.IssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
+import com.ilililissue.www.service.member.IssueMemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
