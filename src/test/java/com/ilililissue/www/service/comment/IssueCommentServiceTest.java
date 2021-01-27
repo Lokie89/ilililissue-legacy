@@ -102,6 +102,6 @@ public class IssueCommentServiceTest {
         issueCommentService.remove(savedIssueComment);
 
         IssueComment deletedIssueComment = issueCommentService.getAll().get(0);
-        assertEquals('n', deletedIssueComment.getPlating());
+        assertEquals('n', deletedIssueComment.getStatus());
     }
 }

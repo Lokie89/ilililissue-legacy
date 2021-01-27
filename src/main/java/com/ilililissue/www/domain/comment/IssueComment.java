@@ -30,10 +30,10 @@ public class IssueComment extends BaseTimeEntity {
     private String comment;
 
     @Builder.Default
-    @Column(name = "plating")
-    private char plating = 'y';
+    @Column(name = "status")
+    private char status = 'y';
 
     public void delete() {
-        plating = 'n';
+        status = 'n';
     }
 }
