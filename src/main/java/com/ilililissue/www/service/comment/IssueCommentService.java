@@ -40,6 +40,6 @@ public class IssueCommentService {
     }
 
     private boolean isUpdated(IssueComment issueComment) {
-        return issueComment.getModifiedDate() != null;
+        return !issueComment.getModifiedDate().equals(issueComment.getCreatedDate());
     }
 }
