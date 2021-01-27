@@ -48,13 +48,16 @@ public class IssueCommentServiceTest {
         issueService.create(socialIssue);
     }
 
-    @Test
-    void saveIssueComment() {
-
+    private void createIssueComment() {
         IssueMember issueMember = issueMemberService.getAll().get(0);
         DefaultIssue getIssue = issueService.getAll().get(0);
         IssueComment issueComment = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
         issueCommentService.create(issueComment);
+    }
+
+    @Test
+    void saveIssueComment() {
+        createIssueComment();
         assertEquals("코로나 스탑!!", issueCommentService.getAll().get(0).getComment());
     }
 
@@ -70,10 +73,7 @@ public class IssueCommentServiceTest {
 
     @Test
     void updateComment() {
-        IssueMember issueMember = issueMemberService.getAll().get(0);
-        DefaultIssue getIssue = issueService.getAll().get(0);
-        IssueComment issueComment = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
-        issueCommentService.create(issueComment);
+        createIssueComment();
 
         IssueComment savedIssueComment = issueCommentService.getAll().get(0);
         savedIssueComment.setComment("코로나 백신 언제나오냐!!");
@@ -84,10 +84,7 @@ public class IssueCommentServiceTest {
 
     @Test
     void cannotUpdateComment() {
-        IssueMember issueMember = issueMemberService.getAll().get(0);
-        DefaultIssue getIssue = issueService.getAll().get(0);
-        IssueComment issueComment = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
-        issueCommentService.create(issueComment);
+        createIssueComment();
 
         IssueComment savedIssueComment = issueCommentService.getAll().get(0);
         savedIssueComment.setComment("코로나 백신 언제나오냐!!");
@@ -95,5 +92,16 @@ public class IssueCommentServiceTest {
         IssueComment updatedIssueComment = issueCommentService.getAll().get(0);
         updatedIssueComment.setComment("코로나 백신 안나올거같아 진짜");
         assertThrows(CanNotUpdateCommentException.class, () -> issueCommentService.update(updatedIssueComment));
+    }
+
+    @Test
+    void removeCommentTest() {
+        createIssueComment();
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+        issueCommentService.remove(savedIssueComment);
+
+        IssueComment deletedIssueComment = issueCommentService.getAll().get(0);
+        assertEquals('n', deletedIssueComment.getPlating());
     }
 }
