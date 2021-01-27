@@ -42,4 +42,9 @@ public class IssueCommentService {
     private boolean isUpdated(IssueComment issueComment) {
         return !issueComment.getModifiedDate().equals(issueComment.getCreatedDate());
     }
+
+    public void remove(IssueComment issueComment) {
+        issueComment.delete();
+        issueCommentRepository.save(issueComment);
+    }
 }
