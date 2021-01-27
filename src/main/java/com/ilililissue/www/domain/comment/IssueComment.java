@@ -29,6 +29,7 @@ public class IssueComment extends BaseTimeEntity {
     @Column(name = "comment")
     private String comment;
 
+    @Builder.Default
     @Column(name = "plating")
     private char plating = 'y';
 
