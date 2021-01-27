@@ -65,4 +65,16 @@ public class IssueCommentServiceTest {
         IssueComment issueComment2 = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!! 두번째!!!").build();
         assertThrows(CanNotRegisterCommentException.class, () -> issueCommentService.create(issueComment2));
     }
+
+    @Test
+    void updateComment() {
+        IssueMember issueMember = issueMemberService.getAll().get(0);
+        DefaultIssue getIssue = issueService.getAll().get(0);
+        IssueComment issueComment = IssueComment.builder().member(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
+        issueCommentService.create(issueComment);
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+        savedIssueComment.setComment("코로나 백신 언제나오냐!!");
+        issueCommentService.update(savedIssueComment);
+    }
 }
