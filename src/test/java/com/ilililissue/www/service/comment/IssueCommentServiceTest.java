@@ -117,7 +117,7 @@ public class IssueCommentServiceTest {
     }
 
     @Test
-    void removeCommentByManagerTest(){
+    void removeCommentByManagerTest() {
         createIssueComment();
 
         IssueComment savedIssueComment = issueCommentService.getAll().get(0);
@@ -126,5 +126,15 @@ public class IssueCommentServiceTest {
 
         IssueComment deletedIssueComment = issueCommentService.getAll().get(0);
         assertEquals('d', deletedIssueComment.getStatus());
+    }
+
+    @Test
+    void cannotRemoveCommentByManagerTest() {
+        createIssueComment();
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+        IssueManager issueManager = new IssueManager(ManagerRole.LV1);
+
+        assertThrows(CanNotRemoveCommentException.class, () -> issueCommentService.remove(savedIssueComment, issueManager));
     }
 }
