@@ -36,7 +36,6 @@ public class IssueCommentService {
         if (isUpdated(issueComment)) {
             throw new CanNotUpdateCommentException();
         }
-        issueCommentRepository.save(issueComment);
     }
 
     private boolean isUpdated(IssueComment issueComment) {
@@ -45,6 +44,5 @@ public class IssueCommentService {
 
     public void remove(IssueComment issueComment) {
         issueComment.delete();
-        issueCommentRepository.save(issueComment);
     }
 }
