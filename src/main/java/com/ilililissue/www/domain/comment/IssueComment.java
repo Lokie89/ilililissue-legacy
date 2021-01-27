@@ -24,6 +24,7 @@ public class IssueComment {
     @JoinColumn(name = "DEFAULTISSUE_ID")
     private DefaultIssue issue;
 
+    @Setter
     @Column(name = "comment")
     private String comment;
 
