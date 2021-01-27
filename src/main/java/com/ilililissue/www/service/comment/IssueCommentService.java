@@ -24,7 +24,7 @@ public class IssueCommentService {
     }
 
     private boolean exist(IssueComment issueComment) {
-        return issueCommentRepository.existsIssueCommentByIssueAndMember(issueComment.getIssue(),issueComment.getMember());
+        return issueCommentRepository.existsByIssueAndMember(issueComment.getIssue(),issueComment.getMember());
     }
 
     public List<IssueComment> getAll() {
