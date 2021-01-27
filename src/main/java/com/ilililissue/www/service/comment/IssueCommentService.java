@@ -2,6 +2,7 @@ package com.ilililissue.www.service.comment;
 
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.comment.IssueCommentRepository;
+import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
 import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
@@ -53,5 +54,12 @@ public class IssueCommentService {
 
     private boolean isCommentAuthor(IssueComment issueComment, IssueMember author) {
         return issueComment.getAuthor().equals(author);
+    }
+
+    public void remove(IssueComment issueComment, IssueManager issueManager) {
+        if (!issueManager.hasIssueCommentControl()) {
+            throw new CanNotRemoveCommentException();
+        }
+        issueComment.drop();
     }
 }
