@@ -99,7 +99,8 @@ public class IssueCommentServiceTest {
         createIssueComment();
 
         IssueComment savedIssueComment = issueCommentService.getAll().get(0);
-        issueCommentService.remove(savedIssueComment);
+        IssueMember issueMember = issueMemberService.getAll().get(0);
+        issueCommentService.remove(savedIssueComment, issueMember);
 
         IssueComment deletedIssueComment = issueCommentService.getAll().get(0);
         assertEquals('n', deletedIssueComment.getStatus());
@@ -110,7 +111,7 @@ public class IssueCommentServiceTest {
         createIssueComment();
 
         IssueComment savedIssueComment = issueCommentService.getAll().get(0);
-        savedIssueComment.setMember(new IssueMember());
-        assertThrows(CanNotRemoveCommentException.class, () -> issueCommentService.remove(savedIssueComment));
+        IssueMember issueMember = new IssueMember();
+        assertThrows(CanNotRemoveCommentException.class, () -> issueCommentService.remove(savedIssueComment, issueMember));
     }
 }
