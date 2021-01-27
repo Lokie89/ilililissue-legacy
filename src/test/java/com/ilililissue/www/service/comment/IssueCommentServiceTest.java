@@ -104,4 +104,13 @@ public class IssueCommentServiceTest {
         IssueComment deletedIssueComment = issueCommentService.getAll().get(0);
         assertEquals('n', deletedIssueComment.getStatus());
     }
+
+    @Test
+    void cannotRemoveCommentTest() {
+        createIssueComment();
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+        savedIssueComment.setMember(new IssueMember());
+        assertThrows(CanNotRemoveCommentException.class, () -> issueCommentService.remove(savedIssueComment));
+    }
 }
