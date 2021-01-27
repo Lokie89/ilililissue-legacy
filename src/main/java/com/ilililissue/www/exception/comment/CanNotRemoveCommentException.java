@@ -1,2 +1,4 @@
-package com.ilililissue.www.exception.comment;public class CanNotRemoveCommentException {
+package com.ilililissue.www.exception.comment;
+
+public class CanNotRemoveCommentException extends RuntimeException{
 }

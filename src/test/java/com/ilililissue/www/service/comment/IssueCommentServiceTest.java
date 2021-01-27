@@ -6,6 +6,7 @@ import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
+import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
 import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import com.ilililissue.www.service.issue.IssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
