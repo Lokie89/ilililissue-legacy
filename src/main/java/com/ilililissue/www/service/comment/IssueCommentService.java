@@ -4,6 +4,7 @@ import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.comment.IssueCommentRepository;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
+import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
 import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,13 @@ public class IssueCommentService {
     }
 
     public void remove(IssueComment issueComment, IssueMember issueMember) {
+        if (!isCommentAuthor(issueComment, issueMember)) {
+            throw new CanNotRemoveCommentException();
+        }
         issueComment.delete();
+    }
+
+    private boolean isCommentAuthor(IssueComment issueComment, IssueMember author) {
+        return issueComment.getMember().equals(author);
     }
 }
