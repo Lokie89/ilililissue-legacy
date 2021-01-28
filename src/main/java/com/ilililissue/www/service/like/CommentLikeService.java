@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LikeService {
+public class CommentLikeService {
 
 
     private CommentLikeRepository commentLikeRepository;
 
-    public LikeService(CommentLikeRepository commentLikeRepository) {
+    public CommentLikeService(CommentLikeRepository commentLikeRepository) {
         this.commentLikeRepository = commentLikeRepository;
     }
 

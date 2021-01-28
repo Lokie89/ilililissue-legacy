@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
 @SpringBootTest(properties = "application-test.properties")
-public class LikeServiceTest {
+public class CommentLikeServiceTest {
     @Autowired
-    LikeService likeService;
+    CommentLikeService commentLikeService;
 
     @Autowired
     IssueMemberService issueMemberService;
@@ -58,7 +58,7 @@ public class LikeServiceTest {
 
         CommentLike commentLike = CommentLike.builder().comment(savedIssueComment).member(issueMember).build();
 
-        likeService.createOrCancel(commentLike);
+        commentLikeService.createOrCancel(commentLike);
         assertEquals(issueMember, commentLike.getMember());
     }
 
@@ -71,9 +71,9 @@ public class LikeServiceTest {
 
         CommentLike commentLike = CommentLike.builder().comment(savedIssueComment).member(issueMember).build();
 
-        likeService.createOrCancel(commentLike);
-        likeService.createOrCancel(commentLike);
+        commentLikeService.createOrCancel(commentLike);
+        commentLikeService.createOrCancel(commentLike);
         assertEquals('n', commentLike.getStatus());
-        assertEquals(1, likeService.getAll().size());
+        assertEquals(1, commentLikeService.getAll().size());
     }
 }
