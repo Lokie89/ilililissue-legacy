@@ -27,4 +27,20 @@ public class CommentLike {
     @JoinColumn(name = "ISSUECOMMENT_ID")
     private IssueComment comment;
 
+    @Builder.Default
+    @Column(name = "STATUS")
+    private Character status = 'y';
+
+    public boolean isCanceled() {
+        return status == 'n';
+    }
+
+    public void cancel() {
+        status = 'n';
+    }
+
+    public void reLike() {
+        status = 'y';
+    }
+
 }
