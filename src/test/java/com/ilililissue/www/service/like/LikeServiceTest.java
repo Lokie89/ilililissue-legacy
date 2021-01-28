@@ -10,11 +10,16 @@ import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.IssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @SpringBootTest(properties = "application-test.properties")
 public class LikeServiceTest {
     @Autowired
@@ -38,6 +43,7 @@ public class LikeServiceTest {
         issueMemberService.create(issueMember);
         IssueManager manager = new IssueManager(ManagerRole.MASTER);
         issueManagerService.create(manager);
+
         DefaultIssue socialIssue = DefaultIssue.builder(manager, "신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image", "image2").description("내용").build();
         issueService.create(socialIssue);
         IssueComment issueComment = IssueComment.builder().author(issueMember).issue(socialIssue).comment("코로나 스탑!!").build();
@@ -54,5 +60,6 @@ public class LikeServiceTest {
         CommentLike commentLike = CommentLike.builder().comment(savedIssueComment).member(issueMember).build();
 
         likeService.create(commentLike);
+        assertEquals(issueMember, commentLike.getMember());
     }
 }
