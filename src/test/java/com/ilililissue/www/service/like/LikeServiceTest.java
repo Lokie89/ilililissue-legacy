@@ -62,4 +62,18 @@ public class LikeServiceTest {
         likeService.create(commentLike);
         assertEquals(issueMember, commentLike.getMember());
     }
+
+    @Test
+    void cancelLikeTest(){
+        IssueMember issueMember = new IssueMember();
+        issueMemberService.create(issueMember);
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+
+        CommentLike commentLike = CommentLike.builder().comment(savedIssueComment).member(issueMember).build();
+
+        likeService.createOrCancel(commentLike);
+        likeService.createOrCancel(commentLike);
+        assertEquals('n', commentLike.getStatus());
+    }
 }
