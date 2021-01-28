@@ -10,14 +10,13 @@ import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.IssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
 @SpringBootTest(properties = "application-test.properties")
@@ -59,12 +58,12 @@ public class LikeServiceTest {
 
         CommentLike commentLike = CommentLike.builder().comment(savedIssueComment).member(issueMember).build();
 
-        likeService.create(commentLike);
+        likeService.createOrCancel(commentLike);
         assertEquals(issueMember, commentLike.getMember());
     }
 
     @Test
-    void cancelLikeTest(){
+    void cancelLikeTest() {
         IssueMember issueMember = new IssueMember();
         issueMemberService.create(issueMember);
 
@@ -75,5 +74,6 @@ public class LikeServiceTest {
         likeService.createOrCancel(commentLike);
         likeService.createOrCancel(commentLike);
         assertEquals('n', commentLike.getStatus());
+        assertEquals(1, likeService.getAll().size());
     }
 }
