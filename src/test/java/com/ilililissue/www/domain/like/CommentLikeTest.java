@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LikeTest {
+public class CommentLikeTest {
     @Test
     void createLikeCommentTest() {
         IssueManager manager = new IssueManager(ManagerRole.MASTER);
