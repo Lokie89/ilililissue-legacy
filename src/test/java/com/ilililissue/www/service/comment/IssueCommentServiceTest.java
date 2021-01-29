@@ -8,7 +8,7 @@ import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
 import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
 import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
-import com.ilililissue.www.service.issue.IssueService;
+import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +34,7 @@ public class IssueCommentServiceTest {
     IssueManagerService issueManagerService;
 
     @Autowired
-    IssueService issueService;
+    DefaultIssueService defaultIssueService;
 
     @Autowired
     IssueMemberService issueMemberService;
@@ -46,12 +46,12 @@ public class IssueCommentServiceTest {
         IssueManager manager = new IssueManager(ManagerRole.MASTER);
         issueManagerService.create(manager);
         DefaultIssue socialIssue = DefaultIssue.builder(manager, "신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image", "image2").description("내용").build();
-        issueService.create(socialIssue);
+        defaultIssueService.create(socialIssue);
     }
 
     private void createIssueComment() {
         IssueMember issueMember = issueMemberService.getAll().get(0);
-        DefaultIssue getIssue = issueService.getAll().get(0);
+        DefaultIssue getIssue = defaultIssueService.getAll().get(0);
         IssueComment issueComment = IssueComment.builder().author(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
         issueCommentService.create(issueComment);
     }
@@ -65,7 +65,7 @@ public class IssueCommentServiceTest {
     @Test
     void cannotRegisterComment() {
         IssueMember issueMember = issueMemberService.getAll().get(0);
-        DefaultIssue getIssue = issueService.getAll().get(0);
+        DefaultIssue getIssue = defaultIssueService.getAll().get(0);
         IssueComment issueComment1 = IssueComment.builder().author(issueMember).issue(getIssue).comment("코로나 스탑!!").build();
         issueCommentService.create(issueComment1);
         IssueComment issueComment2 = IssueComment.builder().author(issueMember).issue(getIssue).comment("코로나 스탑!! 두번째!!!").build();

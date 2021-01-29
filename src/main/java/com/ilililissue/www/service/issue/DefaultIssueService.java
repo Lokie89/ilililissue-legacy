@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IssueService {
+public class DefaultIssueService {
     private final DefaultIssueRepository repository;
     private final IssueManagerService issueManagerService;
 
-    public IssueService(DefaultIssueRepository repository,
-                        IssueManagerService issueManagerService) {
+    public DefaultIssueService(DefaultIssueRepository repository,
+                               IssueManagerService issueManagerService) {
         this.repository = repository;
         this.issueManagerService = issueManagerService;
     }

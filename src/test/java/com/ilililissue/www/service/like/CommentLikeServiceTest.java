@@ -7,7 +7,7 @@ import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
-import com.ilililissue.www.service.issue.IssueService;
+import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +31,7 @@ public class CommentLikeServiceTest {
     IssueManagerService issueManagerService;
 
     @Autowired
-    IssueService issueService;
+    DefaultIssueService defaultIssueService;
 
     @Autowired
     IssueCommentService issueCommentService;
@@ -44,7 +44,7 @@ public class CommentLikeServiceTest {
         issueManagerService.create(manager);
 
         DefaultIssue socialIssue = DefaultIssue.builder(manager, "신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image", "image2").description("내용").build();
-        issueService.create(socialIssue);
+        defaultIssueService.create(socialIssue);
         IssueComment issueComment = IssueComment.builder().author(issueMember).issue(socialIssue).comment("코로나 스탑!!").build();
         issueCommentService.create(issueComment);
     }

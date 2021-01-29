@@ -16,16 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "application-test.properties")
-public class IssueServiceTest {
+public class DefaultIssueServiceTest {
     @Autowired
-    IssueService issueService;
+    DefaultIssueService defaultIssueService;
 
     @Test
     void saveTest() {
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
         DefaultIssue defaultIssue = DefaultIssue.builder(issueManager, "여긴 제목").images().description("설명").build();
-        issueService.create(defaultIssue);
-        assertEquals("여긴 제목", issueService.getAll().get(0).getTitle());
+        defaultIssueService.create(defaultIssue);
+        assertEquals("여긴 제목", defaultIssueService.getAll().get(0).getTitle());
     }
 
 }

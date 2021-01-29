@@ -1,9 +1,7 @@
 package com.ilililissue.www.web.controller;
 
 import com.ilililissue.www.domain.issue.DefaultIssue;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.service.issue.IssueService;
-import com.ilililissue.www.service.manager.IssueManagerService;
+import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IssueController {
 
-    private IssueService issueService;
+    private DefaultIssueService defaultIssueService;
 
-    public IssueController(IssueService issueService) {
-        this.issueService = issueService;
+    public IssueController(DefaultIssueService defaultIssueService) {
+        this.defaultIssueService = defaultIssueService;
     }
 
     @PostMapping("")
     public ResponseEntity<DefaultIssue> createIssue(@RequestBody DefaultIssueSaveDto issue) {
-        return new ResponseEntity<>(issueService.create(issue), HttpStatus.CREATED);
+        return new ResponseEntity<>(defaultIssueService.create(issue), HttpStatus.CREATED);
     }
 }
