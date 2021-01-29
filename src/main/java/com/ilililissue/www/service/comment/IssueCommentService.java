@@ -14,25 +14,25 @@ import java.util.List;
 @Service
 public class IssueCommentService {
 
-    private IssueCommentRepository issueCommentRepository;
+    private final IssueCommentRepository repository;
 
-    public IssueCommentService(IssueCommentRepository issueCommentRepository) {
-        this.issueCommentRepository = issueCommentRepository;
+    public IssueCommentService(IssueCommentRepository repository) {
+        this.repository = repository;
     }
 
     public void create(IssueComment issueComment) {
         if (exist(issueComment)) {
             throw new CanNotRegisterCommentException();
         }
-        issueCommentRepository.save(issueComment);
+        repository.save(issueComment);
     }
 
     private boolean exist(IssueComment issueComment) {
-        return issueCommentRepository.existsByIssueAndAuthor(issueComment.getIssue(), issueComment.getAuthor());
+        return repository.existsByIssueAndAuthor(issueComment.getIssue(), issueComment.getAuthor());
     }
 
     public List<IssueComment> getAll() {
-        return issueCommentRepository.findAll();
+        return repository.findAll();
     }
 
     public void update(IssueComment issueComment) {

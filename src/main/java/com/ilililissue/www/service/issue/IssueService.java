@@ -11,26 +11,26 @@ import java.util.List;
 
 @Service
 public class IssueService {
-    private DefaultIssueRepository defaultIssueRepository;
-    private IssueManagerService issueManagerService;
+    private final DefaultIssueRepository repository;
+    private final IssueManagerService issueManagerService;
 
-    public IssueService(DefaultIssueRepository defaultIssueRepository,
+    public IssueService(DefaultIssueRepository repository,
                         IssueManagerService issueManagerService) {
-        this.defaultIssueRepository = defaultIssueRepository;
+        this.repository = repository;
         this.issueManagerService = issueManagerService;
     }
 
     public DefaultIssue create(DefaultIssue defaultIssue) {
-        return defaultIssueRepository.save(defaultIssue);
+        return repository.save(defaultIssue);
     }
 
     public List<DefaultIssue> getAll() {
-        return defaultIssueRepository.findAll();
+        return repository.findAll();
     }
 
     public DefaultIssue create(DefaultIssueSaveDto defaultIssueSaveDto) {
         IssueManager persistManager = issueManagerService.getById(defaultIssueSaveDto.getCreator());
         DefaultIssue persistIssue = DefaultIssue.builder(persistManager,defaultIssueSaveDto.getTitle()).images(defaultIssueSaveDto.getImages().toArray(String[]::new)).description(defaultIssueSaveDto.getDescription()).build();
-        return defaultIssueRepository.save(persistIssue);
+        return repository.save(persistIssue);
     }
 }

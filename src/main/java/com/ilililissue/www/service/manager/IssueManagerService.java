@@ -11,22 +11,22 @@ import java.util.Optional;
 @Service
 public class IssueManagerService {
 
-    private IssueManagerRepository issueManagerRepository;
+    private final IssueManagerRepository repository;
 
-    public IssueManagerService(IssueManagerRepository issueManagerRepository) {
-        this.issueManagerRepository = issueManagerRepository;
+    public IssueManagerService(IssueManagerRepository repository) {
+        this.repository = repository;
     }
 
     public IssueManager create(IssueManager issueManager) {
-        return issueManagerRepository.save(issueManager);
+        return repository.save(issueManager);
     }
 
     public List<IssueManager> getAll() {
-        return issueManagerRepository.findAll();
+        return repository.findAll();
     }
 
     public IssueManager getById(Long id) {
-        Optional<IssueManager> optionalIssueManager = issueManagerRepository.findById(id);
+        Optional<IssueManager> optionalIssueManager = repository.findById(id);
         if (optionalIssueManager.isPresent()) {
             return optionalIssueManager.get();
         }

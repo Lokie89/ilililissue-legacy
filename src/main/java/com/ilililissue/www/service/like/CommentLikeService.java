@@ -9,15 +9,14 @@ import java.util.List;
 @Service
 public class CommentLikeService {
 
+    private final CommentLikeRepository repository;
 
-    private CommentLikeRepository commentLikeRepository;
-
-    public CommentLikeService(CommentLikeRepository commentLikeRepository) {
-        this.commentLikeRepository = commentLikeRepository;
+    public CommentLikeService(CommentLikeRepository repository) {
+        this.repository = repository;
     }
 
     private void create(CommentLike commentLike) {
-        commentLikeRepository.save(commentLike);
+        repository.save(commentLike);
     }
 
     public void createOrCancel(CommentLike commentLike) {
@@ -33,10 +32,10 @@ public class CommentLikeService {
     }
 
     private boolean existCommentLike(CommentLike commentLike) {
-        return commentLikeRepository.existsByCommentAndMember(commentLike.getComment(), commentLike.getMember());
+        return repository.existsByCommentAndMember(commentLike.getComment(), commentLike.getMember());
     }
 
     public List<CommentLike> getAll() {
-        return commentLikeRepository.findAll();
+        return repository.findAll();
     }
 }

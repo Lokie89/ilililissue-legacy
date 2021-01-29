@@ -9,17 +9,17 @@ import java.util.List;
 @Service
 public class IssueMemberService {
 
-    private IssueMemberRepository issueMemberRepository;
+    private final IssueMemberRepository repository;
 
-    public IssueMemberService(IssueMemberRepository issueMemberRepository) {
-        this.issueMemberRepository = issueMemberRepository;
+    public IssueMemberService(IssueMemberRepository repository) {
+        this.repository = repository;
     }
 
     public void create(IssueMember issueMember) {
-        issueMemberRepository.save(issueMember);
+        repository.save(issueMember);
     }
 
     public List<IssueMember> getAll() {
-        return issueMemberRepository.findAll();
+        return repository.findAll();
     }
 }
