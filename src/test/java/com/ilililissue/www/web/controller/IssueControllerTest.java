@@ -4,6 +4,7 @@ package com.ilililissue.www.web.controller;
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
+import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ public class IssueControllerTest {
     void createIssueTest() {
         IssueManager master = createAndGetManager();
         String url = "/api/v1/issue";
-        HttpEntity<DefaultIssue> request = new HttpEntity<>(DefaultIssue.builder(master, "이슈 제목").images("이미지1", "이미지2").description("반갑습니다.").build());
+        HttpEntity<DefaultIssueSaveDto> request = new HttpEntity<>(DefaultIssueSaveDto.builder().creator(master).title("이슈 제목").images("이미지1", "이미지2").description("반갑습니다.").build());
         ResponseEntity<DefaultIssue> response = restTemplate.postForEntity(url, request, DefaultIssue.class);
         assertEquals("이슈 제목", Objects.requireNonNull(response.getBody()).getTitle());
         assertEquals(201, response.getStatusCodeValue());
