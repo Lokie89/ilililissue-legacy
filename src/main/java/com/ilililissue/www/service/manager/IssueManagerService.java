@@ -15,8 +15,8 @@ public class IssueManagerService {
         this.issueManagerRepository = issueManagerRepository;
     }
 
-    public void create(IssueManager issueManager) {
-        issueManagerRepository.save(issueManager);
+    public IssueManager create(IssueManager issueManager) {
+        return issueManagerRepository.save(issueManager);
     }
 
     public List<IssueManager> getAll() {
