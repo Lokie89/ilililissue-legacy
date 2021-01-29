@@ -32,4 +32,8 @@ public class IssueManagerService {
         }
         throw new NoContentFromRequestException();
     }
+
+    public IssueManager getById(IssueManager notPersistIssueManager) {
+        return getById(notPersistIssueManager.getId());
+    }
 }
