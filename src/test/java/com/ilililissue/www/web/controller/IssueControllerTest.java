@@ -45,4 +45,13 @@ public class IssueControllerTest {
         assertEquals(201, response.getStatusCodeValue());
     }
 
+    @Order(2)
+    @Test
+    void getIssueTest() {
+        String url = "/api/v1/issue/1";
+        ResponseEntity<DefaultIssue> response = restTemplate.getForEntity(url, DefaultIssue.class);
+        assertEquals(1, response.getBody().getId());
+        assertEquals(200, response.getStatusCodeValue());
+    }
+
 }
