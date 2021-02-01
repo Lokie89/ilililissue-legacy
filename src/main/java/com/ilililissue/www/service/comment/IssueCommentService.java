@@ -39,10 +39,11 @@ public class IssueCommentService {
     }
 
     public IssueComment create(IssueComment issueComment) {
-        if (exist(issueComment)) {
+        IssueComment persistIssueComment = persistInnerIssueComment(issueComment);
+        if (exist(persistIssueComment)) {
             throw new CanNotRegisterCommentException();
         }
-        return repository.save(persistInnerIssueComment(issueComment));
+        return repository.save(persistIssueComment);
     }
 
     private boolean exist(IssueComment issueComment) {
