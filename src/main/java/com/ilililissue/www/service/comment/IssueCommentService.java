@@ -46,18 +46,14 @@ public class IssueCommentService {
     }
 
     public void remove(IssueComment issueComment, IssueMember issueMember) {
-        if (!isCommentAuthor(issueComment, issueMember)) {
+        if (!issueComment.isControlled(issueMember)) {
             throw new CanNotRemoveCommentException();
         }
         issueComment.delete();
     }
 
-    private boolean isCommentAuthor(IssueComment issueComment, IssueMember author) {
-        return issueComment.getAuthor().equals(author);
-    }
-
     public void remove(IssueComment issueComment, IssueManager issueManager) {
-        if (!issueManager.hasIssueCommentControl()) {
+        if (!issueComment.isControlled(issueManager)) {
             throw new CanNotRemoveCommentException();
         }
         issueComment.drop();

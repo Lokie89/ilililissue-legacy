@@ -2,6 +2,8 @@ package com.ilililissue.www.domain.comment;
 
 import com.ilililissue.www.domain.BaseTimeEntity;
 import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import lombok.*;
 
@@ -40,5 +42,13 @@ public class IssueComment extends BaseTimeEntity {
 
     public void drop() {
         status = 'd';
+    }
+
+    public boolean isControlled(IssueMember author) {
+        return this.author.equals(author);
+    }
+
+    public boolean isControlled(IssueManager manager) {
+        return manager.hasControl(ManagerRole.LV3);
     }
 }

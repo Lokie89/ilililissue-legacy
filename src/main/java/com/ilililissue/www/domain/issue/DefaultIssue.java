@@ -1,6 +1,7 @@
 package com.ilililissue.www.domain.issue;
 
 import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,7 +46,7 @@ public class DefaultIssue {
     }
 
     private void validateCreateIssue(IssueManager creator) {
-        if (!creator.hasIssueControl()) {
+        if (!creator.hasControl(ManagerRole.LV3)) {
             throw new NotAuthorizedManagerException();
         }
     }
