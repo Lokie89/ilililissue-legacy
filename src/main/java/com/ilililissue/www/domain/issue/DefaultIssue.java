@@ -1,5 +1,6 @@
 package com.ilililissue.www.domain.issue;
 
+import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class DefaultIssue {
+public class DefaultIssue implements UnderControl {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -46,9 +47,14 @@ public class DefaultIssue {
     }
 
     private void validateCreateIssue(IssueManager creator) {
-        if (!creator.hasControl(ManagerRole.LV3)) {
+        if (!creator.hasControl(this)) {
             throw new NotAuthorizedManagerException();
         }
+    }
+
+    @Override
+    public boolean isControlled(ManagerRole role) {
+        return role.isOverAuthorized(ManagerRole.LV3);
     }
 
     public static class Builder {

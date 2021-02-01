@@ -22,7 +22,7 @@ public class IssueManager {
         this.role = role;
     }
 
-    public boolean hasControl(ManagerRole managerRole) {
-        return role.isOverAuthorized(managerRole);
+    public boolean hasControl(UnderControl underControl) {
+        return underControl.isControlled(role);
     }
 }

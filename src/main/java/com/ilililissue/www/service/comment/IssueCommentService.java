@@ -53,7 +53,7 @@ public class IssueCommentService {
     }
 
     public void remove(IssueComment issueComment, IssueManager issueManager) {
-        if (!issueComment.isControlled(issueManager)) {
+        if (!issueManager.hasControl(issueComment)) {
             throw new CanNotRemoveCommentException();
         }
         issueComment.drop();
