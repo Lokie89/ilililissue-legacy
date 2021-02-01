@@ -87,7 +87,7 @@ public class IssueCommentServiceTest {
         createIssueComment();
 
         IssueComment savedIssueComment = issueCommentService.getAll().get(0);
-        issueCommentService.updateComment(savedIssueComment, "코로나 백신 언제나오냐!!");
+        issueCommentService.updateComment(savedIssueComment, "코로나 백신 언제나오냐!!312");
         IssueComment updatedIssueComment = issueCommentService.getAll().get(0);
         assertThrows(CanNotUpdateCommentException.class, () -> issueCommentService.updateComment(updatedIssueComment, "코로나 백신 안나올거같아 진짜"));
     }
