@@ -1,4 +1,4 @@
-package com.ilililissue.www.web.controller;
+package com.ilililissue.www.web.exceptionhandler;
 
 import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
 import org.springframework.http.HttpStatus;
