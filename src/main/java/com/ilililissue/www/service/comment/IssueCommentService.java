@@ -6,18 +6,16 @@ import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
 import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class IssueCommentService {
 
     private final IssueCommentRepository repository;
-
-    public IssueCommentService(IssueCommentRepository repository) {
-        this.repository = repository;
-    }
 
     public void create(IssueComment issueComment) {
         if (exist(issueComment)) {

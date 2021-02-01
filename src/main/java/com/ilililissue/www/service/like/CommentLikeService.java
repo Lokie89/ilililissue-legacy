@@ -2,18 +2,16 @@ package com.ilililissue.www.service.like;
 
 import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.like.CommentLikeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class CommentLikeService {
 
     private final CommentLikeRepository repository;
-
-    public CommentLikeService(CommentLikeRepository repository) {
-        this.repository = repository;
-    }
 
     private void create(CommentLike commentLike) {
         repository.save(commentLike);

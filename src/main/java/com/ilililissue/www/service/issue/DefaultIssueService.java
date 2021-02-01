@@ -6,21 +6,17 @@ import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class DefaultIssueService {
     private final DefaultIssueRepository repository;
     private final IssueManagerService issueManagerService;
-
-    public DefaultIssueService(DefaultIssueRepository repository,
-                               IssueManagerService issueManagerService) {
-        this.repository = repository;
-        this.issueManagerService = issueManagerService;
-    }
 
     public DefaultIssue create(DefaultIssue defaultIssue) {
         return repository.save(defaultIssue);

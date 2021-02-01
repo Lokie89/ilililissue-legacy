@@ -3,19 +3,17 @@ package com.ilililissue.www.service.manager;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.IssueManagerRepository;
 import com.ilililissue.www.exception.NoContentFromRequestException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class IssueManagerService {
 
     private final IssueManagerRepository repository;
-
-    public IssueManagerService(IssueManagerRepository repository) {
-        this.repository = repository;
-    }
 
     public IssueManager create(IssueManager issueManager) {
         return repository.save(issueManager);
