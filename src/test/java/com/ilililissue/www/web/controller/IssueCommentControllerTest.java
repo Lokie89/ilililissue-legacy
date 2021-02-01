@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,7 +56,7 @@ public class IssueCommentControllerTest {
     @DisplayName("댓글 만들기")
     @Order(1)
     @Test
-    void createIssueComment() {
+    IssueComment createIssueComment() {
         DefaultIssue issue = createAndGetDefaultIssue();
         IssueMember issueMember = createAndGetIssueMember();
         String url = "/api/v1/issue/comment";
@@ -63,6 +64,7 @@ public class IssueCommentControllerTest {
         ResponseEntity<IssueComment> response = restTemplate.postForEntity(url, request, IssueComment.class);
         assertEquals(201, response.getStatusCodeValue());
         assertEquals("노래노래노래노래", Objects.requireNonNull(response.getBody()).getComment());
+        return response.getBody();
     }
 
     @DisplayName("댓글 두개 이상 예외")
@@ -73,10 +75,23 @@ public class IssueCommentControllerTest {
         IssueMember issueMember = createAndGetIssueMember();
         String url = "/api/v1/issue/comment";
         HttpEntity<IssueComment> request = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래").build());
-        ResponseEntity<IssueComment> response = restTemplate.postForEntity(url, request, IssueComment.class);
 
         HttpEntity<IssueComment> request2 = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래2").build());
         ResponseEntity<IssueComment> response2 = restTemplate.postForEntity(url, request2, IssueComment.class);
         assertEquals(409, response2.getStatusCodeValue());
+    }
+
+    @DisplayName("댓글 업데이트")
+    @Order(3)
+    @Test
+    void updateIssueComment() {
+        IssueComment issueComment = createIssueComment();
+
+        String url = "/api/v1/issue/comment";
+        issueComment.updateComment("짜라짜라");
+        HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
+        ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.PATCH, request, IssueComment.class);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("짜라짜라", Objects.requireNonNull(response.getBody()).getComment());
     }
 }
