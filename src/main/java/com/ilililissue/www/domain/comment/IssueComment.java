@@ -2,9 +2,10 @@ package com.ilililissue.www.domain.comment;
 
 import com.ilililissue.www.domain.BaseTimeEntity;
 import com.ilililissue.www.domain.issue.DefaultIssue;
-import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.domain.manager.ManagerRole;
+import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.domain.member.IssueMember;
+import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,7 +29,6 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
     @JoinColumn(name = "DEFAULTISSUE_ID")
     private DefaultIssue issue;
 
-    @Setter
     @Column(name = "comment")
     private String comment;
 
@@ -46,6 +46,13 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
 
     public boolean isControlled(IssueMember author) {
         return this.author.equals(author);
+    }
+
+    public void updateComment(String comment) {
+        if (!getModifiedDate().equals(getCreatedDate())) {
+            throw new CanNotUpdateCommentException();
+        }
+        this.comment = comment;
     }
 
     @Override

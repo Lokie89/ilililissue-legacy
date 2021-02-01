@@ -6,7 +6,6 @@ import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
 import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
-import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,14 +34,8 @@ public class IssueCommentService {
         return repository.findAll();
     }
 
-    public void update(IssueComment issueComment) {
-        if (isUpdated(issueComment)) {
-            throw new CanNotUpdateCommentException();
-        }
-    }
-
-    private boolean isUpdated(IssueComment issueComment) {
-        return !issueComment.getModifiedDate().equals(issueComment.getCreatedDate());
+    public void updateComment(IssueComment issueComment, String comment) {
+        issueComment.updateComment(comment);
     }
 
     public void remove(IssueComment issueComment, IssueMember issueMember) {
