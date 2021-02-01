@@ -19,6 +19,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+@DisplayName("댓글 컨트롤러 테스트")
 @Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(properties = "application-test.properties", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -62,5 +63,20 @@ public class IssueCommentControllerTest {
         ResponseEntity<IssueComment> response = restTemplate.postForEntity(url, request, IssueComment.class);
         assertEquals(201, response.getStatusCodeValue());
         assertEquals("노래노래노래노래", Objects.requireNonNull(response.getBody()).getComment());
+    }
+
+    @DisplayName("댓글 두개 이상 예외")
+    @Order(2)
+    @Test
+    void cannotCreateIssueComment() {
+        DefaultIssue issue = createAndGetDefaultIssue();
+        IssueMember issueMember = createAndGetIssueMember();
+        String url = "/api/v1/issue/comment";
+        HttpEntity<IssueComment> request = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래").build());
+        ResponseEntity<IssueComment> response = restTemplate.postForEntity(url, request, IssueComment.class);
+
+        HttpEntity<IssueComment> request2 = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래2").build());
+        ResponseEntity<IssueComment> response2 = restTemplate.postForEntity(url, request2, IssueComment.class);
+        assertEquals(409, response2.getStatusCodeValue());
     }
 }
