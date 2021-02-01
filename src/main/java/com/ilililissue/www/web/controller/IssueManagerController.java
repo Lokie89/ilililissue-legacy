@@ -23,6 +23,6 @@ public class IssueManagerController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<IssueManager> getIssueManager(@PathVariable("id") Long id) {
         System.out.println(id);
-        return new ResponseEntity<>(issueManagerService.getById(id), HttpStatus.OK);
+        return new ResponseEntity<>(issueManagerService.toEntity(id), HttpStatus.OK);
     }
 }

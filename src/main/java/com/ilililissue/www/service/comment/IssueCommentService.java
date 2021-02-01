@@ -5,6 +5,8 @@ import com.ilililissue.www.domain.comment.IssueCommentRepository;
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.member.IssueMember;
+import com.ilililissue.www.exception.CanNotBecomeEntityException;
+import com.ilililissue.www.exception.NoContentFromRequestException;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
 import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
 import com.ilililissue.www.service.issue.DefaultIssueService;
@@ -24,17 +26,8 @@ public class IssueCommentService {
     private final DefaultIssueService defaultIssueService;
 
     private IssueComment persistInnerIssueComment(IssueComment issueComment) {
-        IssueMember persistAuthor = null;
-        Long authorId = issueComment.getAuthor().getId();
-        if (Objects.nonNull(authorId)) {
-            persistAuthor = issueMemberService.getById(authorId);
-        }
-
-        DefaultIssue persistIssue = null;
-        Long issueId = issueComment.getIssue().getId();
-        if (Objects.nonNull(issueId)) {
-            persistIssue = defaultIssueService.getById(issueId);
-        }
+        IssueMember persistAuthor = issueMemberService.toEntity(issueComment.getAuthor());
+        DefaultIssue persistIssue = defaultIssueService.toEntity(issueComment.getIssue());
         return IssueComment.builder().author(persistAuthor).issue(persistIssue).comment(issueComment.getComment()).build();
     }
 
@@ -63,6 +56,17 @@ public class IssueCommentService {
             throw new CanNotRemoveCommentException();
         }
         issueComment.delete();
+    }
+
+    public IssueComment toEntity(Long id){
+        return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
+    }
+
+    public IssueComment toEntity(IssueComment notPersistIssueComment){
+        if (Objects.isNull(notPersistIssueComment.getId())) {
+            throw new CanNotBecomeEntityException();
+        }
+        return toEntity(notPersistIssueComment.getId());
     }
 
     public void remove(IssueComment issueComment, IssueManager issueManager) {

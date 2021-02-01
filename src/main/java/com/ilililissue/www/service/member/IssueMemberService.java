@@ -2,12 +2,13 @@ package com.ilililissue.www.service.member;
 
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.domain.member.IssueMemberRepository;
+import com.ilililissue.www.exception.CanNotBecomeEntityException;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -23,11 +24,14 @@ public class IssueMemberService {
         return repository.findAll();
     }
 
-    public IssueMember getById(Long authorId) {
-        Optional<IssueMember> savedIssueMember = repository.findById(authorId);
-        if(savedIssueMember.isPresent()){
-            return savedIssueMember.get();
+    public IssueMember toEntity(Long authorId) {
+        return repository.findById(authorId).orElseThrow(NoContentFromRequestException::new);
+    }
+
+    public IssueMember toEntity(IssueMember notPersistIssueMember){
+        if (Objects.isNull(notPersistIssueMember.getId())) {
+            throw new CanNotBecomeEntityException();
         }
-        throw new NoContentFromRequestException();
+        return toEntity(notPersistIssueMember.getId());
     }
 }

@@ -3,6 +3,7 @@ package com.ilililissue.www.service.issue;
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.issue.DefaultIssueRepository;
 import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.exception.CanNotBecomeEntityException;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -27,16 +28,19 @@ public class DefaultIssueService {
     }
 
     public DefaultIssue create(DefaultIssueSaveDto defaultIssueSaveDto) {
-        IssueManager persistManager = issueManagerService.getById(defaultIssueSaveDto.getCreator());
+        IssueManager persistManager = issueManagerService.toEntity(defaultIssueSaveDto.getCreator());
         DefaultIssue persistIssue = DefaultIssue.builder(persistManager, defaultIssueSaveDto.getTitle()).images(defaultIssueSaveDto.getImages().toArray(String[]::new)).description(defaultIssueSaveDto.getDescription()).build();
         return repository.save(persistIssue);
     }
 
-    public DefaultIssue getById(Long id) {
-        Optional<DefaultIssue> optionalDefaultIssue = repository.findById(id);
-        if (optionalDefaultIssue.isPresent()) {
-            return optionalDefaultIssue.get();
+    public DefaultIssue toEntity(Long id) {
+        return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
+    }
+
+    public DefaultIssue toEntity(DefaultIssue notPersistDefaultIssue) {
+        if (Objects.isNull(notPersistDefaultIssue.getId())) {
+            throw new CanNotBecomeEntityException();
         }
-        throw new NoContentFromRequestException();
+        return toEntity(notPersistDefaultIssue.getId());
     }
 }
