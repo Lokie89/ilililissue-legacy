@@ -1,5 +1,6 @@
 package com.ilililissue.www.domain.manager;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class IssueManagerRepositoryTest {
     @Autowired
     IssueManagerRepository repository;
 
+    @DisplayName("관리자 저장소 저장")
     @Test
     void saveManagerTest() {
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);

@@ -4,11 +4,14 @@ import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommentTest {
+
+    @DisplayName("댓글 객체 생성")
     @Test
     void createIssueCommentTest() {
         IssueManager manager = new IssueManager(ManagerRole.MASTER);
@@ -18,6 +21,7 @@ public class CommentTest {
         assertEquals("코로나 스탑!!", issueComment.getComment());
     }
 
+    @DisplayName("댓글 객체 생성 비교")
     @Test
     void equalIssueCommentTest() {
         IssueManager manager = new IssueManager(ManagerRole.MASTER);

@@ -2,6 +2,7 @@ package com.ilililissue.www.service.manager;
 
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class IssueManagerServiceTest {
     @Autowired
     IssueManagerService issueManagerService;
 
+    @DisplayName("관리자 생성")
     @Test
     void saveIssueManager() {
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
@@ -29,6 +31,7 @@ public class IssueManagerServiceTest {
         assertEquals(issueManager, issueManagerService.getAll().get(0));
     }
 
+    @DisplayName("관리자 조회")
     @Test
     void getAllIssueManager() {
         IssueManager issueManager1 = new IssueManager(ManagerRole.MASTER);

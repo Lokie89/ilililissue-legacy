@@ -2,10 +2,7 @@ package com.ilililissue.www.web.controller;
 
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,6 +20,7 @@ public class IssueManagerControllerTest {
     @Autowired
     TestRestTemplate restTemplate;
 
+    @DisplayName("매니저 생성")
     @Test
     @Order(1)
     void createManagerTest() {
@@ -33,6 +31,7 @@ public class IssueManagerControllerTest {
         assertEquals(201, response.getStatusCodeValue());
     }
 
+    @DisplayName("매니저 가져오기")
     @Test
     @Order(2)
     void getManagerTest() {

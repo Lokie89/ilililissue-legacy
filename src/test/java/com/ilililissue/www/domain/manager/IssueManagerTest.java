@@ -1,12 +1,14 @@
 package com.ilililissue.www.domain.manager;
 
 import com.ilililissue.www.domain.issue.DefaultIssue;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IssueManagerTest {
 
+    @DisplayName("관리자 이슈 생성")
     @Test
     void createIssueTest() {
         IssueManager manager = new IssueManager(ManagerRole.MASTER);

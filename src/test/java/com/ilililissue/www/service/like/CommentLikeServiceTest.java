@@ -11,6 +11,7 @@ import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,6 +50,7 @@ public class CommentLikeServiceTest {
         issueCommentService.create(issueComment);
     }
 
+    @DisplayName("좋아요 생성")
     @Test
     void saveLikeTest() {
         IssueMember issueMember = new IssueMember();
@@ -62,6 +64,7 @@ public class CommentLikeServiceTest {
         assertEquals(issueMember, commentLike.getMember());
     }
 
+    @DisplayName("좋아요 취소")
     @Test
     void cancelLikeTest() {
         IssueMember issueMember = new IssueMember();

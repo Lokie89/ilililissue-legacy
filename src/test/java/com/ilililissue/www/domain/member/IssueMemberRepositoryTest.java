@@ -1,5 +1,6 @@
 package com.ilililissue.www.domain.member;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class IssueMemberRepositoryTest {
     @Autowired
     IssueMemberRepository issueMemberRepository;
 
+    @DisplayName("멤버 저장소 저장")
     @Test
     void saveMemberTest() {
         IssueMember issueMember = new IssueMember();

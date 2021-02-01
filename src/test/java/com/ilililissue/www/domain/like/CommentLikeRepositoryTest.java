@@ -5,6 +5,7 @@ import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class CommentLikeRepositoryTest {
     @Autowired
     CommentLikeRepository repository;
 
+    @DisplayName("좋아요 저장소 저장")
     @Test
     void saveCommentLikeTest() {
         IssueMember member = new IssueMember("회원1");

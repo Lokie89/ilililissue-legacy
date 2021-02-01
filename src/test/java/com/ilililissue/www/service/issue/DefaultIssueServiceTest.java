@@ -4,6 +4,7 @@ import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class DefaultIssueServiceTest {
     @Autowired
     DefaultIssueService defaultIssueService;
 
+    @DisplayName("이슈 생성")
     @Test
     void saveTest() {
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);

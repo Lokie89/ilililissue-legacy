@@ -5,11 +5,13 @@ import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommentLikeTest {
+    @DisplayName("좋아요 객체 생성")
     @Test
     void createLikeCommentTest() {
         IssueManager manager = new IssueManager(ManagerRole.MASTER);

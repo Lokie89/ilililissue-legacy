@@ -12,6 +12,7 @@ import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +57,14 @@ public class IssueCommentServiceTest {
         issueCommentService.create(issueComment);
     }
 
+    @DisplayName("댓글 생성")
     @Test
     void saveIssueComment() {
         createIssueComment();
         assertEquals("코로나 스탑!!", issueCommentService.getAll().get(0).getComment());
     }
 
+    @DisplayName("댓글 2개 이상 예외")
     @Test
     void cannotRegisterComment() {
         IssueMember issueMember = issueMemberService.getAll().get(0);
@@ -72,6 +75,7 @@ public class IssueCommentServiceTest {
         assertThrows(CanNotRegisterCommentException.class, () -> issueCommentService.create(issueComment2));
     }
 
+    @DisplayName("댓글 업데이트")
     @Test
     void updateComment() {
         createIssueComment();
@@ -82,6 +86,7 @@ public class IssueCommentServiceTest {
         assertEquals("코로나 백신 언제나오냐!!", updatedIssueComment.getComment());
     }
 
+    @DisplayName("댓글 2회 이상 업데이트 예외")
     @Test
     void cannotUpdateComment() {
         createIssueComment();
@@ -92,6 +97,7 @@ public class IssueCommentServiceTest {
         assertThrows(CanNotUpdateCommentException.class, () -> issueCommentService.updateComment(updatedIssueComment, "코로나 백신 안나올거같아 진짜"));
     }
 
+    @DisplayName("댓글 삭제")
     @Test
     void removeCommentTest() {
         createIssueComment();
@@ -104,6 +110,7 @@ public class IssueCommentServiceTest {
         assertEquals('n', deletedIssueComment.getStatus());
     }
 
+    @DisplayName("댓글 다른 사람 삭제 예외")
     @Test
     void cannotRemoveCommentTest() {
         createIssueComment();
@@ -113,6 +120,7 @@ public class IssueCommentServiceTest {
         assertThrows(CanNotRemoveCommentException.class, () -> issueCommentService.remove(savedIssueComment, issueMember));
     }
 
+    @DisplayName("댓글 매니저 삭제")
     @Test
     void removeCommentByManagerTest() {
         createIssueComment();
@@ -125,6 +133,7 @@ public class IssueCommentServiceTest {
         assertEquals('d', deletedIssueComment.getStatus());
     }
 
+    @DisplayName("댓글 매니저 레벨 제한 삭제 예외")
     @Test
     void cannotRemoveCommentByManagerTest() {
         createIssueComment();
