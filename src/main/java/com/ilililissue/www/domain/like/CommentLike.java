@@ -31,16 +31,23 @@ public class CommentLike {
     @Column(name = "STATUS")
     private Character status = 'y';
 
-    public boolean isCanceled() {
+    private boolean isCanceled() {
         return status == 'n';
     }
 
-    public void cancel() {
+    private void cancel() {
         status = 'n';
     }
 
-    public void reLike() {
+    private void reLike() {
         status = 'y';
     }
 
+    public void likeOrCancel() {
+        if(isCanceled()){
+            reLike();
+            return;
+        }
+        cancel();
+    }
 }

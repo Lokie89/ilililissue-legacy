@@ -21,11 +21,8 @@ public class CommentLikeService {
 
     public void createOrCancel(CommentLike commentLike) {
         if (existCommentLike(commentLike)) {
-            if (commentLike.isCanceled()) {
-                commentLike.reLike();
-                return;
-            }
-            commentLike.cancel();
+            CommentLike persistCommentLike = getOneByCommentAndMember(commentLike);
+            persistCommentLike.likeOrCancel();
             return;
         }
         create(commentLike);
@@ -33,6 +30,10 @@ public class CommentLikeService {
 
     private boolean existCommentLike(CommentLike commentLike) {
         return repository.existsByCommentAndMember(commentLike.getComment(), commentLike.getMember());
+    }
+
+    private CommentLike getOneByCommentAndMember(CommentLike commentLike) {
+        return repository.findByCommentAndMember(commentLike.getComment(), commentLike.getMember());
     }
 
     public List<CommentLike> getAll() {
