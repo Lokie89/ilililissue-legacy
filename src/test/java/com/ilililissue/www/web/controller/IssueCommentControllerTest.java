@@ -122,4 +122,15 @@ public class IssueCommentControllerTest {
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("노래노래노래노래", Objects.requireNonNull(response.getBody()).getComment());
     }
+
+    @DisplayName("댓글 Author 아님 삭제 예외")
+    @Test
+    void cannnotDeleteIssueCommentByNotAuthor() {
+        IssueComment issueComment = createIssueComment();
+        String url = "/api/v1/issue/comment";
+        HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
+        ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.DELETE, request, IssueComment.class);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("노래노래노래노래", Objects.requireNonNull(response.getBody()).getComment());
+    }
 }
