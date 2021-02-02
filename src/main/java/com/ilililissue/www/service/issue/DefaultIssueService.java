@@ -9,7 +9,9 @@ import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,9 +29,15 @@ public class DefaultIssueService {
         return repository.findAll();
     }
 
+    @Transactional
     public DefaultIssue create(DefaultIssueSaveDto defaultIssueSaveDto) {
         IssueManager persistManager = issueManagerService.toEntity(defaultIssueSaveDto.getCreator());
-        DefaultIssue persistIssue = DefaultIssue.builder(persistManager, defaultIssueSaveDto.getTitle()).images(defaultIssueSaveDto.getImages().toArray(String[]::new)).description(defaultIssueSaveDto.getDescription()).build();
+        DefaultIssue persistIssue = DefaultIssue
+                .builder(persistManager, defaultIssueSaveDto.getTitle())
+                .images(Objects.requireNonNullElseGet(defaultIssueSaveDto.getImages(), ArrayList::new).toArray(String[]::new))
+                .description(defaultIssueSaveDto.getDescription())
+                .build()
+                ;
         return repository.save(persistIssue);
     }
 
