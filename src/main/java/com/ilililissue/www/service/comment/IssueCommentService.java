@@ -13,10 +13,12 @@ import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class IssueCommentService {
