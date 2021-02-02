@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("멤버 컨트롤러 테스트")
 @Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(properties = "application-test.properties", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -24,7 +25,7 @@ public class IssueMemberControllerTest {
     @Order(1)
     @Test
     void createMemberTest() {
-        String url = "/api/v1/issue/member";
+        String url = "/api/v1/member";
         IssueMember member = new IssueMember("길동이");
         HttpEntity<IssueMember> request = new HttpEntity<>(member);
         ResponseEntity<IssueMember> response = restTemplate.postForEntity(url, request, IssueMember.class);

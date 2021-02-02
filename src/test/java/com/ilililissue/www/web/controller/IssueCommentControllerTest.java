@@ -34,7 +34,7 @@ public class IssueCommentControllerTest {
     IssueCommentService issueCommentService;
 
     private IssueManager createAndGetManager(ManagerRole role) {
-        String url = "/api/v1/issue/manager";
+        String url = "/api/v1/manager";
         IssueManager issueManager = new IssueManager(role);
         HttpEntity<IssueManager> entity = new HttpEntity<>(issueManager);
         ResponseEntity<IssueManager> response = restTemplate.postForEntity(url, entity, IssueManager.class);
@@ -50,7 +50,7 @@ public class IssueCommentControllerTest {
     }
 
     private IssueMember createAndGetIssueMember() {
-        String url = "/api/v1/issue/member";
+        String url = "/api/v1/member";
         IssueMember member = new IssueMember("댓글러");
         HttpEntity<IssueMember> request = new HttpEntity<>(member);
         ResponseEntity<IssueMember> response = restTemplate.postForEntity(url, request, IssueMember.class);
@@ -62,7 +62,7 @@ public class IssueCommentControllerTest {
     IssueComment createIssueComment() {
         DefaultIssue issue = createAndGetDefaultIssue();
         IssueMember issueMember = createAndGetIssueMember();
-        String url = "/api/v1/issue/comment";
+        String url = "/api/v1/comment";
         HttpEntity<IssueComment> request = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래").build());
         ResponseEntity<IssueComment> response = restTemplate.postForEntity(url, request, IssueComment.class);
         assertEquals(201, response.getStatusCodeValue());
@@ -75,7 +75,7 @@ public class IssueCommentControllerTest {
     void cannotCreateIssueComment() {
         DefaultIssue issue = createAndGetDefaultIssue();
         IssueMember issueMember = createAndGetIssueMember();
-        String url = "/api/v1/issue/comment";
+        String url = "/api/v1/comment";
         HttpEntity<IssueComment> request = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래").build());
         restTemplate.postForEntity(url, request, IssueComment.class);
         HttpEntity<IssueComment> request2 = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래2").build());
@@ -88,7 +88,7 @@ public class IssueCommentControllerTest {
     void updateIssueComment() {
         IssueComment issueComment = createIssueComment();
 
-        String url = "/api/v1/issue/comment";
+        String url = "/api/v1/comment";
         issueCommentService.updateComment(issueComment, "짜라짜라");
         HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
         ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.PATCH, request, IssueComment.class);
@@ -101,7 +101,7 @@ public class IssueCommentControllerTest {
     void cannotUpdateIssueComment() {
         IssueComment issueComment = createIssueComment();
 
-        String url = "/api/v1/issue/comment";
+        String url = "/api/v1/comment";
         issueCommentService.updateComment(issueComment, "짜라짜라");
         HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
         restTemplate.exchange(url, HttpMethod.PATCH, request, IssueComment.class);
@@ -116,7 +116,7 @@ public class IssueCommentControllerTest {
     @Test
     void deleteIssueComment() {
         IssueComment issueComment = createIssueComment();
-        String url = "/api/v1/issue/comment";
+        String url = "/api/v1/comment";
         HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
         ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.DELETE, request, IssueComment.class);
         assertEquals(200, response.getStatusCodeValue());
@@ -127,7 +127,7 @@ public class IssueCommentControllerTest {
     @Test
     void cannnotDeleteIssueCommentByNotAuthor() {
         IssueComment issueComment = createIssueComment();
-        String url = "/api/v1/issue/comment";
+        String url = "/api/v1/comment";
         HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
         ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.DELETE, request, IssueComment.class);
         assertEquals(200, response.getStatusCodeValue());

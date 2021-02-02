@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/issue/comment")
+@RequestMapping(value = "/api/v1/comment")
 @RestController
 public class IssueCommentController {
 

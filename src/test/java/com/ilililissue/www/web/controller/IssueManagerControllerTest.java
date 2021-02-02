@@ -24,7 +24,7 @@ public class IssueManagerControllerTest {
     @Test
     @Order(1)
     void createManagerTest() {
-        String url = "/api/v1/issue/manager";
+        String url = "/api/v1/manager";
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
         HttpEntity<IssueManager> entity = new HttpEntity<>(issueManager);
         ResponseEntity<IssueManager> response = restTemplate.postForEntity(url, entity, IssueManager.class);
@@ -35,7 +35,7 @@ public class IssueManagerControllerTest {
     @Test
     @Order(2)
     void getManagerTest() {
-        String url = "/api/v1/issue/manager/1";
+        String url = "/api/v1/manager/1";
         ResponseEntity<IssueManager> response = restTemplate.getForEntity(url, IssueManager.class);
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(1L, Objects.requireNonNull(response.getBody()).getId());

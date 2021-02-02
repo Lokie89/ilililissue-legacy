@@ -24,7 +24,7 @@ public class IssueControllerTest {
     TestRestTemplate restTemplate;
 
     private IssueManager createAndGetManager(ManagerRole role) {
-        String url = "/api/v1/issue/manager";
+        String url = "/api/v1/manager";
         IssueManager issueManager = new IssueManager(role);
         HttpEntity<IssueManager> entity = new HttpEntity<>(issueManager);
         ResponseEntity<IssueManager> response = restTemplate.postForEntity(url, entity, IssueManager.class);
