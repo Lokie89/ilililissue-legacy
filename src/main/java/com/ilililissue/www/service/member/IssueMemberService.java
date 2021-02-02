@@ -6,6 +6,7 @@ import com.ilililissue.www.exception.CanNotBecomeEntityException;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +17,7 @@ public class IssueMemberService {
 
     private final IssueMemberRepository repository;
 
+    @Transactional
     public IssueMember create(IssueMember issueMember) {
         return repository.save(issueMember);
     }

@@ -6,6 +6,7 @@ import com.ilililissue.www.exception.CanNotBecomeEntityException;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class CommentLikeService {
         repository.save(commentLike);
     }
 
+    @Transactional
     public void createOrCancel(CommentLike commentLike) {
         if (existCommentLike(commentLike)) {
             CommentLike persistCommentLike = getOneByCommentAndMember(commentLike);

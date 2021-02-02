@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class IssueCommentService {
@@ -33,6 +32,7 @@ public class IssueCommentService {
         return IssueComment.builder().author(persistAuthor).issue(persistIssue).comment(issueComment.getComment()).build();
     }
 
+    @Transactional
     public IssueComment create(IssueComment issueComment) {
         IssueComment persistIssueComment = persistInnerIssueComment(issueComment);
         if (exist(persistIssueComment)) {
@@ -49,10 +49,12 @@ public class IssueCommentService {
         return repository.findAll();
     }
 
+    @Transactional
     public void updateComment(IssueComment issueComment, String comment) {
         issueComment.updateComment(comment);
     }
 
+    @Transactional
     public void remove(IssueComment issueComment, IssueMember issueMember) {
         if (!issueComment.isControlled(issueMember)) {
             throw new CanNotRemoveCommentException();
@@ -71,6 +73,7 @@ public class IssueCommentService {
         return toEntity(notPersistIssueComment.getId());
     }
 
+    @Transactional
     public void remove(IssueComment issueComment, IssueManager issueManager) {
         if (!issueManager.hasControl(issueComment)) {
             throw new CanNotRemoveCommentException();
