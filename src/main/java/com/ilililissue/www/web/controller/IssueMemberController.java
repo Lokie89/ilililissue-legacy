@@ -17,6 +17,11 @@ public class IssueMemberController {
     @PostMapping(value = "")
     public ResponseEntity<IssueMember> createIssueMember(@RequestBody IssueMember issueMember) {
         IssueMember savedIssueMember = issueMemberService.create(issueMember);
-        return new ResponseEntity<>(issueMember, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedIssueMember, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<IssueMember> getIssueMemberById(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<>(issueMemberService.toEntity(id), HttpStatus.OK);
     }
 }
