@@ -5,6 +5,7 @@ import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
+import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class IssueCommentControllerTest {
 
     @Autowired
     TestRestTemplate restTemplate;
+
+    @Autowired
+    IssueCommentService issueCommentService;
 
     private IssueManager createAndGetManager(ManagerRole role) {
         String url = "/api/v1/issue/manager";
@@ -75,7 +79,7 @@ public class IssueCommentControllerTest {
         IssueMember issueMember = createAndGetIssueMember();
         String url = "/api/v1/issue/comment";
         HttpEntity<IssueComment> request = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래").build());
-
+        restTemplate.postForEntity(url, request, IssueComment.class);
         HttpEntity<IssueComment> request2 = new HttpEntity<>(IssueComment.builder().author(issueMember).issue(issue).comment("노래노래노래노래2").build());
         ResponseEntity<IssueComment> response2 = restTemplate.postForEntity(url, request2, IssueComment.class);
         assertEquals(409, response2.getStatusCodeValue());
@@ -88,10 +92,27 @@ public class IssueCommentControllerTest {
         IssueComment issueComment = createIssueComment();
 
         String url = "/api/v1/issue/comment";
-        issueComment.updateComment("짜라짜라");
+        issueCommentService.updateComment(issueComment, "짜라짜라");
         HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
         ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.PATCH, request, IssueComment.class);
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("짜라짜라", Objects.requireNonNull(response.getBody()).getComment());
+    }
+
+    @DisplayName("댓글 업데이트 두번 이상 예외")
+    @Order(4)
+    @Test
+    void cannotUpdateIssueComment() {
+        IssueComment issueComment = createIssueComment();
+
+        String url = "/api/v1/issue/comment";
+        issueCommentService.updateComment(issueComment, "짜라짜라");
+        HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
+        restTemplate.exchange(url, HttpMethod.PATCH, request, IssueComment.class);
+
+        issueCommentService.updateComment(issueComment, "짜라짜라2");
+        HttpEntity<IssueComment> request2 = new HttpEntity<>(issueComment);
+        ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.PATCH, request2, IssueComment.class);
+        assertEquals(405, response.getStatusCodeValue());
     }
 }
