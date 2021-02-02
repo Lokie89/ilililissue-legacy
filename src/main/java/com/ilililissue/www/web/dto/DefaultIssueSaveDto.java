@@ -12,10 +12,10 @@ import java.util.List;
 public class DefaultIssueSaveDto {
     private IssueManager creator;
     private String title;
-    private List<String> images;
+    private String[] images;
     private String description;
 
-    private DefaultIssueSaveDto(IssueManager creator, String title, List<String> images, String description) {
+    private DefaultIssueSaveDto(IssueManager creator, String title, String[] images, String description) {
         this.creator = creator;
         this.title = title;
         this.images = images;
@@ -30,7 +30,7 @@ public class DefaultIssueSaveDto {
     public static class Builder {
         private IssueManager creator;
         private String title;
-        private List<String> images;
+        private String[] images;
         private String description;
 
         public DefaultIssueSaveDto.Builder creator(IssueManager creator) {
@@ -45,7 +45,7 @@ public class DefaultIssueSaveDto {
 
 
         public DefaultIssueSaveDto.Builder images(String... images) {
-            this.images = Arrays.asList(images);
+            this.images = images;
             return this;
         }
 

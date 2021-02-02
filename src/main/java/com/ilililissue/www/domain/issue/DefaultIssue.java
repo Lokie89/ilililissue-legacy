@@ -1,15 +1,13 @@
 package com.ilililissue.www.domain.issue;
 
-import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
+import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -28,13 +26,12 @@ public class DefaultIssue implements UnderControl {
     private String title;
 
     @Column(name = "images")
-    @ElementCollection
-    private List<String> images;
+    private String[] images;
 
     @Column(name = "description")
     private String description;
 
-    public DefaultIssue(IssueManager creator, String title, List<String> images, String description) {
+    public DefaultIssue(IssueManager creator, String title, String[] images, String description) {
         validateCreateIssue(creator);
         this.creator = creator;
         this.title = title;
@@ -60,7 +57,7 @@ public class DefaultIssue implements UnderControl {
     public static class Builder {
         private final IssueManager creator;
         private final String title;
-        private List<String> images;
+        private String[] images;
         private String description;
 
         public Builder(IssueManager creator, String title) {
@@ -69,7 +66,7 @@ public class DefaultIssue implements UnderControl {
         }
 
         public Builder images(String... images) {
-            this.images = Arrays.asList(images);
+            this.images = images;
             return this;
         }
 

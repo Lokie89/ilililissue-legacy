@@ -34,7 +34,7 @@ public class DefaultIssueService {
         IssueManager persistManager = issueManagerService.toEntity(defaultIssueSaveDto.getCreator());
         DefaultIssue persistIssue = DefaultIssue
                 .builder(persistManager, defaultIssueSaveDto.getTitle())
-                .images(Objects.requireNonNullElseGet(defaultIssueSaveDto.getImages(), ArrayList::new).toArray(String[]::new))
+                .images(defaultIssueSaveDto.getImages())
                 .description(defaultIssueSaveDto.getDescription())
                 .build()
                 ;
