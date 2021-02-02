@@ -7,7 +7,8 @@ import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("댓글 컨트롤러 테스트")
 @Transactional
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(properties = "application-test.properties", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class IssueCommentControllerTest {
 
@@ -58,7 +58,6 @@ public class IssueCommentControllerTest {
     }
 
     @DisplayName("댓글 만들기")
-    @Order(1)
     @Test
     IssueComment createIssueComment() {
         DefaultIssue issue = createAndGetDefaultIssue();
@@ -72,7 +71,6 @@ public class IssueCommentControllerTest {
     }
 
     @DisplayName("댓글 두개 이상 예외")
-    @Order(2)
     @Test
     void cannotCreateIssueComment() {
         DefaultIssue issue = createAndGetDefaultIssue();
@@ -86,7 +84,6 @@ public class IssueCommentControllerTest {
     }
 
     @DisplayName("댓글 업데이트")
-    @Order(3)
     @Test
     void updateIssueComment() {
         IssueComment issueComment = createIssueComment();
@@ -100,7 +97,6 @@ public class IssueCommentControllerTest {
     }
 
     @DisplayName("댓글 업데이트 두번 이상 예외")
-    @Order(4)
     @Test
     void cannotUpdateIssueComment() {
         IssueComment issueComment = createIssueComment();
@@ -114,5 +110,16 @@ public class IssueCommentControllerTest {
         HttpEntity<IssueComment> request2 = new HttpEntity<>(issueComment);
         ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.PATCH, request2, IssueComment.class);
         assertEquals(405, response.getStatusCodeValue());
+    }
+
+    @DisplayName("댓글 삭제")
+    @Test
+    void deleteIssueComment() {
+        IssueComment issueComment = createIssueComment();
+        String url = "/api/v1/issue/comment";
+        HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
+        ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.DELETE, request, IssueComment.class);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("노래노래노래노래", Objects.requireNonNull(response.getBody()).getComment());
     }
 }
