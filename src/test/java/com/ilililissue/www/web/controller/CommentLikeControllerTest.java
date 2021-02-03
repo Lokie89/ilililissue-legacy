@@ -87,5 +87,7 @@ public class CommentLikeControllerTest {
                 )
                 .andReturn();
         assertEquals(201, response.getResponse().getStatus());
+        CommentLike savedCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
+        assertEquals("라이커", savedCommentLike.getMember().getName());
     }
 }
