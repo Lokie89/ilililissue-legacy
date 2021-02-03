@@ -3,6 +3,7 @@ package com.ilililissue.www.web.controller;
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
+import com.ilililissue.www.web.dto.IssueCommentDeleteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,9 @@ public class IssueCommentController {
     }
 
     @DeleteMapping(value = "")
-    public ResponseEntity<IssueComment> deleteIssueComment(@RequestBody IssueComment issueComment) {
-        IssueMember author = issueComment.getAuthor();
+    public ResponseEntity<IssueComment> deleteIssueComment(@RequestBody IssueCommentDeleteDto issueCommentDeleteDto) {
+        IssueMember author = issueCommentDeleteDto.getAuthor();
+        IssueComment issueComment = issueCommentDeleteDto.getIssueComment();
         issueCommentService.remove(issueComment, author);
         return new ResponseEntity<>(issueComment, HttpStatus.OK);
     }
