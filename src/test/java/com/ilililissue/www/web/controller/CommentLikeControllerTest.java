@@ -9,6 +9,7 @@ import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.DefaultIssueService;
+import com.ilililissue.www.service.like.CommentLikeService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
@@ -45,6 +46,9 @@ public class CommentLikeControllerTest {
 
     @Autowired
     IssueCommentService issueCommentService;
+
+    @Autowired
+    CommentLikeService commentLikeService;
 
     MockMvc mockMvc;
 
@@ -86,8 +90,42 @@ public class CommentLikeControllerTest {
                         .content(new ObjectMapper().writeValueAsBytes(commentLike))
                 )
                 .andReturn();
-        assertEquals(201, response.getResponse().getStatus());
+        assertEquals(200, response.getResponse().getStatus());
         CommentLike savedCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
         assertEquals("라이커", savedCommentLike.getMember().getName());
+    }
+
+    @DisplayName("좋아요 취소 테스트")
+    @Order(3)
+    @Test
+    void cancelLikeTest() throws Exception {
+        CommentLike savedCommentLike = commentLikeService.toEntity(1L);
+        String url = "/api/v1/like";
+        MvcResult response = mockMvc
+                .perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(savedCommentLike))
+                )
+                .andReturn();
+        assertEquals(200, response.getResponse().getStatus());
+        CommentLike canceledCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
+        assertEquals('n', canceledCommentLike.getStatus());
+    }
+
+    @DisplayName("다시 좋아요 테스트")
+    @Order(4)
+    @Test
+    void reLikeTest() throws Exception {
+        CommentLike savedCommentLike = commentLikeService.toEntity(1L);
+        String url = "/api/v1/like";
+        MvcResult response = mockMvc
+                .perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(savedCommentLike))
+                )
+                .andReturn();
+        assertEquals(200, response.getResponse().getStatus());
+        CommentLike canceledCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
+        assertEquals('y', canceledCommentLike.getStatus());
     }
 }
