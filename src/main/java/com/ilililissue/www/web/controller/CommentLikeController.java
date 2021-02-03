@@ -20,7 +20,7 @@ public class CommentLikeController {
     @PostMapping(value = "")
     public ResponseEntity<CommentLike> createCommentLike(@RequestBody CommentLike commentLike) {
         CommentLike savedCommentLike = commentLikeService.createOrCancel(commentLike);
-        return new ResponseEntity<>(savedCommentLike, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedCommentLike, HttpStatus.OK);
     }
 
 }
