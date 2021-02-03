@@ -23,8 +23,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
 @DisplayName("댓글 컨트롤러 테스트")
@@ -53,7 +52,7 @@ public class IssueCommentControllerTest {
     void setUp() {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(applicationContext)
-                .addFilters(new CharacterEncodingFilter("UTF-8",true))
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .apply(springSecurity())
                 .build()
         ;
@@ -114,43 +113,47 @@ public class IssueCommentControllerTest {
         MvcResult response = mockMvc
                 .perform(patch(url)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(updateComment))
                 )
                 .andReturn();
-        System.out.println(response.getResponse().getContentAsString());
         IssueComment updated = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueComment.class);
         assertEquals(200, response.getResponse().getStatus());
         assertEquals("아 그것참222", updated.getComment());
     }
 
-//    @DisplayName("댓글 업데이트 두번 이상 예외")
-//    @Test
-//    void cannotUpdateIssueComment() {
-//        IssueComment issueComment = createIssueComment();
-//
-//        String url = "/api/v1/comment";
-//        issueCommentService.updateComment(issueComment, "짜라짜라");
-//        HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
-//        restTemplate.exchange(url, HttpMethod.PATCH, request, IssueComment.class);
-//
-//        issueCommentService.updateComment(issueComment, "짜라짜라2");
-//        HttpEntity<IssueComment> request2 = new HttpEntity<>(issueComment);
-//        ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.PATCH, request2, IssueComment.class);
-//        assertEquals(405, response.getStatusCodeValue());
-//    }
-//
-//    @DisplayName("댓글 삭제")
-//    @Test
-//    void deleteIssueComment() {
-//        IssueComment issueComment = createIssueComment();
-//        String url = "/api/v1/comment";
-//        HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
-//        ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.DELETE, request, IssueComment.class);
-//        assertEquals(200, response.getStatusCodeValue());
-//        assertEquals("노래노래노래노래", Objects.requireNonNull(response.getBody()).getComment());
-//    }
-//
+    @DisplayName("댓글 업데이트 두번 이상 예외")
+    @Order(5)
+    @Test
+    void cannotUpdateIssueComment() throws Exception {
+        IssueComment comment = issueCommentService.toEntity(1L);
+        String url = "/api/v1/comment";
+        IssueComment updateComment = IssueComment.builder().id(comment.getId()).author(comment.getAuthor()).issue(comment.getIssue()).comment("아 그것참333").build();
+        MvcResult response = mockMvc
+                .perform(patch(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(updateComment))
+                )
+                .andReturn();
+        assertEquals(405, response.getResponse().getStatus());
+    }
+
+    @DisplayName("댓글 삭제")
+    @Order(6)
+    @Test
+    void deleteIssueComment() throws Exception {
+        IssueComment comment = issueCommentService.toEntity(1L);
+        IssueMember author = issueMemberService.toEntity(1L);
+        IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
+        String url = "/api/v1/comment";
+        MvcResult response = mockMvc
+                .perform(delete(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(comment))
+                )
+                .andReturn();
+        assertEquals(200, response.getResponse().getStatus());
+    }
+
 //    @DisplayName("댓글 Author 아님 삭제 예외")
 //    @Test
 //    void cannnotDeleteIssueCommentByNotAuthor() {
