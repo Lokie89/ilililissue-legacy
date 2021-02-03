@@ -2,11 +2,13 @@ package com.ilililissue.www.domain.member;
 
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.manager.UnderControl;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode
 @Getter
 @NoArgsConstructor
 @Entity
