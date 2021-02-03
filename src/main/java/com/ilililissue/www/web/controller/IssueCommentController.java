@@ -1,6 +1,7 @@
 package com.ilililissue.www.web.controller;
 
 import com.ilililissue.www.domain.comment.IssueComment;
+import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,12 @@ public class IssueCommentController {
         IssueComment entityIssueComment = issueCommentService.toEntity(issueComment);
         issueCommentService.updateComment(entityIssueComment, updateComment);
         return new ResponseEntity<>(issueCommentService.toEntity(entityIssueComment), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "")
+    public ResponseEntity<IssueComment> deleteIssueComment(@RequestBody IssueComment issueComment) {
+        IssueMember author = issueComment.getAuthor();
+        issueCommentService.remove(issueComment, author);
+        return new ResponseEntity<>(issueComment, HttpStatus.OK);
     }
 }
