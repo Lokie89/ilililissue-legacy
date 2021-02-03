@@ -139,7 +139,7 @@ public class IssueCommentControllerTest {
     }
 
     @DisplayName("댓글 삭제")
-    @Order(6)
+    @Order(7)
     @Test
     void deleteIssueComment() throws Exception {
         IssueComment comment = issueCommentService.toEntity(1L);
@@ -149,20 +149,26 @@ public class IssueCommentControllerTest {
         MvcResult response = mockMvc
                 .perform(delete(url)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsBytes(comment))
+                        .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteDto))
                 )
                 .andReturn();
         assertEquals(200, response.getResponse().getStatus());
     }
 
-//    @DisplayName("댓글 Author 아님 삭제 예외")
-//    @Test
-//    void cannnotDeleteIssueCommentByNotAuthor() {
-//        IssueComment issueComment = createIssueComment();
-//        String url = "/api/v1/comment";
-//        HttpEntity<IssueComment> request = new HttpEntity<>(issueComment);
-//        ResponseEntity<IssueComment> response = restTemplate.exchange(url, HttpMethod.DELETE, request, IssueComment.class);
-//        assertEquals(200, response.getStatusCodeValue());
-//        assertEquals("노래노래노래노래", Objects.requireNonNull(response.getBody()).getComment());
-//    }
+    @DisplayName("댓글 Author 아님 삭제 예외")
+    @Order(6)
+    @Test
+    void cannotDeleteIssueCommentByNotAuthor() throws Exception {
+        IssueComment comment = issueCommentService.toEntity(1L);
+        IssueMember author = new IssueMember("저자아님");
+        IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
+        String url = "/api/v1/comment";
+        MvcResult response = mockMvc
+                .perform(delete(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteDto))
+                )
+                .andReturn();
+        assertEquals(405, response.getResponse().getStatus());
+    }
 }
