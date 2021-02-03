@@ -1,6 +1,7 @@
 package com.ilililissue.www.web.exceptionhandler;
 
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
+import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
 import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class IssueExceptionHandler {
 
     }
 
-    @ExceptionHandler(value = CanNotUpdateCommentException.class)
+    @ExceptionHandler(value = {CanNotUpdateCommentException.class, CanNotRemoveCommentException.class})
     @ResponseStatus(value = HttpStatus.METHOD_NOT_ALLOWED)
     protected void handleCannotUpdateCommentException() {
 
