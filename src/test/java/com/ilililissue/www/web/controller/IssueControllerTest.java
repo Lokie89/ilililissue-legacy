@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -48,10 +49,13 @@ public class IssueControllerTest {
     @Test
     void createIssueTest() throws Exception {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("sign", master);
         String url = "/api/v1/issue";
-        DefaultIssue issue = DefaultIssue.builder(master,"이슈 제목").build();
+        DefaultIssueSaveDto issue = DefaultIssueSaveDto.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(url)
+                        .session(session)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issue))
                 )
@@ -72,16 +76,18 @@ public class IssueControllerTest {
         assertEquals(1L, savedIssue.getId());
     }
 
-    // TODO : Session 객체를 넣을것
     @DisplayName("권한 LV1 일때 이슈 생성 실패 401")
     @Order(3)
     @Test
     void cannotCreateIssueTest() throws Exception {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.LV1));
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("sign", master);
         String url = "/api/v1/issue";
-        DefaultIssue issue = DefaultIssue.builder(master, "이슈 제목").build();
+        DefaultIssueSaveDto issue = DefaultIssueSaveDto.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(url)
+                        .session(session)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issue))
                 )
