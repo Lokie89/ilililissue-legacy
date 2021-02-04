@@ -75,8 +75,8 @@ public class CommentLikeServiceTest {
         CommentLike commentLike = CommentLike.builder().comment(savedIssueComment).member(issueMember).build();
 
         commentLikeService.createOrCancel(commentLike);
-        commentLikeService.createOrCancel(commentLike);
-        assertEquals('n', commentLike.getStatus());
+        CommentLike cancelCommentLike = commentLikeService.createOrCancel(commentLike);
+        assertEquals('n', cancelCommentLike.getStatus());
         assertEquals(1, commentLikeService.getAll().size());
     }
 }

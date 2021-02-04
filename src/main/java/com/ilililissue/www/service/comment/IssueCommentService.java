@@ -23,22 +23,13 @@ import java.util.Objects;
 public class IssueCommentService {
 
     private final IssueCommentRepository repository;
-    private final IssueMemberService issueMemberService;
-    private final DefaultIssueService defaultIssueService;
-
-    private IssueComment persistInnerIssueComment(IssueComment issueComment) {
-        IssueMember persistAuthor = issueMemberService.toEntity(issueComment.getAuthor());
-        DefaultIssue persistIssue = defaultIssueService.toEntity(issueComment.getIssue());
-        return IssueComment.builder().author(persistAuthor).issue(persistIssue).comment(issueComment.getComment()).build();
-    }
 
     @Transactional
     public IssueComment create(IssueComment issueComment) {
-        IssueComment persistIssueComment = persistInnerIssueComment(issueComment);
-        if (exist(persistIssueComment)) {
+        if (exist(issueComment)) {
             throw new CanNotRegisterCommentException();
         }
-        return repository.save(persistIssueComment);
+        return repository.save(issueComment);
     }
 
     private boolean exist(IssueComment issueComment) {

@@ -21,11 +21,11 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
     @Id
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "ISSUEMEMBER_ID")
     private IssueMember author;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "DEFAULTISSUE_ID")
     private DefaultIssue issue;
 

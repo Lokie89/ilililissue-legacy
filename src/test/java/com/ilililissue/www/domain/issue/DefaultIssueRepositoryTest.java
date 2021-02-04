@@ -1,6 +1,7 @@
 package com.ilililissue.www.domain.issue;
 
 import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.domain.manager.IssueManagerRepository;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,17 +15,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("이슈 레파지토리 테스트")
 @Transactional
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "application-test.properties")
 public class DefaultIssueRepositoryTest {
     @Autowired
     DefaultIssueRepository repository;
 
+    @Autowired
+    IssueManagerRepository managerRepository;
+
     @DisplayName("이슈 저장소에 저장")
     @Test
     void saveIssueTest() {
-        IssueManager manager = new IssueManager(ManagerRole.MASTER);
+        IssueManager manager = managerRepository.save(new IssueManager(ManagerRole.MASTER));
         DefaultIssue defaultIssue = DefaultIssue.builder(manager, "신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image", "image2").description("내용").build();
         repository.save(defaultIssue);
         List<DefaultIssue> defaultIssueList = repository.findAll();

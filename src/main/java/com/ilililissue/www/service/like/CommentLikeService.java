@@ -20,28 +20,19 @@ import java.util.Objects;
 public class CommentLikeService {
 
     private final CommentLikeRepository repository;
-    private final IssueMemberService issueMemberService;
-    private final IssueCommentService issueCommentService;
 
     private CommentLike create(CommentLike commentLike) {
         return repository.save(commentLike);
     }
 
-    private CommentLike persistInnerCommentLike(CommentLike notPersistCommentLike) {
-        IssueMember issueMember = issueMemberService.toEntity(notPersistCommentLike.getMember());
-        IssueComment issueComment = issueCommentService.toEntity(notPersistCommentLike.getComment());
-        return CommentLike.builder().member(issueMember).comment(issueComment).build();
-    }
-
     @Transactional
     public CommentLike createOrCancel(CommentLike commentLike) {
-        CommentLike persistInnerCommentLike = persistInnerCommentLike(commentLike);
-        if (existCommentLike(persistInnerCommentLike)) {
-            CommentLike persistCommentLike = getOneByCommentAndMember(persistInnerCommentLike);
+        if (existCommentLike(commentLike)) {
+            CommentLike persistCommentLike = getOneByCommentAndMember(commentLike);
             persistCommentLike.likeOrCancel();
             return persistCommentLike;
         }
-        return create(persistInnerCommentLike);
+        return create(commentLike);
     }
 
     private boolean existCommentLike(CommentLike commentLike) {

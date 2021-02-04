@@ -18,7 +18,7 @@ public class DefaultIssue implements UnderControl {
     @Id
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "ISSUEMANAGER_ID", nullable = false)
     private IssueManager creator;
 

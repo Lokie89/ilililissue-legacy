@@ -19,26 +19,14 @@ import java.util.Objects;
 @Service
 public class DefaultIssueService {
     private final DefaultIssueRepository repository;
-    private final IssueManagerService issueManagerService;
 
+    @Transactional
     public DefaultIssue create(DefaultIssue defaultIssue) {
         return repository.save(defaultIssue);
     }
 
     public List<DefaultIssue> getAll() {
         return repository.findAll();
-    }
-
-    @Transactional
-    public DefaultIssue create(DefaultIssueSaveDto defaultIssueSaveDto) {
-        IssueManager persistManager = issueManagerService.toEntity(defaultIssueSaveDto.getCreator());
-        DefaultIssue persistIssue = DefaultIssue
-                .builder(persistManager, defaultIssueSaveDto.getTitle())
-                .images(defaultIssueSaveDto.getImages())
-                .description(defaultIssueSaveDto.getDescription())
-                .build()
-                ;
-        return repository.save(persistIssue);
     }
 
     public DefaultIssue toEntity(Long id) {
