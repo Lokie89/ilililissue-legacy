@@ -1,22 +1,18 @@
 package com.ilililissue.www.web.dto;
 
+import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Getter
 @NoArgsConstructor
 public class DefaultIssueSaveDto {
-    private IssueManager creator;
     private String title;
     private String[] images;
     private String description;
 
-    private DefaultIssueSaveDto(IssueManager creator, String title, String[] images, String description) {
-        this.creator = creator;
+    private DefaultIssueSaveDto(String title, String[] images, String description) {
         this.title = title;
         this.images = images;
         this.description = description;
@@ -26,17 +22,18 @@ public class DefaultIssueSaveDto {
         return new DefaultIssueSaveDto.Builder();
     }
 
+    public DefaultIssue toEntity(IssueManager creator) {
+        return DefaultIssue.builder(creator, this.title)
+                .images(this.images)
+                .description(this.description)
+                .build()
+                ;
+    }
 
     public static class Builder {
-        private IssueManager creator;
         private String title;
         private String[] images;
         private String description;
-
-        public DefaultIssueSaveDto.Builder creator(IssueManager creator) {
-            this.creator = creator;
-            return this;
-        }
 
         public DefaultIssueSaveDto.Builder title(String title) {
             this.title = title;
@@ -55,7 +52,7 @@ public class DefaultIssueSaveDto {
         }
 
         public DefaultIssueSaveDto build() {
-            return new DefaultIssueSaveDto(creator, title, images, description);
+            return new DefaultIssueSaveDto(title, images, description);
         }
     }
 
