@@ -16,7 +16,7 @@ public class IssueController {
     private final DefaultIssueService defaultIssueService;
 
     @PostMapping("")
-    public ResponseEntity<DefaultIssue> createIssue(@RequestBody DefaultIssueSaveDto issue) {
+    public ResponseEntity<DefaultIssue> createIssue(@RequestBody DefaultIssue issue) {
         return new ResponseEntity<>(defaultIssueService.create(issue), HttpStatus.CREATED);
     }
 
