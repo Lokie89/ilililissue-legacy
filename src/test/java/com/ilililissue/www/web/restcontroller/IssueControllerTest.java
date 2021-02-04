@@ -1,4 +1,4 @@
-package com.ilililissue.www.web.controller;
+package com.ilililissue.www.web.restcontroller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;

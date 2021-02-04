@@ -1,4 +1,4 @@
-package com.ilililissue.www.web.controller;
+package com.ilililissue.www.web.restcontroller;
 
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.member.IssueMemberService;
