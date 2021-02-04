@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@DisplayName("이슈 객체 테스트")
 public class DefaultIssueTest {
 
     @DisplayName("이슈 레벨 제한 예외")

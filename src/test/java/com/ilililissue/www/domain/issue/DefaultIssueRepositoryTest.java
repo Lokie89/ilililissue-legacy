@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DisplayName("이슈 레파지토리 테스트")
+@DisplayName("이슈 저장소 테스트")
 @Transactional
 @SpringBootTest(properties = "application-test.properties")
 public class DefaultIssueRepositoryTest {

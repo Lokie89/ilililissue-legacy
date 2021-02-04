@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("회원 저장소 테스트")
 @Transactional
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "application-test.properties")
 public class IssueMemberRepositoryTest {
 

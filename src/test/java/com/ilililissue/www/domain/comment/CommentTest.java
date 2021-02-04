@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("댓글 객체 테스트")
 public class CommentTest {
 
     @DisplayName("댓글 객체 생성")

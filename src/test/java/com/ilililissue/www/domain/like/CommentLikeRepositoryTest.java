@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DisplayName("좋아요 레파지토리 테스트")
+@DisplayName("좋아요 저장소 테스트")
 @Transactional
 @SpringBootTest(properties = "application-test.properties")
 public class CommentLikeRepositoryTest {

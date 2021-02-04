@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("관리자 객체 테스트")
 public class IssueManagerTest {
 
     @DisplayName("관리자 이슈 생성")

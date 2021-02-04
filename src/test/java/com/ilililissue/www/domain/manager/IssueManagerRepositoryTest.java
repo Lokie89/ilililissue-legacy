@@ -12,8 +12,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("관리자 저장소 테스트")
 @Transactional
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "application-test.properties")
 public class IssueManagerRepositoryTest {
     @Autowired

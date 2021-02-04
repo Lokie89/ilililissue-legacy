@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("좋아요 서비스 테스트")
 @Transactional
 @SpringBootTest(properties = "application-test.properties")
 public class CommentLikeServiceTest {

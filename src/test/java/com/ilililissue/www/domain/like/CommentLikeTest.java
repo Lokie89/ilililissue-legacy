@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("좋아요 객체 테스트")
 public class CommentLikeTest {
     @DisplayName("좋아요 객체 생성")
     @Test
