@@ -10,7 +10,6 @@ import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
-import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
 import com.ilililissue.www.web.dto.IssueCommentDeleteDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +63,7 @@ public class IssueCommentControllerTest {
     @Test
     void createIssue() {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
-        DefaultIssueSaveDto issueSaveDto = DefaultIssueSaveDto.builder().creator(master).title("타이를").build();
+        DefaultIssue issueSaveDto = DefaultIssue.builder(master, "타이를").build();
         defaultIssueService.create(issueSaveDto);
         IssueMember member = new IssueMember("이름1");
         issueMemberService.create(member);

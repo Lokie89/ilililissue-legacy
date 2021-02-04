@@ -49,7 +49,7 @@ public class IssueControllerTest {
     void createIssueTest() throws Exception {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
         String url = "/api/v1/issue";
-        DefaultIssueSaveDto issue = DefaultIssueSaveDto.builder().creator(master).title("이슈 제목").build();
+        DefaultIssue issue = DefaultIssue.builder(master,"이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -72,13 +72,14 @@ public class IssueControllerTest {
         assertEquals(1L, savedIssue.getId());
     }
 
+    // TODO : Session 객체를 넣을것
     @DisplayName("권한 LV1 일때 이슈 생성 실패 401")
     @Order(3)
     @Test
     void cannotCreateIssueTest() throws Exception {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.LV1));
         String url = "/api/v1/issue";
-        DefaultIssueSaveDto issue = DefaultIssueSaveDto.builder().creator(master).title("이슈 제목").build();
+        DefaultIssue issue = DefaultIssue.builder(master, "이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
