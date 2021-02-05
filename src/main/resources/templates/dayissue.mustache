@@ -1,0 +1,16 @@
+{{>layout/header}}
+
+<div>
+    <input type="hidden" value="{{issue.id}}">
+</div>
+<h1>{{issue.title}}</h1>
+{{#issue.images}}
+    <img src="{{.}}"/>
+{{/issue.images}}
+{{#issue.description}}
+    {{issue.description}}
+{{/issue.description}}
+
+<script src="/js/scrollcomment.js"/>
+
+{{>layout/footer}}
