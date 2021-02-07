@@ -3,14 +3,22 @@
 <div>
     <input type="hidden" value="{{issue.id}}">
 </div>
-<h1>{{issue.title}}</h1>
-{{#issue.images}}
-    <img src="{{.}}"/>
-{{/issue.images}}
-{{#issue.description}}
-    {{issue.description}}
-{{/issue.description}}
+<div class="center">
+    <h1>{{issue.title}}</h1>
+</div>
+<div class="center">
+    {{#issue.images}}
+        <img src="{{.}}"/>
+    {{/issue.images}}
+</div>
+<div class="center">
+    {{#issue.description}}
+        {{issue.description}}
+    {{/issue.description}}
+</div>
+<div class="center" id="comment">
 
+</div>
 <script src="/js/scrollcomment.js"/>
 
 {{>layout/footer}}
