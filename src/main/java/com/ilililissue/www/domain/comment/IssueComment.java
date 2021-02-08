@@ -40,6 +40,10 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
     @Column(name = "status")
     private char status = 'y';
 
+    @Enumerated
+    @Column(name = "position")
+    private CommentPosition position;
+
     public void delete() {
         status = 'n';
     }
