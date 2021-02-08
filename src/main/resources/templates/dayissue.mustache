@@ -13,6 +13,11 @@
         <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
         <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
     </div>
+    <div class="issue-description">
+        {{#issue.description}}
+            {{.}}
+        {{/issue.description}}
+    </div>
     <div class="comment-container">
         <div class="comment">
         </div>
