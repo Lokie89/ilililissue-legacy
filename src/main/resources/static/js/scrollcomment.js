@@ -1,14 +1,18 @@
 let page = 1;
 $(function () {
     loadComment(page);
-    scrollEvent();
+    moreAction();
 });
 
-function scrollEvent() {
-    $(window).scroll(function () {
-        if ($(window).scrollTop() === $(document).height() - $(window).height()) {
-            loadComment(++page);
-        }
+function moreAction() {
+    // $(window).scroll(function () {
+    //     if ($(window).scrollTop() === $(document).height() - $(window).height()) {
+    //         loadComment(++page);
+    //     }
+    // })
+
+    $('#more-btn').on('click', function () {
+        loadComment(++page);
     })
 }
 
@@ -49,10 +53,10 @@ function loadComment(page) {
 }
 
 function renderComment(commentList) {
-    const front_left_div = '<div class="comment left">';
-    const front_right_div = '<div class="comment right">';
-    const front_center_div = '<div class="comment center">';
-    const end_div = '</div>';
+    const front_left_div = '<div class="disagree"><span>';
+    const front_right_div = '<div class="agree"><span>';
+    const front_center_div = '<div class="abstention"><span>';
+    const end_div = '</span></div>';
     commentList.forEach(comment => {
         let appendHtml = ''
         if (comment.position === 'AGREE') {
@@ -64,6 +68,6 @@ function renderComment(commentList) {
         }
         appendHtml += comment.comment;
         appendHtml += end_div;
-        $('#comment').append(appendHtml);
+        $('.comment').append(appendHtml);
     })
 }
