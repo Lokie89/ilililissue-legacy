@@ -2,7 +2,6 @@ package com.ilililissue.www.domain.comment;
 
 import com.ilililissue.www.domain.BaseTimeEntity;
 import com.ilililissue.www.domain.issue.DefaultIssue;
-import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.domain.member.IssueMember;
@@ -10,8 +9,6 @@ import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = false)
 @Getter
@@ -35,9 +32,9 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
     @Column(name = "comment")
     private String comment;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "commentLike")
-    private List<CommentLike> likeList = new ArrayList<>();
+//    @Builder.Default
+//    @OneToMany(mappedBy = "commentLike")
+//    private List<CommentLike> likeList = new ArrayList<>();
 
     @Builder.Default
     @Column(name = "status")
