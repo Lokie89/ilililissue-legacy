@@ -1,5 +1,6 @@
 {{>layout/header}}
 <!-- 클래스명은 변경하면 안 됨 -->
+<div class="issue-container">
 <div class="swiper-container">
     <div class="swiper-wrapper">
         {{#issue.images}}
@@ -11,7 +12,8 @@
     <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
     <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 </div>
-
+<div id="comment" class="comment-container"></div>
+</div>
 <script>
 
     new Swiper('.swiper-container', {

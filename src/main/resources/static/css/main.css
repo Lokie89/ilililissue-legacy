@@ -1,16 +1,42 @@
 .swiper-container {
-    width:1170px;
-    height:780px;
-    border:5px solid silver;
-    border-radius:7px;
-    box-shadow:0 0 20px #ccc inset;
+    width: 1170px;
+    height: 780px;
+    border: 5px solid silver;
+    border-radius: 7px;
+    box-shadow: 0 0 20px #ccc inset;
 }
+
 .swiper-slide {
-    text-align:center;
-    display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
-    align-items:center; /* 위아래 기준 중앙정렬 */
-    justify-content:center; /* 좌우 기준 중앙정렬 */
+    text-align: center;
+    display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+    align-items: center; /* 위아래 기준 중앙정렬 */
+    justify-content: center; /* 좌우 기준 중앙정렬 */
 }
+
 .swiper-slide img {
-    box-shadow:0 0 5px #555;
+    box-shadow: 0 0 5px #555;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.issue-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1170px;
 }
