@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/comment")
 @RestController
@@ -36,5 +38,10 @@ public class IssueCommentController {
         IssueComment issueComment = issueCommentDeleteDto.getIssueComment();
         issueCommentService.remove(issueComment, author);
         return new ResponseEntity<>(issueComment, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "")
+    public ResponseEntity<List<IssueComment>> getIssueCommentList() {
+        return new ResponseEntity<>(issueCommentService.getAll(), HttpStatus.OK);
     }
 }
