@@ -1,22 +1,28 @@
 {{>layout/header}}
+<!-- 클래스명은 변경하면 안 됨 -->
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        {{#issue.images}}
+        <div class="swiper-slide"><img src={{.}}></div>
+        {{/issue.images}}
+    </div>
 
-<div>
-    <input type="hidden" value="{{issue.id}}">
+    <!-- 네비게이션 지정 -->
+    <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+    <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 </div>
-<div class="center">
-    <h1>{{issue.title}}</h1>
-</div>
-<div class="center">
-    {{#issue.images}}
-        <img src="{{.}}"/>
-    {{/issue.images}}
-</div>
-<div class="center">
-    {{#issue.description}}
-        {{issue.description}}
-    {{/issue.description}}
-</div>
-<div class="center" id="comment">
 
-</div>
+<script>
+
+    new Swiper('.swiper-container', {
+        navigation : {
+            nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+            prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+        },
+    });
+
+</script>
+
+<!-- 예제 종료 -->
+
 {{>layout/footer}}
