@@ -1,8 +1,10 @@
 package com.ilililissue.www.web.restcontroller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
@@ -21,6 +23,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -170,5 +174,52 @@ public class IssueCommentControllerTest {
                 )
                 .andReturn();
         assertEquals(405, response.getResponse().getStatus());
+    }
+
+    @DisplayName("댓글에 좋아요한 숫자")
+    @Order(8)
+    @Test
+    void getIssueCommentLikeTest() throws Exception {
+        IssueComment issueComment = issueCommentService.getOneById(1L);
+        IssueMember liker1 = issueMemberService.create(new IssueMember("라이커"));
+        IssueMember liker2 = issueMemberService.create(new IssueMember("라이커2"));
+        IssueMember liker3 = issueMemberService.create(new IssueMember("라이커3"));
+        CommentLike commentLike1 = CommentLike.builder().comment(issueComment).member(liker1).build();
+        CommentLike commentLike2 = CommentLike.builder().comment(issueComment).member(liker2).build();
+        CommentLike commentLike3 = CommentLike.builder().comment(issueComment).member(liker3).build();
+        String url = "/api/v1/like";
+        MvcResult response1 = mockMvc
+                .perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(commentLike1))
+                )
+                .andReturn();
+        MvcResult response2 = mockMvc
+                .perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(commentLike2))
+                )
+                .andReturn();
+        MvcResult response3 = mockMvc
+                .perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(commentLike3))
+                )
+                .andReturn();
+        assertEquals(200, response1.getResponse().getStatus());
+        assertEquals(200, response2.getResponse().getStatus());
+        assertEquals(200, response3.getResponse().getStatus());
+
+        String url2 = "/api/v1/comment";
+
+        MvcResult response4 = mockMvc
+                .perform(get(url2)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andReturn();
+        List<IssueCommentResponseDto> responseDtoList = new ObjectMapper().readValue(response4.getResponse().getContentAsString(), new TypeReference<>() {});
+        IssueCommentResponseDto responseDto = responseDtoList.get(0);
+        assertEquals(3, responseDto.getCommentLikeList().size());
     }
 }
