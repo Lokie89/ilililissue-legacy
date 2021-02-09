@@ -5,14 +5,12 @@ import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.member.IssueMember;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
-@Builder
+@NoArgsConstructor
 public class IssueCommentResponseDto {
     private Long id;
     private IssueMember author;
