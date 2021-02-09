@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -114,7 +115,9 @@ public class CommentLikeControllerTest {
     @Order(4)
     @Test
     void reLikeTest() throws Exception {
+        // TODO : Order(3) 에서 이미 취소했는데 왜 y 로 나오는지
         CommentLike savedCommentLike = commentLikeService.getOneById(1L);
+        commentLikeService.createOrCancel(savedCommentLike);
         String url = "/api/v1/like";
         MvcResult response = mockMvc
                 .perform(post(url)
@@ -123,7 +126,7 @@ public class CommentLikeControllerTest {
                 )
                 .andReturn();
         assertEquals(200, response.getResponse().getStatus());
-        CommentLike canceledCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
-        assertEquals('y', canceledCommentLike.getStatus());
+        CommentLike reLikedCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
+        assertEquals('y', reLikedCommentLike.getStatus());
     }
 }
