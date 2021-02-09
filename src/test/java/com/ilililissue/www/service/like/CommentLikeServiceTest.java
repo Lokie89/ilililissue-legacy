@@ -80,4 +80,28 @@ public class CommentLikeServiceTest {
         assertEquals('n', cancelCommentLike.getStatus());
         assertEquals(1, commentLikeService.getAll().size());
     }
+
+    @DisplayName("좋아요 여러개")
+    @Test
+    void saveLikesTest() {
+        IssueMember issueMember1 = new IssueMember("좋아요1");
+        IssueMember issueMember2 = new IssueMember("좋아요2");
+        IssueMember issueMember3 = new IssueMember("좋아요3");
+        issueMemberService.create(issueMember1);
+        issueMemberService.create(issueMember2);
+        issueMemberService.create(issueMember3);
+
+        IssueComment savedIssueComment = issueCommentService.getAll().get(0);
+
+        CommentLike commentLike1 = CommentLike.builder().comment(savedIssueComment).member(issueMember1).build();
+        CommentLike commentLike2 = CommentLike.builder().comment(savedIssueComment).member(issueMember2).build();
+        CommentLike commentLike3 = CommentLike.builder().comment(savedIssueComment).member(issueMember3).build();
+
+        commentLikeService.createOrCancel(commentLike1);
+        commentLikeService.createOrCancel(commentLike2);
+        commentLikeService.createOrCancel(commentLike3);
+
+        assertEquals(3, commentLikeService.getAll().size());
+        assertEquals(3, commentLikeService.getCommentLikeListByIssueComment(savedIssueComment).size());
+    }
 }
