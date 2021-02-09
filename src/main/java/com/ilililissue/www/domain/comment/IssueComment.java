@@ -32,10 +32,6 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
     @Column(name = "comment")
     private String comment;
 
-//    @Builder.Default
-//    @OneToMany(mappedBy = "commentLike")
-//    private List<CommentLike> likeList = new ArrayList<>();
-
     @Builder.Default
     @Column(name = "status")
     private char status = 'y';
