@@ -6,7 +6,7 @@ import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.service.manager.IssueManagerService;
-import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
+import com.ilililissue.www.web.dto.request.DefaultIssueSaveDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

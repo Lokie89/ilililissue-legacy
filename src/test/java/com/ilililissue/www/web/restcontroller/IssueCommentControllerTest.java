@@ -10,7 +10,7 @@ import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
-import com.ilililissue.www.web.dto.IssueCommentDeleteDto;
+import com.ilililissue.www.web.dto.request.IssueCommentDeleteDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

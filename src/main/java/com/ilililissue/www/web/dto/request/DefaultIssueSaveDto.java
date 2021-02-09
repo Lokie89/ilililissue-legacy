@@ -1,4 +1,4 @@
-package com.ilililissue.www.web.dto;
+package com.ilililissue.www.web.dto.request;
 
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;

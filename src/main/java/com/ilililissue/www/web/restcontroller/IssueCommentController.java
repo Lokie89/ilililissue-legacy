@@ -3,7 +3,7 @@ package com.ilililissue.www.web.restcontroller;
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
-import com.ilililissue.www.web.dto.IssueCommentDeleteDto;
+import com.ilililissue.www.web.dto.request.IssueCommentDeleteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

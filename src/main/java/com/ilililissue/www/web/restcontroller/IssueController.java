@@ -3,7 +3,7 @@ package com.ilililissue.www.web.restcontroller;
 import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.service.issue.DefaultIssueService;
-import com.ilililissue.www.web.dto.DefaultIssueSaveDto;
+import com.ilililissue.www.web.dto.request.DefaultIssueSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
