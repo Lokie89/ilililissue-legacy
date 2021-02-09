@@ -1,5 +1,6 @@
 package com.ilililissue.www.service.like;
 
+import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.like.CommentLikeRepository;
 import com.ilililissue.www.exception.NoContentFromRequestException;
@@ -38,6 +39,11 @@ public class CommentLikeService {
 
     public CommentLike getOneById(Long id) {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
+    }
+
+    @Transactional
+    public List<CommentLike> getCommentLikeListByIssueComment(IssueComment issueComment){
+        return repository.findAllByComment(issueComment);
     }
 
 }
