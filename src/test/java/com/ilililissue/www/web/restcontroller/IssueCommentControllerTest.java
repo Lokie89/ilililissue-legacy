@@ -116,7 +116,7 @@ public class IssueCommentControllerTest {
                         .content(new ObjectMapper().writeValueAsBytes(updateComment))
                 )
                 .andReturn();
-        IssueComment updated = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueComment.class);
+        IssueCommentResponseDto updated = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueCommentResponseDto.class);
         assertEquals(200, response.getResponse().getStatus());
         assertEquals("아 그것참222", updated.getComment());
     }
