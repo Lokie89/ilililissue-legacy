@@ -73,8 +73,8 @@ public class IssueCommentControllerTest {
     @Order(2)
     @Test
     void createIssueComment() throws Exception {
-        IssueMember issueMember = issueMemberService.toEntity(1L);
-        DefaultIssue issue = defaultIssueService.toEntity(1L);
+        IssueMember issueMember = issueMemberService.getOneById(1L);
+        DefaultIssue issue = defaultIssueService.getOneById(1L);
         String url = "/api/v1/comment";
         IssueComment comment = IssueComment.builder().author(issueMember).issue(issue).comment("아 그것참").build();
         MvcResult response = mockMvc
@@ -90,8 +90,8 @@ public class IssueCommentControllerTest {
     @Order(3)
     @Test
     void cannotCreateIssueComment() throws Exception {
-        IssueMember issueMember = issueMemberService.toEntity(1L);
-        DefaultIssue issue = defaultIssueService.toEntity(1L);
+        IssueMember issueMember = issueMemberService.getOneById(1L);
+        DefaultIssue issue = defaultIssueService.getOneById(1L);
         String url = "/api/v1/comment";
         IssueComment comment = IssueComment.builder().author(issueMember).issue(issue).comment("아 그것참222").build();
         MvcResult response = mockMvc
@@ -107,7 +107,7 @@ public class IssueCommentControllerTest {
     @Order(4)
     @Test
     void updateIssueComment() throws Exception {
-        IssueComment comment = issueCommentService.toEntity(1L);
+        IssueComment comment = issueCommentService.getOneById(1L);
         String url = "/api/v1/comment";
         IssueComment updateComment = IssueComment.builder().id(comment.getId()).author(comment.getAuthor()).issue(comment.getIssue()).comment("아 그것참222").build();
         MvcResult response = mockMvc
@@ -125,7 +125,7 @@ public class IssueCommentControllerTest {
     @Order(5)
     @Test
     void cannotUpdateIssueComment() throws Exception {
-        IssueComment comment = issueCommentService.toEntity(1L);
+        IssueComment comment = issueCommentService.getOneById(1L);
         String url = "/api/v1/comment";
         IssueComment updateComment = IssueComment.builder().id(comment.getId()).author(comment.getAuthor()).issue(comment.getIssue()).comment("아 그것참333").build();
         MvcResult response = mockMvc
@@ -141,8 +141,8 @@ public class IssueCommentControllerTest {
     @Order(7)
     @Test
     void deleteIssueComment() throws Exception {
-        IssueComment comment = issueCommentService.toEntity(1L);
-        IssueMember author = issueMemberService.toEntity(1L);
+        IssueComment comment = issueCommentService.getOneById(1L);
+        IssueMember author = issueMemberService.getOneById(1L);
         IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
         String url = "/api/v1/comment";
         MvcResult response = mockMvc
@@ -158,7 +158,7 @@ public class IssueCommentControllerTest {
     @Order(6)
     @Test
     void cannotDeleteIssueCommentByNotAuthor() throws Exception {
-        IssueComment comment = issueCommentService.toEntity(1L);
+        IssueComment comment = issueCommentService.getOneById(1L);
         IssueMember author = new IssueMember("저자아님");
         IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
         String url = "/api/v1/comment";

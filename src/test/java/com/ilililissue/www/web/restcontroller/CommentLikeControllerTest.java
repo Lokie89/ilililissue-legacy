@@ -67,10 +67,9 @@ public class CommentLikeControllerTest {
     void createComment() {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
         DefaultIssue issueSaveDto = DefaultIssue.builder(master, "타이를").build();
-        defaultIssueService.create(issueSaveDto);
+        DefaultIssue savedIssue = defaultIssueService.create(issueSaveDto);
         IssueMember member = new IssueMember("코멘터");
         issueMemberService.create(member);
-        DefaultIssue savedIssue = defaultIssueService.toEntity(1L);
         IssueComment issueComment = IssueComment.builder().issue(savedIssue).author(member).comment("코멘트").build();
         issueCommentService.create(issueComment);
     }
@@ -79,7 +78,7 @@ public class CommentLikeControllerTest {
     @Order(2)
     @Test
     void createLikeTest() throws Exception {
-        IssueComment issueComment = issueCommentService.toEntity(1L);
+        IssueComment issueComment = issueCommentService.getOneById(1L);
         IssueMember liker = issueMemberService.create(new IssueMember("라이커"));
         CommentLike commentLike = CommentLike.builder().comment(issueComment).member(liker).build();
         String url = "/api/v1/like";
@@ -98,7 +97,7 @@ public class CommentLikeControllerTest {
     @Order(3)
     @Test
     void cancelLikeTest() throws Exception {
-        CommentLike savedCommentLike = commentLikeService.toEntity(1L);
+        CommentLike savedCommentLike = commentLikeService.getOneById(1L);
         String url = "/api/v1/like";
         MvcResult response = mockMvc
                 .perform(post(url)
@@ -115,7 +114,7 @@ public class CommentLikeControllerTest {
     @Order(4)
     @Test
     void reLikeTest() throws Exception {
-        CommentLike savedCommentLike = commentLikeService.toEntity(1L);
+        CommentLike savedCommentLike = commentLikeService.getOneById(1L);
         String url = "/api/v1/like";
         MvcResult response = mockMvc
                 .perform(post(url)

@@ -2,21 +2,16 @@ package com.ilililissue.www.service.comment;
 
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.comment.IssueCommentRepository;
-import com.ilililissue.www.domain.issue.DefaultIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.member.IssueMember;
-import com.ilililissue.www.exception.CanNotBecomeEntityException;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
 import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
-import com.ilililissue.www.service.issue.DefaultIssueService;
-import com.ilililissue.www.service.member.IssueMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -53,22 +48,15 @@ public class IssueCommentService {
         issueComment.delete();
     }
 
-    public IssueComment toEntity(Long id){
-        return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
-    }
-
-    public IssueComment toEntity(IssueComment notPersistIssueComment){
-        if (Objects.isNull(notPersistIssueComment.getId())) {
-            throw new CanNotBecomeEntityException();
-        }
-        return toEntity(notPersistIssueComment.getId());
-    }
-
     @Transactional
     public void remove(IssueComment issueComment, IssueManager issueManager) {
         if (!issueManager.hasControl(issueComment)) {
             throw new CanNotRemoveCommentException();
         }
         issueComment.drop();
+    }
+
+    public IssueComment getOneById(Long id) {
+        return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
     }
 }

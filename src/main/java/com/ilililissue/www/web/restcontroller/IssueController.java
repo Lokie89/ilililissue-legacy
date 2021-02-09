@@ -27,6 +27,6 @@ public class IssueController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DefaultIssue> getIssueById(@PathVariable Long id) {
-        return new ResponseEntity<>(defaultIssueService.toEntity(id), HttpStatus.OK);
+        return new ResponseEntity<>(defaultIssueService.getOneById(id), HttpStatus.OK);
     }
 }
