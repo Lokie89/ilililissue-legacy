@@ -218,6 +218,7 @@ public class IssueCommentControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andReturn();
+        // TODO : TypeReference 공부
         List<IssueCommentResponseDto> responseDtoList = new ObjectMapper().readValue(response4.getResponse().getContentAsString(), new TypeReference<>() {});
         IssueCommentResponseDto responseDto = responseDtoList.get(0);
         assertEquals(3, responseDto.getCommentLikeList().size());
