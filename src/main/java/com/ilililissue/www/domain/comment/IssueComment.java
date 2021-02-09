@@ -52,11 +52,12 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
         return this.author.equals(author);
     }
 
-    public void updateComment(String comment) {
+    public IssueComment updateComment(String comment) {
         if (!getModifiedDate().equals(getCreatedDate())) {
             throw new CanNotUpdateCommentException();
         }
         this.comment = comment;
+        return this;
     }
 
     @Override

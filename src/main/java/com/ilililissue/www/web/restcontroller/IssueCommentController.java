@@ -27,7 +27,8 @@ public class IssueCommentController {
     @PatchMapping(value = "")
     public ResponseEntity<IssueComment> updateCommentIssueComment(@RequestBody IssueComment issueComment) {
         String updateComment = issueComment.getComment();
-        IssueComment updatedIssueComment = issueCommentService.updateComment(issueComment, updateComment);
+        IssueComment entityIssueComment = issueCommentService.getOneById(issueComment.getId());
+        IssueComment updatedIssueComment = issueCommentService.updateComment(entityIssueComment, updateComment);
         return new ResponseEntity<>(updatedIssueComment, HttpStatus.OK);
     }
 

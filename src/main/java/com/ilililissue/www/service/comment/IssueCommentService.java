@@ -36,8 +36,8 @@ public class IssueCommentService {
     }
 
     @Transactional
-    public void updateComment(IssueComment issueComment, String comment) {
-        issueComment.updateComment(comment);
+    public IssueComment updateComment(IssueComment issueComment, String comment) {
+        return issueComment.updateComment(comment);
     }
 
     @Transactional
