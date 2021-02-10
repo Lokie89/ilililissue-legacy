@@ -60,9 +60,9 @@ function renderComment(commentList) {
     commentList.forEach(comment => {
         let appendHtml = ''
         if (comment.position === 'AGREE') {
-            appendHtml += front_left_div;
-        } else if (comment.position === 'DISAGREE') {
             appendHtml += front_right_div;
+        } else if (comment.position === 'DISAGREE') {
+            appendHtml += front_left_div;
         } else {
             appendHtml += front_center_div;
         }
