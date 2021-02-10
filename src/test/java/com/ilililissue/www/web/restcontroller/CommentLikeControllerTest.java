@@ -69,7 +69,7 @@ public class CommentLikeControllerTest {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
         DefaultIssue issueSaveDto = DefaultIssue.builder().creator(master).title("타이를").build();
         DefaultIssue savedIssue = defaultIssueService.create(issueSaveDto);
-        IssueMember member = new IssueMember("코멘터");
+        IssueMember member = IssueMember.builder().name("코멘터").build();
         issueMemberService.create(member);
         IssueComment issueComment = IssueComment.builder().issue(savedIssue).author(member).comment("코멘트").build();
         issueCommentService.create(issueComment);
@@ -80,7 +80,7 @@ public class CommentLikeControllerTest {
     @Test
     void createLikeTest() throws Exception {
         IssueComment issueComment = issueCommentService.getOneById(1L);
-        IssueMember liker = issueMemberService.create(new IssueMember("라이커"));
+        IssueMember liker = issueMemberService.create(IssueMember.builder().name("라이커").build());
         CommentLike commentLike = CommentLike.builder().comment(issueComment).member(liker).build();
         String url = "/api/v1/like";
         MvcResult response = mockMvc

@@ -84,9 +84,9 @@ public class CommentLikeServiceTest {
     @DisplayName("좋아요 여러개")
     @Test
     void saveLikesTest() {
-        IssueMember issueMember1 = new IssueMember("좋아요1");
-        IssueMember issueMember2 = new IssueMember("좋아요2");
-        IssueMember issueMember3 = new IssueMember("좋아요3");
+        IssueMember issueMember1 = IssueMember.builder().name("좋아요1").build();
+        IssueMember issueMember2 = IssueMember.builder().name("좋아요2").build();
+        IssueMember issueMember3 = IssueMember.builder().name("좋아요3").build();
         issueMemberService.create(issueMember1);
         issueMemberService.create(issueMember2);
         issueMemberService.create(issueMember3);

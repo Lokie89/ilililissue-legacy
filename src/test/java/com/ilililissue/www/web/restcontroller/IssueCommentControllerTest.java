@@ -70,7 +70,7 @@ public class IssueCommentControllerTest {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
         DefaultIssue issueSaveDto = DefaultIssue.builder().creator(master).title("타이를").build();
         defaultIssueService.create(issueSaveDto);
-        IssueMember member = new IssueMember("이름1");
+        IssueMember member = IssueMember.builder().name("이름1").build();
         issueMemberService.create(member);
     }
 
@@ -164,7 +164,7 @@ public class IssueCommentControllerTest {
     @Test
     void cannotDeleteIssueCommentByNotAuthor() throws Exception {
         IssueComment comment = issueCommentService.getOneById(1L);
-        IssueMember author = new IssueMember("저자아님");
+        IssueMember author = IssueMember.builder().name("저자아님").build();
         IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
         String url = "/api/v1/comment";
         MvcResult response = mockMvc
@@ -181,9 +181,9 @@ public class IssueCommentControllerTest {
     @Test
     void getIssueCommentLikeTest() throws Exception {
         IssueComment issueComment = issueCommentService.getOneById(1L);
-        IssueMember liker1 = issueMemberService.create(new IssueMember("라이커"));
-        IssueMember liker2 = issueMemberService.create(new IssueMember("라이커2"));
-        IssueMember liker3 = issueMemberService.create(new IssueMember("라이커3"));
+        IssueMember liker1 = issueMemberService.create(IssueMember.builder().name("라이커").build());
+        IssueMember liker2 = issueMemberService.create(IssueMember.builder().name("라이커2").build());
+        IssueMember liker3 = issueMemberService.create(IssueMember.builder().name("라이커3").build());
         CommentLike commentLike1 = CommentLike.builder().comment(issueComment).member(liker1).build();
         CommentLike commentLike2 = CommentLike.builder().comment(issueComment).member(liker2).build();
         CommentLike commentLike3 = CommentLike.builder().comment(issueComment).member(liker3).build();
