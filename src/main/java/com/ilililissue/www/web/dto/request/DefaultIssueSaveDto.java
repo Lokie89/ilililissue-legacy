@@ -23,7 +23,9 @@ public class DefaultIssueSaveDto {
     }
 
     public DefaultIssue toEntity(IssueManager creator) {
-        return DefaultIssue.builder(creator, this.title)
+        return DefaultIssue.builder()
+                .creator(creator)
+                .title(this.title)
                 .images(this.images)
                 .description(this.description)
                 .build()

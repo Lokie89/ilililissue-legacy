@@ -67,7 +67,7 @@ public class CommentLikeControllerTest {
     @Test
     void createComment() {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
-        DefaultIssue issueSaveDto = DefaultIssue.builder(master, "타이를").build();
+        DefaultIssue issueSaveDto = DefaultIssue.builder().creator(master).title("타이를").build();
         DefaultIssue savedIssue = defaultIssueService.create(issueSaveDto);
         IssueMember member = new IssueMember("코멘터");
         issueMemberService.create(member);

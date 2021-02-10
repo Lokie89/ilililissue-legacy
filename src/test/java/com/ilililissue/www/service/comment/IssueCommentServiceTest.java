@@ -44,7 +44,7 @@ public class IssueCommentServiceTest {
         issueMemberService.create(issueMember);
         IssueManager manager = new IssueManager(ManagerRole.MASTER);
         issueManagerService.create(manager);
-        DefaultIssue socialIssue = DefaultIssue.builder(manager, "신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image", "image2").description("내용").build();
+        DefaultIssue socialIssue = DefaultIssue.builder().creator(manager).title("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images(new String[]{"image", "image2"}).description("내용").build();
         defaultIssueService.create(socialIssue);
     }
 

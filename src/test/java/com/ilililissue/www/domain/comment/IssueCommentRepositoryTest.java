@@ -40,7 +40,7 @@ public class IssueCommentRepositoryTest {
     void saveIssueCommentTest() {
         IssueMember member = memberRepository.save(new IssueMember("회원1"));
         IssueManager manager = managerRepository.save(new IssueManager(ManagerRole.MASTER));
-        DefaultIssue defaultIssue = issueRepository.save(DefaultIssue.builder(manager, "애플도 VR을?… “고성능·고가형 헤드셋 개발 중”").images("apple1", "vr1").description("페이스북 자회사 오큘러스의 VR 헤드셋 '오큘러스 퀘스트2'. 애플이 개발 중인 헤드셋도 이와 유사할 것으로 예측된다.").build());
+        DefaultIssue defaultIssue = issueRepository.save(DefaultIssue.builder().creator(manager).title("애플도 VR을?… “고성능·고가형 헤드셋 개발 중”").images(new String[]{"apple1", "vr1"}).description("페이스북 자회사 오큘러스의 VR 헤드셋 '오큘러스 퀘스트2'. 애플이 개발 중인 헤드셋도 이와 유사할 것으로 예측된다.").build());
         IssueComment issueComment = IssueComment.builder().author(member).issue(defaultIssue).comment("저건 얼마나 비쌀라나??").build();
 
         repository.save(issueComment);

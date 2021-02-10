@@ -68,7 +68,7 @@ public class IssueCommentControllerTest {
     @Test
     void createIssue() {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
-        DefaultIssue issueSaveDto = DefaultIssue.builder(master, "타이를").build();
+        DefaultIssue issueSaveDto = DefaultIssue.builder().creator(master).title("타이를").build();
         defaultIssueService.create(issueSaveDto);
         IssueMember member = new IssueMember("이름1");
         issueMemberService.create(member);

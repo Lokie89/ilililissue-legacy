@@ -29,7 +29,7 @@ public class DefaultIssueRepositoryTest {
     @Test
     void saveIssueTest() {
         IssueManager manager = managerRepository.save(new IssueManager(ManagerRole.MASTER));
-        DefaultIssue defaultIssue = DefaultIssue.builder(manager, "신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images("image", "image2").description("내용").build();
+        DefaultIssue defaultIssue = DefaultIssue.builder().creator(manager).title("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images(new String[]{"image", "image2"}).description("내용").build();
         repository.save(defaultIssue);
         List<DefaultIssue> defaultIssueList = repository.findAll();
         DefaultIssue savedIssue = defaultIssueList.get(0);
