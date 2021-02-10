@@ -18,6 +18,16 @@
             {{.}}
         {{/issue.description}}
     </div>
+    <div>
+        <input type="radio" name="position" value="DISAGREE">반대
+        <input type="radio" name="position" value="ABSTENTION" checked>중도
+        <input type="radio" name="position" value="AGREE">찬성
+    </div>
+    <div class="input-comment">
+        <input type="hidden" id="issueId" value="{{issue.id}}">
+        <textarea placeholder="댓글을 입력하세요" style="width: 1100px; height: 100px;" id="comment"></textarea>
+        <button id="createComment" style="height: 100px;">comment</button>
+    </div>
     <div class="comment-container">
         <div class="comment">
         </div>
@@ -33,6 +43,28 @@
         },
     });
 
+    $('#createComment').on('click', function () {
+        const commentData = {
+            issueId: Number($('#issueId').val()),
+            position: $('input[name="position"]:checked').val(),
+            comment: $('#comment').val(),
+        }
+        $.ajax({
+            url: '/api/v1/comment',
+            type: 'post',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: JSON.stringify(commentData),
+            statusCode: {
+                201: () => {
+                    location.reload();
+                },
+                409: () => {
+                    alert('이미 등록했어');
+                },
+            },
+        })
+    });
 </script>
 
 <!-- 예제 종료 -->
