@@ -24,8 +24,9 @@ public class IssueCommentController {
     private final CommentLikeService commentLikeService;
 
     @PostMapping(value = "")
-    public ResponseEntity<IssueCommentResponseDto> createIssueComment(@RequestBody IssueComment issueComment) {
-        IssueComment savedIssueComment = issueCommentService.create(issueComment);
+    public ResponseEntity<IssueCommentResponseDto> createIssueComment(@RequestBody IssueCommentSaveDto issueCommentSaveDto) {
+        Long authorId = 1L;
+        IssueComment savedIssueComment = issueCommentService.create(issueCommentSaveDto.toEntity(authorId));
         return new ResponseEntity<>(new IssueCommentResponseDto(savedIssueComment), HttpStatus.CREATED);
     }
 
