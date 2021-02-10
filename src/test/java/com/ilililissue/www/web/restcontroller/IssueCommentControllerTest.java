@@ -13,6 +13,7 @@ import com.ilililissue.www.service.issue.DefaultIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import com.ilililissue.www.web.dto.request.IssueCommentDeleteDto;
+import com.ilililissue.www.web.dto.request.IssueCommentSaveDto;
 import com.ilililissue.www.web.dto.response.IssueCommentResponseDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +79,9 @@ public class IssueCommentControllerTest {
     @Order(2)
     @Test
     void createIssueComment() throws Exception {
-        IssueMember issueMember = issueMemberService.getOneById(1L);
         DefaultIssue issue = defaultIssueService.getOneById(1L);
         String url = "/api/v1/comment";
-        IssueComment comment = IssueComment.builder().author(issueMember).issue(issue).comment("아 그것참").build();
+        IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참").position("AGREE").build();
         MvcResult response = mockMvc
                 .perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class IssueCommentControllerTest {
         IssueMember issueMember = issueMemberService.getOneById(1L);
         DefaultIssue issue = defaultIssueService.getOneById(1L);
         String url = "/api/v1/comment";
-        IssueComment comment = IssueComment.builder().author(issueMember).issue(issue).comment("아 그것참222").build();
+        IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참222").position("DISAGREE").build();
         MvcResult response = mockMvc
                 .perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
