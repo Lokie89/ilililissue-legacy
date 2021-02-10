@@ -6,6 +6,7 @@ import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.like.CommentLikeService;
 import com.ilililissue.www.web.dto.request.IssueCommentDeleteDto;
+import com.ilililissue.www.web.dto.request.IssueCommentSaveDto;
 import com.ilililissue.www.web.dto.response.IssueCommentResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
