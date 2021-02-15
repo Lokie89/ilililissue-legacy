@@ -1,7 +1,7 @@
 package com.ilililissue.www.service.issue;
 
-import com.ilililissue.www.domain.issue.DefaultIssue;
-import com.ilililissue.www.domain.issue.DefaultIssueRepository;
+import com.ilililissue.www.domain.issue.SimpleIssue;
+import com.ilililissue.www.domain.issue.SimpleIssueRepository;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import com.ilililissue.www.exception.issue.NotAuthorizedManagerException;
@@ -13,23 +13,23 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class DefaultIssueService {
-    private final DefaultIssueRepository repository;
+public class SimpleIssueService {
+    private final SimpleIssueRepository repository;
 
     @Transactional
-    public DefaultIssue create(DefaultIssue defaultIssue) {
-        IssueManager creator = defaultIssue.getCreator();
-        if (creator.hasControl(defaultIssue)) {
-            return repository.save(defaultIssue);
+    public SimpleIssue create(SimpleIssue simpleIssue) {
+        IssueManager creator = simpleIssue.getCreator();
+        if (creator.hasControl(simpleIssue)) {
+            return repository.save(simpleIssue);
         }
         throw new NotAuthorizedManagerException();
     }
 
-    public List<DefaultIssue> getAll() {
+    public List<SimpleIssue> getAll() {
         return repository.findAll();
     }
 
-    public DefaultIssue getOneById(Long id) {
+    public SimpleIssue getOneById(Long id) {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
     }
 

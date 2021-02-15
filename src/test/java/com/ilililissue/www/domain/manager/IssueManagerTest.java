@@ -1,6 +1,6 @@
 package com.ilililissue.www.domain.manager;
 
-import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.issue.SimpleIssue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ public class IssueManagerTest {
     @Test
     void createIssueTest() {
         IssueManager manager = new IssueManager(ManagerRole.MASTER);
-        DefaultIssue socialIssue = DefaultIssue.builder().creator(manager).title("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images(new String[]{"image", "image2"}).description("내용").build();
+        SimpleIssue socialIssue = SimpleIssue.builder().creator(manager).title("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images(new String[]{"image", "image2"}).description("내용").build();
         assertEquals("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어", socialIssue.getTitle());
     }
 }

@@ -2,13 +2,13 @@ package com.ilililissue.www.web.restcontroller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilililissue.www.domain.comment.IssueComment;
-import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
-import com.ilililissue.www.service.issue.DefaultIssueService;
+import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.like.CommentLikeService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -39,7 +38,7 @@ public class CommentLikeControllerTest {
     IssueManagerService issueManagerService;
 
     @Autowired
-    DefaultIssueService defaultIssueService;
+    SimpleIssueService simpleIssueService;
 
     @Autowired
     IssueMemberService issueMemberService;
@@ -67,8 +66,8 @@ public class CommentLikeControllerTest {
     @Test
     void createComment() {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
-        DefaultIssue issueSaveDto = DefaultIssue.builder().creator(master).title("타이를").build();
-        DefaultIssue savedIssue = defaultIssueService.create(issueSaveDto);
+        SimpleIssue issueSaveDto = SimpleIssue.builder().creator(master).title("타이를").build();
+        SimpleIssue savedIssue = simpleIssueService.create(issueSaveDto);
         IssueMember member = IssueMember.builder().name("코멘터").build();
         issueMemberService.create(member);
         IssueComment issueComment = IssueComment.builder().issue(savedIssue).author(member).comment("코멘트").build();

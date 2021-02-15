@@ -1,7 +1,7 @@
 package com.ilililissue.www.domain.comment;
 
 import com.ilililissue.www.domain.BaseTimeEntity;
-import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.domain.member.IssueMember;
@@ -27,7 +27,7 @@ public class IssueComment extends BaseTimeEntity implements UnderControl {
 
     @ManyToOne
     @JoinColumn(name = "DEFAULTISSUE_ID")
-    private DefaultIssue issue;
+    private SimpleIssue issue;
 
     @Column(name = "comment")
     private String comment;

@@ -1,29 +1,29 @@
 package com.ilililissue.www.web.dto.request;
 
-import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class DefaultIssueSaveDto {
+public class SimpleIssueSaveDto {
     private String title;
     private String[] images;
     private String description;
 
-    private DefaultIssueSaveDto(String title, String[] images, String description) {
+    private SimpleIssueSaveDto(String title, String[] images, String description) {
         this.title = title;
         this.images = images;
         this.description = description;
     }
 
-    public static DefaultIssueSaveDto.Builder builder() {
-        return new DefaultIssueSaveDto.Builder();
+    public static SimpleIssueSaveDto.Builder builder() {
+        return new SimpleIssueSaveDto.Builder();
     }
 
-    public DefaultIssue toEntity(IssueManager creator) {
-        return DefaultIssue.builder()
+    public SimpleIssue toEntity(IssueManager creator) {
+        return SimpleIssue.builder()
                 .creator(creator)
                 .title(this.title)
                 .images(this.images)
@@ -37,24 +37,24 @@ public class DefaultIssueSaveDto {
         private String[] images;
         private String description;
 
-        public DefaultIssueSaveDto.Builder title(String title) {
+        public SimpleIssueSaveDto.Builder title(String title) {
             this.title = title;
             return this;
         }
 
 
-        public DefaultIssueSaveDto.Builder images(String... images) {
+        public SimpleIssueSaveDto.Builder images(String... images) {
             this.images = images;
             return this;
         }
 
-        public DefaultIssueSaveDto.Builder description(String description) {
+        public SimpleIssueSaveDto.Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        public DefaultIssueSaveDto build() {
-            return new DefaultIssueSaveDto(title, images, description);
+        public SimpleIssueSaveDto build() {
+            return new SimpleIssueSaveDto(title, images, description);
         }
     }
 

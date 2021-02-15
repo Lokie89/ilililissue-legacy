@@ -3,13 +3,13 @@ package com.ilililissue.www.web.restcontroller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilililissue.www.domain.comment.IssueComment;
-import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
-import com.ilililissue.www.service.issue.DefaultIssueService;
+import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import com.ilililissue.www.web.dto.request.IssueCommentDeleteDto;
@@ -44,7 +44,7 @@ public class IssueCommentControllerTest {
     IssueMemberService issueMemberService;
 
     @Autowired
-    DefaultIssueService defaultIssueService;
+    SimpleIssueService simpleIssueService;
 
     @Autowired
     IssueCommentService issueCommentService;
@@ -69,8 +69,8 @@ public class IssueCommentControllerTest {
     @Test
     void createIssue() {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
-        DefaultIssue issueSaveDto = DefaultIssue.builder().creator(master).title("타이를").build();
-        defaultIssueService.create(issueSaveDto);
+        SimpleIssue issueSaveDto = SimpleIssue.builder().creator(master).title("타이를").build();
+        simpleIssueService.create(issueSaveDto);
         IssueMember member = IssueMember.builder().name("이름1").build();
         issueMemberService.create(member);
     }
@@ -79,7 +79,7 @@ public class IssueCommentControllerTest {
     @Order(2)
     @Test
     void createIssueComment() throws Exception {
-        DefaultIssue issue = defaultIssueService.getOneById(1L);
+        SimpleIssue issue = simpleIssueService.getOneById(1L);
         String url = "/api/v1/comment";
         IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참").position("AGREE").build();
         MvcResult response = mockMvc
@@ -96,7 +96,7 @@ public class IssueCommentControllerTest {
     @Test
     void cannotCreateIssueComment() throws Exception {
         IssueMember issueMember = issueMemberService.getOneById(1L);
-        DefaultIssue issue = defaultIssueService.getOneById(1L);
+        SimpleIssue issue = simpleIssueService.getOneById(1L);
         String url = "/api/v1/comment";
         IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참222").position("DISAGREE").build();
         MvcResult response = mockMvc

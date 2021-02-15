@@ -1,6 +1,6 @@
 package com.ilililissue.www.web.controller;
 
-import com.ilililissue.www.service.issue.DefaultIssueService;
+import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,9 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IssueRenderController {
 
-    private final DefaultIssueService issueService;
+    private final SimpleIssueService issueService;
     private final IssueManagerService issueManagerService;
-    private final DefaultIssueService defaultIssueService;
+    private final SimpleIssueService simpleIssueService;
 
     @GetMapping("/")
     public ModelAndView index() {

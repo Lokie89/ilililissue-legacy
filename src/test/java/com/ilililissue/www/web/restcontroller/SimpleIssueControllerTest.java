@@ -2,11 +2,11 @@ package com.ilililissue.www.web.restcontroller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.service.manager.IssueManagerService;
-import com.ilililissue.www.web.dto.request.DefaultIssueSaveDto;
+import com.ilililissue.www.web.dto.request.SimpleIssueSaveDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @DisplayName("이슈 컨트롤러 테스트")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(properties = "application-test.properties", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class IssueControllerTest {
+public class SimpleIssueControllerTest {
 
     @Autowired
     IssueManagerService issueManagerService;
@@ -52,7 +52,7 @@ public class IssueControllerTest {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
         String url = "/api/v1/issue";
-        DefaultIssueSaveDto issue = DefaultIssueSaveDto.builder().title("이슈 제목").build();
+        SimpleIssueSaveDto issue = SimpleIssueSaveDto.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(url)
                         .session(session)
@@ -71,7 +71,7 @@ public class IssueControllerTest {
         MvcResult response = mockMvc
                 .perform(get(url))
                 .andReturn();
-        DefaultIssue savedIssue = new ObjectMapper().readValue(response.getResponse().getContentAsString(), DefaultIssue.class);
+        SimpleIssue savedIssue = new ObjectMapper().readValue(response.getResponse().getContentAsString(), SimpleIssue.class);
         assertEquals(200, response.getResponse().getStatus());
         assertEquals(1L, savedIssue.getId());
     }
@@ -84,7 +84,7 @@ public class IssueControllerTest {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
         String url = "/api/v1/issue";
-        DefaultIssueSaveDto issue = DefaultIssueSaveDto.builder().title("이슈 제목").build();
+        SimpleIssueSaveDto issue = SimpleIssueSaveDto.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(url)
                         .session(session)

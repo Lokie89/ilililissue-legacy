@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @Entity
-public class DefaultIssue implements UnderControl {
+public class SimpleIssue implements UnderControl {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -35,7 +35,7 @@ public class DefaultIssue implements UnderControl {
     @Column(name = "description")
     private String description;
 
-    public DefaultIssue(IssueManager creator, String title, String[] images, String description) {
+    public SimpleIssue(IssueManager creator, String title, String[] images, String description) {
         this.creator = creator;
         this.title = title;
         this.images = images;

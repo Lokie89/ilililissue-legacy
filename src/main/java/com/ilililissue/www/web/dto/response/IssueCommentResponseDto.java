@@ -2,7 +2,7 @@ package com.ilililissue.www.web.dto.response;
 
 import com.ilililissue.www.domain.comment.CommentPosition;
 import com.ilililissue.www.domain.comment.IssueComment;
-import com.ilililissue.www.domain.issue.DefaultIssue;
+import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.like.CommentLike;
 import com.ilililissue.www.domain.member.IssueMember;
 import lombok.*;
@@ -14,7 +14,7 @@ import java.util.List;
 public class IssueCommentResponseDto {
     private Long id;
     private IssueMember author;
-    private DefaultIssue issue;
+    private SimpleIssue issue;
     private String comment;
     private char status;
     private CommentPosition position;
