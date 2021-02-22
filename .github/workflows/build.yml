@@ -32,5 +32,5 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: c9c71409693fe08779a2fe5f122d507434a54f24
         run: ./gradlew build sonarqube --info
