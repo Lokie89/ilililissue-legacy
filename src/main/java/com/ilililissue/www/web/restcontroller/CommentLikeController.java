@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/like")
+@RequestMapping(value = "/api/v1/likes")
 @RestController
 public class CommentLikeController {
 
     private final CommentLikeService commentLikeService;
 
-    @PostMapping(value = "")
+    @PostMapping
     public ResponseEntity<CommentLike> createCommentLike(@RequestBody CommentLike commentLike) {
         CommentLike savedCommentLike = commentLikeService.createOrCancel(commentLike);
         return new ResponseEntity<>(savedCommentLike, HttpStatus.OK);

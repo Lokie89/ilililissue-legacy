@@ -27,6 +27,8 @@ public class IssueManagerControllerTest {
 
     MockMvc mockMvc;
 
+    private final String urlPrefix = "/api/v1/managers";
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders
@@ -40,10 +42,9 @@ public class IssueManagerControllerTest {
     @DisplayName("매니저 생성")
     @Test
     void createManagerTest() throws Exception {
-        String url = "/api/v1/manager";
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issueManager))
                 )
@@ -55,9 +56,8 @@ public class IssueManagerControllerTest {
     @DisplayName("매니저 가져오기")
     @Test
     void getManagerTest() throws Exception {
-        String url = "/api/v1/manager/1";
         MvcResult response = mockMvc
-                .perform(get(url))
+                .perform(get(urlPrefix + "/1"))
                 .andReturn();
         IssueManager savedManager = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueManager.class);
         assertEquals(200, response.getResponse().getStatus());

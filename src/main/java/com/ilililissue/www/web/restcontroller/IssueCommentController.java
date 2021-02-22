@@ -17,21 +17,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/comment")
+@RequestMapping(value = "/api/v1/comments")
 @RestController
 public class IssueCommentController {
 
     private final IssueCommentService issueCommentService;
     private final CommentLikeService commentLikeService;
 
-    @PostMapping(value = "")
+    @PostMapping
     public ResponseEntity<IssueCommentResponseDto> createIssueComment(@RequestBody IssueCommentSaveDto issueCommentSaveDto) {
         Long authorId = 1L;
         IssueComment savedIssueComment = issueCommentService.create(issueCommentSaveDto.toEntity(authorId));
         return new ResponseEntity<>(new IssueCommentResponseDto(savedIssueComment), HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "")
+    @PatchMapping
     public ResponseEntity<IssueCommentResponseDto> updateCommentIssueComment(@RequestBody IssueComment issueComment) {
         String updateComment = issueComment.getComment();
         IssueComment entityIssueComment = issueCommentService.getOneById(issueComment.getId());
@@ -39,7 +39,7 @@ public class IssueCommentController {
         return new ResponseEntity<>(new IssueCommentResponseDto(updatedIssueComment), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "")
+    @DeleteMapping
     public ResponseEntity<IssueCommentResponseDto> deleteIssueComment(@RequestBody IssueCommentDeleteDto issueCommentDeleteDto) {
         IssueMember author = issueCommentDeleteDto.getAuthor();
         IssueComment issueComment = issueCommentDeleteDto.getIssueComment();
@@ -47,7 +47,7 @@ public class IssueCommentController {
         return new ResponseEntity<>(new IssueCommentResponseDto(issueComment), HttpStatus.OK);
     }
 
-    @GetMapping(value = "")
+    @GetMapping
     public ResponseEntity<List<IssueCommentResponseDto>> getIssueCommentList() {
         List<IssueComment> issueCommentList = issueCommentService.getAll();
         List<IssueCommentResponseDto> issueCommentResponseDtoList

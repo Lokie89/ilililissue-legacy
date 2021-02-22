@@ -35,6 +35,8 @@ public class SimpleIssueControllerTest {
 
     MockMvc mockMvc;
 
+    private final String urlPrefix = "/api/v1/issues";
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders
@@ -51,10 +53,9 @@ public class SimpleIssueControllerTest {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
-        String url = "/api/v1/issue";
         SimpleIssueSaveDto issue = SimpleIssueSaveDto.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .session(session)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issue))
@@ -67,9 +68,8 @@ public class SimpleIssueControllerTest {
     @Order(2)
     @Test
     void getIssueTest() throws Exception {
-        String url = "/api/v1/issue/1";
         MvcResult response = mockMvc
-                .perform(get(url))
+                .perform(get(urlPrefix + "/1"))
                 .andReturn();
         SimpleIssue savedIssue = new ObjectMapper().readValue(response.getResponse().getContentAsString(), SimpleIssue.class);
         assertEquals(200, response.getResponse().getStatus());
@@ -83,10 +83,9 @@ public class SimpleIssueControllerTest {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.LV1));
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
-        String url = "/api/v1/issue";
         SimpleIssueSaveDto issue = SimpleIssueSaveDto.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .session(session)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issue))

@@ -54,6 +54,8 @@ public class IssueCommentControllerTest {
 
     MockMvc mockMvc;
 
+    private final String urlPrefix = "/api/v1/comments";
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders
@@ -80,10 +82,9 @@ public class IssueCommentControllerTest {
     @Test
     void createIssueComment() throws Exception {
         SimpleIssue issue = simpleIssueService.getOneById(1L);
-        String url = "/api/v1/comment";
         IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참").position("AGREE").build();
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(comment))
                 )
@@ -97,10 +98,9 @@ public class IssueCommentControllerTest {
     void cannotCreateIssueComment() throws Exception {
         IssueMember issueMember = issueMemberService.getOneById(1L);
         SimpleIssue issue = simpleIssueService.getOneById(1L);
-        String url = "/api/v1/comment";
         IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참222").position("DISAGREE").build();
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(comment))
                 )
@@ -113,10 +113,9 @@ public class IssueCommentControllerTest {
     @Test
     void updateIssueComment() throws Exception {
         IssueComment comment = issueCommentService.getOneById(1L);
-        String url = "/api/v1/comment";
         IssueComment updateComment = IssueComment.builder().id(comment.getId()).author(comment.getAuthor()).issue(comment.getIssue()).comment("아 그것참222").build();
         MvcResult response = mockMvc
-                .perform(patch(url)
+                .perform(patch(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(updateComment))
                 )
@@ -131,10 +130,9 @@ public class IssueCommentControllerTest {
     @Test
     void cannotUpdateIssueComment() throws Exception {
         IssueComment comment = issueCommentService.getOneById(1L);
-        String url = "/api/v1/comment";
         IssueComment updateComment = IssueComment.builder().id(comment.getId()).author(comment.getAuthor()).issue(comment.getIssue()).comment("아 그것참333").build();
         MvcResult response = mockMvc
-                .perform(patch(url)
+                .perform(patch(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(updateComment))
                 )
@@ -149,9 +147,8 @@ public class IssueCommentControllerTest {
         IssueComment comment = issueCommentService.getOneById(1L);
         IssueMember author = issueMemberService.getOneById(1L);
         IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
-        String url = "/api/v1/comment";
         MvcResult response = mockMvc
-                .perform(delete(url)
+                .perform(delete(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteDto))
                 )
@@ -166,9 +163,8 @@ public class IssueCommentControllerTest {
         IssueComment comment = issueCommentService.getOneById(1L);
         IssueMember author = IssueMember.builder().name("저자아님").build();
         IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
-        String url = "/api/v1/comment";
         MvcResult response = mockMvc
-                .perform(delete(url)
+                .perform(delete(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteDto))
                 )
@@ -187,21 +183,20 @@ public class IssueCommentControllerTest {
         CommentLike commentLike1 = CommentLike.builder().comment(issueComment).member(liker1).build();
         CommentLike commentLike2 = CommentLike.builder().comment(issueComment).member(liker2).build();
         CommentLike commentLike3 = CommentLike.builder().comment(issueComment).member(liker3).build();
-        String url = "/api/v1/like";
         MvcResult response1 = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(commentLike1))
                 )
                 .andReturn();
         MvcResult response2 = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(commentLike2))
                 )
                 .andReturn();
         MvcResult response3 = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(commentLike3))
                 )
@@ -210,10 +205,8 @@ public class IssueCommentControllerTest {
         assertEquals(200, response2.getResponse().getStatus());
         assertEquals(200, response3.getResponse().getStatus());
 
-        String url2 = "/api/v1/comment";
-
         MvcResult response4 = mockMvc
-                .perform(get(url2)
+                .perform(get(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 )

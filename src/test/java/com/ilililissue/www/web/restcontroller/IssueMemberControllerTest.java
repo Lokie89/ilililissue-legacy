@@ -28,6 +28,8 @@ public class IssueMemberControllerTest {
 
     MockMvc mockMvc;
 
+    private final String urlPrefix = "/api/v1/members";
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders
@@ -41,10 +43,9 @@ public class IssueMemberControllerTest {
     @Order(1)
     @Test
     void createMemberTest() throws Exception {
-        String url = "/api/v1/member";
         IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(issueManager))
                 )
@@ -56,9 +57,8 @@ public class IssueMemberControllerTest {
     @Order(2)
     @Test
     void getMemberTest() throws Exception {
-        String url = "/api/v1/member/1";
         MvcResult response = mockMvc
-                .perform(get(url))
+                .perform(get(urlPrefix + "/1"))
                 .andReturn();
         IssueMember savedMember = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueMember.class);
         assertEquals(200, response.getResponse().getStatus());

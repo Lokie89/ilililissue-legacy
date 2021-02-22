@@ -51,6 +51,8 @@ public class CommentLikeControllerTest {
 
     MockMvc mockMvc;
 
+    private final String urlPrefix = "/api/v1/likes";
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders
@@ -81,9 +83,8 @@ public class CommentLikeControllerTest {
         IssueComment issueComment = issueCommentService.getOneById(1L);
         IssueMember liker = issueMemberService.create(IssueMember.builder().name("라이커").build());
         CommentLike commentLike = CommentLike.builder().comment(issueComment).member(liker).build();
-        String url = "/api/v1/like";
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(commentLike))
                 )
@@ -98,9 +99,8 @@ public class CommentLikeControllerTest {
     @Test
     void cancelLikeTest() throws Exception {
         CommentLike savedCommentLike = commentLikeService.getOneById(1L);
-        String url = "/api/v1/like";
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(savedCommentLike))
                 )
@@ -117,9 +117,8 @@ public class CommentLikeControllerTest {
         // TODO : Order(3) 에서 이미 취소했는데 왜 y 로 나오는지
         CommentLike savedCommentLike = commentLikeService.getOneById(1L);
         commentLikeService.createOrCancel(savedCommentLike);
-        String url = "/api/v1/like";
         MvcResult response = mockMvc
-                .perform(post(url)
+                .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(savedCommentLike))
                 )

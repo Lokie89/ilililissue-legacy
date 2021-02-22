@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/manager")
+@RequestMapping(value = "/api/v1/managers")
 @RestController
 public class IssueManagerController {
 
     private final IssueManagerService issueManagerService;
 
-    @PostMapping(value = "")
+    @PostMapping
     public ResponseEntity<IssueManager> createIssueManager(@RequestBody IssueManager issueManager) {
         IssueManager savedIssueManager = issueManagerService.create(issueManager);
         return new ResponseEntity<>(savedIssueManager, HttpStatus.CREATED);

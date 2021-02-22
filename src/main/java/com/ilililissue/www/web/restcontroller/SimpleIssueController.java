@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/issue")
+@RequestMapping(value = "/api/v1/issues")
 @RestController
 public class SimpleIssueController {
 
     private final SimpleIssueService simpleIssueService;
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<SimpleIssue> createIssue(HttpServletRequest request, @RequestBody SimpleIssueSaveDto issueSaveDto) {
         IssueManager creator = (IssueManager) request.getSession().getAttribute("sign");
         SimpleIssue issue = issueSaveDto.toEntity(creator);
         return new ResponseEntity<>(simpleIssueService.create(issue), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<SimpleIssue> getIssueById(@PathVariable Long id) {
         return new ResponseEntity<>(simpleIssueService.getOneById(id), HttpStatus.OK);
     }

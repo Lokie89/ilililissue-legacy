@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/member")
+@RequestMapping(value = "/api/v1/members")
 @RestController
 public class IssueMemberController {
 
     private final IssueMemberService issueMemberService;
 
-    @PostMapping(value = "")
+    @PostMapping
     public ResponseEntity<IssueMember> createIssueMember(@RequestBody IssueMember issueMember) {
         IssueMember savedIssueMember = issueMemberService.create(issueMember);
         return new ResponseEntity<>(savedIssueMember, HttpStatus.CREATED);
