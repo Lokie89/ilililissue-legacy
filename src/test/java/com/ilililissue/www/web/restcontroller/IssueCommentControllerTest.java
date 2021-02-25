@@ -145,7 +145,7 @@ public class IssueCommentControllerTest {
     @Test
     void deleteIssueComment() throws Exception {
         IssueComment comment = issueCommentService.getOneById(1L);
-        IssueMember author = issueMemberService.getOneById(1L);
+        IssueMember author = comment.getAuthor();
         IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
         MvcResult response = mockMvc
                 .perform(delete(urlPrefix)
@@ -176,7 +176,8 @@ public class IssueCommentControllerTest {
     @Order(8)
     @Test
     void getIssueCommentLikeTest() throws Exception {
-        IssueComment issueComment = issueCommentService.getOneById(1L);
+        IssueMember issueMember = issueMemberService.create(IssueMember.builder().name("newMember").build());
+        IssueComment issueComment = issueCommentService.create(IssueComment.builder().author(issueMember).issue(issueCommentService.getOneById(1L).getIssue()).comment("new").build());
         IssueMember liker1 = issueMemberService.create(IssueMember.builder().name("라이커").build());
         IssueMember liker2 = issueMemberService.create(IssueMember.builder().name("라이커2").build());
         IssueMember liker3 = issueMemberService.create(IssueMember.builder().name("라이커3").build());
@@ -214,7 +215,7 @@ public class IssueCommentControllerTest {
                 .andReturn();
         // TODO : TypeReference 공부
         List<IssueCommentResponseDto> responseDtoList = new ObjectMapper().readValue(response4.getResponse().getContentAsString(), new TypeReference<>() {});
-        IssueCommentResponseDto responseDto = responseDtoList.get(0);
-        assertEquals(3, responseDto.getCommentLikeList().size());
+        IssueCommentResponseDto responseDto = responseDtoList.stream().filter(issueCommentResponseDto -> issueCommentResponseDto.getId().equals(issueComment.getId())).findFirst().get();
+        assertEquals(3, responseDto.getCommentLikeList().stream().filter(commentLike -> commentLike.getStatus() == 'y').count());
     }
 }
