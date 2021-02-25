@@ -183,20 +183,21 @@ public class IssueCommentControllerTest {
         CommentLike commentLike1 = CommentLike.builder().comment(issueComment).member(liker1).build();
         CommentLike commentLike2 = CommentLike.builder().comment(issueComment).member(liker2).build();
         CommentLike commentLike3 = CommentLike.builder().comment(issueComment).member(liker3).build();
+        final String likeUrl = "/api/v1/likes";
         MvcResult response1 = mockMvc
-                .perform(post(urlPrefix)
+                .perform(post(likeUrl)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(commentLike1))
                 )
                 .andReturn();
         MvcResult response2 = mockMvc
-                .perform(post(urlPrefix)
+                .perform(post(likeUrl)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(commentLike2))
                 )
                 .andReturn();
         MvcResult response3 = mockMvc
-                .perform(post(urlPrefix)
+                .perform(post(likeUrl)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsBytes(commentLike3))
                 )
