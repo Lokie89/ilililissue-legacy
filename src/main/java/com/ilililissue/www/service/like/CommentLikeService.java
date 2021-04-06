@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class CommentLikeService {
 
@@ -20,7 +21,6 @@ public class CommentLikeService {
         return repository.save(commentLike);
     }
 
-    @Transactional
     public CommentLike createOrCancel(CommentLike commentLike) {
         if (existCommentLike(commentLike)) {
             commentLike.likeOrCancel();
@@ -33,15 +33,17 @@ public class CommentLikeService {
         return repository.existsByCommentAndMember(commentLike.getComment(), commentLike.getMember());
     }
 
+    @Transactional(readOnly = true)
     public List<CommentLike> getAll() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public CommentLike getOneById(Long id) {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CommentLike> getCommentLikeListByIssueComment(IssueComment issueComment){
         return repository.findAllByComment(issueComment);
     }

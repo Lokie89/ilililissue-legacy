@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class SimpleIssueService {
     private final SimpleIssueRepository repository;
 
-    @Transactional
     public SimpleIssue create(SimpleIssue simpleIssue) {
         IssueManager creator = simpleIssue.getCreator();
         if (creator.hasControl(simpleIssue)) {
@@ -25,10 +25,12 @@ public class SimpleIssueService {
         throw new NotAuthorizedManagerException();
     }
 
+    @Transactional(readOnly = true)
     public List<SimpleIssue> getAll() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public SimpleIssue getOneById(Long id) {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
     }

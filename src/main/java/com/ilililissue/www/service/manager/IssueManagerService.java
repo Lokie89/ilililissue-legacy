@@ -10,20 +10,22 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class IssueManagerService {
 
     private final IssueManagerRepository repository;
 
-    @Transactional
     public IssueManager create(IssueManager issueManager) {
         return repository.save(issueManager);
     }
 
+    @Transactional(readOnly = true)
     public List<IssueManager> getAll() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public IssueManager getOneById(Long id) {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
     }

@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class IssueCommentService {
 
     private final IssueCommentRepository repository;
 
-    @Transactional
     public IssueComment create(IssueComment issueComment) {
         if (exist(issueComment)) {
             throw new CanNotRegisterCommentException();
@@ -31,16 +31,15 @@ public class IssueCommentService {
         return repository.existsByIssueAndAuthor(issueComment.getIssue(), issueComment.getAuthor());
     }
 
+    @Transactional(readOnly = true)
     public List<IssueComment> getAll() {
         return repository.findAll();
     }
 
-    @Transactional
     public IssueComment updateComment(IssueComment issueComment, String comment) {
         return issueComment.updateComment(comment);
     }
 
-    @Transactional
     public void remove(IssueComment issueComment, IssueMember issueMember) {
         if (!issueComment.isControlled(issueMember)) {
             throw new CanNotRemoveCommentException();
@@ -48,7 +47,6 @@ public class IssueCommentService {
         issueComment.delete();
     }
 
-    @Transactional
     public void remove(IssueComment issueComment, IssueManager issueManager) {
         if (!issueManager.hasControl(issueComment)) {
             throw new CanNotRemoveCommentException();
@@ -56,6 +54,7 @@ public class IssueCommentService {
         issueComment.drop();
     }
 
+    @Transactional(readOnly = true)
     public IssueComment getOneById(Long id) {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
     }
