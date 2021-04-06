@@ -3,6 +3,7 @@ package com.ilililissue.www.web.restcontroller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
+import com.ilililissue.www.web.dto.response.IssueManagerResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,7 +60,7 @@ public class IssueManagerControllerTest {
         MvcResult response = mockMvc
                 .perform(get(urlPrefix + "/1"))
                 .andReturn();
-        IssueManager savedManager = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueManager.class);
+        IssueManagerResponse savedManager = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueManagerResponse.class);
         assertEquals(200, response.getResponse().getStatus());
         assertEquals(1L, savedManager.getId());
     }

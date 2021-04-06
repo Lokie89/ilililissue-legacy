@@ -12,6 +12,7 @@ import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.like.CommentLikeService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
+import com.ilililissue.www.web.dto.response.CommentLikeResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -90,7 +91,7 @@ public class CommentLikeControllerTest {
                 )
                 .andReturn();
         assertEquals(200, response.getResponse().getStatus());
-        CommentLike savedCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
+        CommentLikeResponse savedCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLikeResponse.class);
         assertEquals("라이커", savedCommentLike.getMember().getName());
     }
 
@@ -106,7 +107,7 @@ public class CommentLikeControllerTest {
                 )
                 .andReturn();
         assertEquals(200, response.getResponse().getStatus());
-        CommentLike canceledCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
+        CommentLikeResponse canceledCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLikeResponse.class);
         assertEquals('n', canceledCommentLike.getStatus());
     }
 
@@ -124,7 +125,7 @@ public class CommentLikeControllerTest {
                 )
                 .andReturn();
         assertEquals(200, response.getResponse().getStatus());
-        CommentLike reLikedCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLike.class);
+        CommentLikeResponse reLikedCommentLike = new ObjectMapper().readValue(response.getResponse().getContentAsString(), CommentLikeResponse.class);
         assertEquals('y', reLikedCommentLike.getStatus());
     }
 }

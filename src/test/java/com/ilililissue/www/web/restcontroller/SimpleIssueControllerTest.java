@@ -6,7 +6,8 @@ import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.service.manager.IssueManagerService;
-import com.ilililissue.www.web.dto.request.SimpleIssueSaveDto;
+import com.ilililissue.www.web.dto.request.SimpleIssueSaveRequest;
+import com.ilililissue.www.web.dto.response.SimpleIssueResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,7 +54,7 @@ public class SimpleIssueControllerTest {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
-        SimpleIssueSaveDto issue = SimpleIssueSaveDto.builder().title("이슈 제목").build();
+        SimpleIssueSaveRequest issue = SimpleIssueSaveRequest.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(urlPrefix)
                         .session(session)
@@ -71,7 +72,8 @@ public class SimpleIssueControllerTest {
         MvcResult response = mockMvc
                 .perform(get(urlPrefix + "/1"))
                 .andReturn();
-        SimpleIssue savedIssue = new ObjectMapper().readValue(response.getResponse().getContentAsString(), SimpleIssue.class);
+        System.out.println(response.getResponse().getContentAsString());
+        SimpleIssueResponse savedIssue = new ObjectMapper().readValue(response.getResponse().getContentAsString(), SimpleIssueResponse.class);
         assertEquals(200, response.getResponse().getStatus());
         assertEquals(1L, savedIssue.getId());
     }
@@ -83,7 +85,7 @@ public class SimpleIssueControllerTest {
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.LV1));
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
-        SimpleIssueSaveDto issue = SimpleIssueSaveDto.builder().title("이슈 제목").build();
+        SimpleIssueSaveRequest issue = SimpleIssueSaveRequest.builder().title("이슈 제목").build();
         MvcResult response = mockMvc
                 .perform(post(urlPrefix)
                         .session(session)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
+import com.ilililissue.www.web.dto.response.IssueMemberResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -60,7 +61,7 @@ public class IssueMemberControllerTest {
         MvcResult response = mockMvc
                 .perform(get(urlPrefix + "/1"))
                 .andReturn();
-        IssueMember savedMember = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueMember.class);
+        IssueMemberResponse savedMember = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueMemberResponse.class);
         assertEquals(200, response.getResponse().getStatus());
         assertEquals(1L, savedMember.getId());
     }

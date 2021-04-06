@@ -16,7 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
-public class IssueCommentSaveDto {
+public class IssueCommentSaveRequest {
     private Long issueId;
     private String comment;
     private String position;

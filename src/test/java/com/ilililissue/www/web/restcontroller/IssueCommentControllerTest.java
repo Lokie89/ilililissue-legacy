@@ -12,9 +12,9 @@ import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
-import com.ilililissue.www.web.dto.request.IssueCommentDeleteDto;
-import com.ilililissue.www.web.dto.request.IssueCommentSaveDto;
-import com.ilililissue.www.web.dto.response.IssueCommentResponseDto;
+import com.ilililissue.www.web.dto.request.IssueCommentDeleteRequest;
+import com.ilililissue.www.web.dto.request.IssueCommentSaveRequest;
+import com.ilililissue.www.web.dto.response.IssueCommentResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -82,7 +82,7 @@ public class IssueCommentControllerTest {
     @Test
     void createIssueComment() throws Exception {
         SimpleIssue issue = simpleIssueService.getOneById(1L);
-        IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참").position("AGREE").build();
+        IssueCommentSaveRequest comment = IssueCommentSaveRequest.builder().issueId(issue.getId()).comment("아 그것참").position("AGREE").build();
         MvcResult response = mockMvc
                 .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class IssueCommentControllerTest {
     void cannotCreateIssueComment() throws Exception {
         IssueMember issueMember = issueMemberService.getOneById(1L);
         SimpleIssue issue = simpleIssueService.getOneById(1L);
-        IssueCommentSaveDto comment = IssueCommentSaveDto.builder().issueId(issue.getId()).comment("아 그것참222").position("DISAGREE").build();
+        IssueCommentSaveRequest comment = IssueCommentSaveRequest.builder().issueId(issue.getId()).comment("아 그것참222").position("DISAGREE").build();
         MvcResult response = mockMvc
                 .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -120,7 +120,7 @@ public class IssueCommentControllerTest {
                         .content(new ObjectMapper().writeValueAsBytes(updateComment))
                 )
                 .andReturn();
-        IssueCommentResponseDto updated = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueCommentResponseDto.class);
+        IssueCommentResponse updated = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueCommentResponse.class);
         assertEquals(200, response.getResponse().getStatus());
         assertEquals("아 그것참222", updated.getComment());
     }
@@ -146,14 +146,14 @@ public class IssueCommentControllerTest {
     void deleteIssueComment() throws Exception {
         IssueComment comment = issueCommentService.getOneById(1L);
         IssueMember author = comment.getAuthor();
-        IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
+        IssueCommentDeleteRequest issueCommentDeleteRequest = IssueCommentDeleteRequest.builder().issueComment(comment).author(author).build();
         MvcResult response = mockMvc
                 .perform(delete(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteDto))
+                        .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteRequest))
                 )
                 .andReturn();
-        assertEquals(200, response.getResponse().getStatus());
+        assertEquals(204, response.getResponse().getStatus());
     }
 
     @DisplayName("댓글 Author 아님 삭제 예외")
@@ -162,11 +162,11 @@ public class IssueCommentControllerTest {
     void cannotDeleteIssueCommentByNotAuthor() throws Exception {
         IssueComment comment = issueCommentService.getOneById(1L);
         IssueMember author = IssueMember.builder().name("저자아님").build();
-        IssueCommentDeleteDto issueCommentDeleteDto = IssueCommentDeleteDto.builder().issueComment(comment).author(author).build();
+        IssueCommentDeleteRequest issueCommentDeleteRequest = IssueCommentDeleteRequest.builder().issueComment(comment).author(author).build();
         MvcResult response = mockMvc
                 .perform(delete(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteDto))
+                        .content(new ObjectMapper().writeValueAsBytes(issueCommentDeleteRequest))
                 )
                 .andReturn();
         assertEquals(405, response.getResponse().getStatus());
@@ -214,8 +214,8 @@ public class IssueCommentControllerTest {
                 )
                 .andReturn();
         // TODO : TypeReference 공부
-        List<IssueCommentResponseDto> responseDtoList = new ObjectMapper().readValue(response4.getResponse().getContentAsString(), new TypeReference<>() {});
-        IssueCommentResponseDto responseDto = responseDtoList.stream().filter(issueCommentResponseDto -> issueCommentResponseDto.getId().equals(issueComment.getId())).findFirst().get();
+        List<IssueCommentResponse> responseDtoList = new ObjectMapper().readValue(response4.getResponse().getContentAsString(), new TypeReference<>() {});
+        IssueCommentResponse responseDto = responseDtoList.stream().filter(issueCommentResponse -> issueCommentResponse.getId().equals(issueComment.getId())).findFirst().get();
         assertEquals(3, responseDto.getCommentLikeList().stream().filter(commentLike -> commentLike.getStatus() == 'y').count());
     }
 }

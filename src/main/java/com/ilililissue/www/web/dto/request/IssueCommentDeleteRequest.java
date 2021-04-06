@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class IssueCommentDeleteDto {
+public class IssueCommentDeleteRequest {
     private IssueComment issueComment;
     private IssueMember author;
 }

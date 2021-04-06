@@ -7,19 +7,19 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class SimpleIssueSaveDto {
+public class SimpleIssueSaveRequest {
     private String title;
     private String[] images;
     private String description;
 
-    private SimpleIssueSaveDto(String title, String[] images, String description) {
+    private SimpleIssueSaveRequest(String title, String[] images, String description) {
         this.title = title;
         this.images = images;
         this.description = description;
     }
 
-    public static SimpleIssueSaveDto.Builder builder() {
-        return new SimpleIssueSaveDto.Builder();
+    public static SimpleIssueSaveRequest.Builder builder() {
+        return new SimpleIssueSaveRequest.Builder();
     }
 
     public SimpleIssue toEntity(IssueManager creator) {
@@ -37,24 +37,24 @@ public class SimpleIssueSaveDto {
         private String[] images;
         private String description;
 
-        public SimpleIssueSaveDto.Builder title(String title) {
+        public SimpleIssueSaveRequest.Builder title(String title) {
             this.title = title;
             return this;
         }
 
 
-        public SimpleIssueSaveDto.Builder images(String... images) {
+        public SimpleIssueSaveRequest.Builder images(String... images) {
             this.images = images;
             return this;
         }
 
-        public SimpleIssueSaveDto.Builder description(String description) {
+        public SimpleIssueSaveRequest.Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        public SimpleIssueSaveDto build() {
-            return new SimpleIssueSaveDto(title, images, description);
+        public SimpleIssueSaveRequest build() {
+            return new SimpleIssueSaveRequest(title, images, description);
         }
     }
 

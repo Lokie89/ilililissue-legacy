@@ -3,8 +3,10 @@ package com.ilililissue.www.web.restcontroller;
 import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.service.issue.SimpleIssueService;
-import com.ilililissue.www.web.dto.request.SimpleIssueSaveDto;
+import com.ilililissue.www.web.dto.request.SimpleIssueSaveRequest;
+import com.ilililissue.www.web.dto.response.SimpleIssueResponse;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +19,21 @@ import javax.servlet.http.HttpServletRequest;
 public class SimpleIssueController {
 
     private final SimpleIssueService simpleIssueService;
+    private final ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<SimpleIssue> createIssue(HttpServletRequest request, @RequestBody SimpleIssueSaveDto issueSaveDto) {
+    public ResponseEntity<SimpleIssueResponse> createIssue(HttpServletRequest request, @RequestBody SimpleIssueSaveRequest issueSaveDto) {
         IssueManager creator = (IssueManager) request.getSession().getAttribute("sign");
         SimpleIssue issue = issueSaveDto.toEntity(creator);
-        return new ResponseEntity<>(simpleIssueService.create(issue), HttpStatus.CREATED);
+        return new ResponseEntity<>(toResponseDto(simpleIssueService.create(issue)), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<SimpleIssue> getIssueById(@PathVariable Long id) {
-        return new ResponseEntity<>(simpleIssueService.getOneById(id), HttpStatus.OK);
+    public ResponseEntity<SimpleIssueResponse> getIssueById(@PathVariable Long id) {
+        return new ResponseEntity<>(toResponseDto(simpleIssueService.getOneById(id)), HttpStatus.OK);
+    }
+
+    private SimpleIssueResponse toResponseDto(SimpleIssue entity) {
+        return modelMapper.map(entity, SimpleIssueResponse.class);
     }
 }
