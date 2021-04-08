@@ -2,11 +2,8 @@ package com.ilililissue.www.service.comment;
 
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.comment.IssueCommentRepository;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.NoContentFromRequestException;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
-import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +17,11 @@ public class IssueCommentService {
 
     private final IssueCommentRepository repository;
 
-    public IssueComment create(IssueComment issueComment) {
-        if (exist(issueComment)) {
+    public IssueComment create(IssueComment saveComment) {
+        if (exist(saveComment)) {
             throw new CanNotRegisterCommentException();
         }
-        return repository.save(issueComment);
+        return repository.save(saveComment);
     }
 
     private boolean exist(IssueComment issueComment) {
@@ -36,26 +33,18 @@ public class IssueCommentService {
         return repository.findAll();
     }
 
-    public IssueComment updateComment(IssueComment issueComment, String comment) {
-        return issueComment.updateComment(comment);
-    }
-
-    public void remove(IssueComment issueComment, IssueMember issueMember) {
-        if (!issueComment.isControlled(issueMember)) {
-            throw new CanNotRemoveCommentException();
-        }
-        issueComment.delete();
-    }
-
-    public void remove(IssueComment issueComment, IssueManager issueManager) {
-        if (!issueManager.hasControl(issueComment)) {
-            throw new CanNotRemoveCommentException();
-        }
-        issueComment.drop();
+    public void remove(long id) {
+        repository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
     public IssueComment getOneById(Long id) {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
+    }
+
+    public IssueComment patch(IssueComment patchComment) {
+        IssueComment issueComment = getOneById(patchComment.getId());
+        issueComment.patch(patchComment);
+        return repository.saveAndFlush(issueComment);
     }
 }

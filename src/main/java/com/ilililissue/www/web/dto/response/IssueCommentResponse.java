@@ -24,8 +24,6 @@ public class IssueCommentResponse {
     private char status;
     @ApiModelProperty(value = "찬성중도반대", example = "AGREE")
     private CommentPosition position;
-    // TODO : 세터 없애볼것
     @ApiModelProperty(value = "좋아요 리스트")
-    @Setter
     private List<CommentLike> commentLikeList;
 }

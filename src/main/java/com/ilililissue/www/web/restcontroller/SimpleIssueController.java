@@ -3,7 +3,7 @@ package com.ilililissue.www.web.restcontroller;
 import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.service.issue.SimpleIssueService;
-import com.ilililissue.www.web.dto.request.SimpleIssueSaveRequest;
+import com.ilililissue.www.web.dto.request.issue.SimpleIssueSaveRequest;
 import com.ilililissue.www.web.dto.response.SimpleIssueResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/issues")
@@ -22,9 +23,10 @@ public class SimpleIssueController {
     private final ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<SimpleIssueResponse> createIssue(HttpServletRequest request, @RequestBody SimpleIssueSaveRequest issueSaveDto) {
+    public ResponseEntity<SimpleIssueResponse> createIssue(HttpServletRequest request, @Valid @RequestBody SimpleIssueSaveRequest saveRequest) {
         IssueManager creator = (IssueManager) request.getSession().getAttribute("sign");
-        SimpleIssue issue = issueSaveDto.toEntity(creator);
+        saveRequest.setCreator(creator);
+        SimpleIssue issue = toEntityForSave(saveRequest);
         return new ResponseEntity<>(toResponseDto(simpleIssueService.create(issue)), HttpStatus.CREATED);
     }
 
@@ -35,5 +37,9 @@ public class SimpleIssueController {
 
     private SimpleIssueResponse toResponseDto(SimpleIssue entity) {
         return modelMapper.map(entity, SimpleIssueResponse.class);
+    }
+
+    private SimpleIssue toEntityForSave(SimpleIssueSaveRequest request) {
+        return modelMapper.map(request, SimpleIssue.class);
     }
 }

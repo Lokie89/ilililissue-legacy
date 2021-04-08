@@ -12,13 +12,11 @@ import lombok.Getter;
 @Getter
 public class CommentLikeResponse {
 
-    @ApiModelProperty(example = "1")
-    private long id;
-    @ApiModelProperty(value = "좋아요 한 멤버")
+    @ApiModelProperty(value = "좋아요/취소 한 멤버")
     private IssueMember member;
-    @ApiModelProperty(value = "좋아요 한 댓글")
+    @ApiModelProperty(value = "좋아요/취소 한 댓글")
     private IssueComment comment;
-    @ApiModelProperty(value = "상태", example = "y")
-    private char status;
+    @ApiModelProperty(value = "상태", example = "true")
+    private boolean status;
 
 }

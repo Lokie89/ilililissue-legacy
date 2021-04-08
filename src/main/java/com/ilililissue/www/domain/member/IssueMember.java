@@ -5,6 +5,7 @@ import com.ilililissue.www.domain.manager.UnderControl;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @EqualsAndHashCode
 @AllArgsConstructor
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class IssueMember implements UnderControl {
+public class IssueMember implements UnderControl, Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -2,11 +2,10 @@ package com.ilililissue.www.web.restcontroller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.manager.IssueManager;
 import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.service.manager.IssueManagerService;
-import com.ilililissue.www.web.dto.request.SimpleIssueSaveRequest;
+import com.ilililissue.www.web.dto.request.issue.SimpleIssueSaveRequest;
 import com.ilililissue.www.web.dto.response.SimpleIssueResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

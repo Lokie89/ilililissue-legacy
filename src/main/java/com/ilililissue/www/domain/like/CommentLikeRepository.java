@@ -7,7 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CommentLikeRepository extends JpaRepository<CommentLike, Long> {
-    boolean existsByCommentAndMember(IssueComment comment, IssueMember member);
-    CommentLike findByCommentAndMember(IssueComment comment, IssueMember member);
-    List<CommentLike> findAllByComment(IssueComment comment);
+    List<CommentLike> findAllByCommentAndStatus(IssueComment comment, Boolean status);
 }

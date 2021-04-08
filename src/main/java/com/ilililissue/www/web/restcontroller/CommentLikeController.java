@@ -1,7 +1,9 @@
 package com.ilililissue.www.web.restcontroller;
 
 import com.ilililissue.www.domain.like.CommentLike;
+import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.like.CommentLikeService;
+import com.ilililissue.www.web.dto.request.like.CommentLikeRequest;
 import com.ilililissue.www.web.dto.response.CommentLikeResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/likes")
 @RestController
@@ -21,13 +25,17 @@ public class CommentLikeController {
     private final ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<CommentLikeResponse> createCommentLike(@RequestBody CommentLike commentLike) {
-        CommentLike savedCommentLike = commentLikeService.createOrCancel(commentLike);
+    public ResponseEntity<CommentLikeResponse> createOrCancelCommentLike(@Valid @RequestBody CommentLikeRequest request) {
+        CommentLike savedCommentLike = commentLikeService.createOrCancel(toEntityForSave(request));
         return new ResponseEntity<>(toResponseDto(savedCommentLike), HttpStatus.OK);
     }
 
     private CommentLikeResponse toResponseDto(CommentLike commentLike) {
         return modelMapper.map(commentLike, CommentLikeResponse.class);
+    }
+
+    private CommentLike toEntityForSave(CommentLikeRequest request) {
+        return modelMapper.map(request, CommentLike.class);
     }
 
 }
