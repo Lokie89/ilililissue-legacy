@@ -9,9 +9,8 @@ import lombok.ToString;
  * @author SeongRok.Oh
  * @since 2021/04/06
  */
-@ToString
 @Getter
-public class SimpleIssueResponse {
+public class SimpleIssueResponse extends BaseTimeResponse {
     @ApiModelProperty(example = "1")
     private Long id;
     @ApiModelProperty(value = "작성자")

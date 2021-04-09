@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
-public class IssueCommentResponse {
+public class IssueCommentResponse extends BaseTimeResponse {
     @ApiModelProperty(example = "1")
     private Long id;
     @ApiModelProperty(value = "댓글 작성자")

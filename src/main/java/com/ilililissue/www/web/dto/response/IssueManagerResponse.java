@@ -9,7 +9,7 @@ import lombok.Getter;
  * @since 2021/04/06
  */
 @Getter
-public class IssueManagerResponse {
+public class IssueManagerResponse extends BaseTimeResponse {
     @ApiModelProperty(example = "1")
     private long id;
     @ApiModelProperty(value = "매니저역할", example = "MASTER")

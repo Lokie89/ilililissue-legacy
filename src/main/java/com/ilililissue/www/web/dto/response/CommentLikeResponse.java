@@ -10,7 +10,7 @@ import lombok.Getter;
  * @since 2021/04/06
  */
 @Getter
-public class CommentLikeResponse {
+public class CommentLikeResponse extends BaseTimeResponse {
 
     @ApiModelProperty(value = "좋아요/취소 한 멤버")
     private IssueMember member;
