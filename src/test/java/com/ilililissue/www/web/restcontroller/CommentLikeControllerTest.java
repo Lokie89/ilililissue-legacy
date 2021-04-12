@@ -1,33 +1,23 @@
 package com.ilililissue.www.web.restcontroller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ilililissue.www.domain.comment.IssueComment;
-import com.ilililissue.www.domain.issue.SimpleIssue;
-import com.ilililissue.www.domain.like.CommentLike;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.manager.ManagerRole;
-import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.like.CommentLikeService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
-import com.ilililissue.www.web.dto.request.like.CommentLikeRequest;
-import com.ilililissue.www.web.dto.response.CommentLikeResponse;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @DisplayName("좋아요 컨트롤러 테스트")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -69,18 +59,18 @@ public class CommentLikeControllerTest {
         ;
     }
 
-    @DisplayName("세팅")
-    @Order(1)
-    @Test
-    void createComment() {
-        IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
-        SimpleIssue issueSaveDto = SimpleIssue.builder().creator(master).title("타이를").build();
-        SimpleIssue savedIssue = simpleIssueService.create(issueSaveDto);
-        IssueMember member = IssueMember.builder().name("코멘터").build();
-        issueMemberService.create(member);
-        IssueComment issueComment = IssueComment.builder().issue(savedIssue).author(member).comment("코멘트").build();
-        issueCommentService.create(issueComment);
-    }
+//    @DisplayName("세팅")
+//    @Order(1)
+//    @Test
+//    void createComment() {
+//        IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
+//        SimpleIssue issueSaveDto = SimpleIssue.builder().creator(master).title("타이를").build();
+//        SimpleIssue savedIssue = simpleIssueService.create(issueSaveDto);
+//        IssueMember member = IssueMember.builder().name("코멘터").build();
+//        issueMemberService.create(member);
+//        IssueComment issueComment = IssueComment.builder().issue(savedIssue).author(member).comment("코멘트").build();
+//        issueCommentService.create(issueComment);
+//    }
 
     // TODO : Fix me with Auth
 //    @DisplayName("좋아요 생성 테스트")

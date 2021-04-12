@@ -82,7 +82,7 @@ public class IssueCommentControllerTest {
     @Order(2)
     @Test
     void createIssueComment() throws Exception {
-        SimpleIssue issue = simpleIssueService.getOneById(1L);
+        SimpleIssue issue = simpleIssueService.getAll().get(0);
         IssueCommentSaveRequest comment = IssueCommentSaveRequest.builder().issueId(issue.getId()).comment("아 그것참").position(CommentPosition.AGREE).build();
         MvcResult response = mockMvc
                 .perform(post(urlPrefix)
@@ -90,6 +90,8 @@ public class IssueCommentControllerTest {
                         .content(new ObjectMapper().writeValueAsBytes(comment))
                 )
                 .andReturn();
+        IssueCommentResponse created = new ObjectMapper().readValue(response.getResponse().getContentAsString(), IssueCommentResponse.class);
+        System.out.println(created.getCreatedDate());
         assertEquals(201, response.getResponse().getStatus());
     }
 
@@ -97,8 +99,7 @@ public class IssueCommentControllerTest {
     @Order(3)
     @Test
     void cannotCreateIssueComment() throws Exception {
-        IssueMember issueMember = issueMemberService.getOneById(1L);
-        SimpleIssue issue = simpleIssueService.getOneById(1L);
+        SimpleIssue issue = simpleIssueService.getAll().get(0);
         IssueCommentSaveRequest comment = IssueCommentSaveRequest.builder().issueId(issue.getId()).comment("아 그것참222").position(CommentPosition.DISAGREE).build();
         MvcResult response = mockMvc
                 .perform(post(urlPrefix)
@@ -113,7 +114,7 @@ public class IssueCommentControllerTest {
     @Order(4)
     @Test
     void updateIssueComment() throws Exception {
-        IssueComment comment = issueCommentService.getOneById(1L);
+        IssueComment comment = issueCommentService.getAll().get(0);
         IssueCommentPatchRequest updateComment = IssueCommentPatchRequest.builder().id(comment.getId()).comment("아 그것참222").build();
         MvcResult response = mockMvc
                 .perform(patch(urlPrefix)
@@ -130,7 +131,7 @@ public class IssueCommentControllerTest {
     @Order(5)
     @Test
     void cannotUpdateIssueComment() throws Exception {
-        IssueComment comment = issueCommentService.getOneById(1L);
+        IssueComment comment = issueCommentService.getAll().get(0);
         IssueCommentPatchRequest updateComment = IssueCommentPatchRequest.builder().id(comment.getId()).comment("아 그것참333").build();
         MvcResult response = mockMvc
                 .perform(patch(urlPrefix)
