@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @AllArgsConstructor
 @Builder

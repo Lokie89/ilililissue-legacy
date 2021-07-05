@@ -7,7 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @Builder
 @Getter
