@@ -1,5 +1,8 @@
 package com.ilililissue.www.web.controller;
 
+import com.ilililissue.www.domain.issue.SimpleIssue;
+import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.manager.IssueManagerService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +21,10 @@ public class IssueRenderController {
     @GetMapping("/")
     public ModelAndView index() {
 
-//        IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
-//        DefaultIssue issue = DefaultIssue.builder(master,"이슈 제목").images("/issueimage/simpson.jpg","/issueimage/simpson.jpg").build();
-//        defaultIssueService.create(issue);
+        IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
+        String[] images = new String[]{"/issueimage/simpson.jpg", "/issueimage/simpson.jpg"};
+        SimpleIssue issue = SimpleIssue.builder().creator(master).title("이슈 제목").images(images).build();
+        simpleIssueService.create(issue);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("dayissue");
         mav.addObject("headerTitle", "오늘의 이슈");
@@ -46,6 +50,22 @@ public class IssueRenderController {
     public ModelAndView list() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("list");
+        return mav;
+    }
+
+    @GetMapping("/hello")
+    public ModelAndView hello() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("hello");
+        mav.addObject("headerTitle", "방가");
+        return mav;
+    }
+
+    @GetMapping("/login")
+    public ModelAndView login() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("login");
+        mav.addObject("headerTitle", "로그인");
         return mav;
     }
 }
