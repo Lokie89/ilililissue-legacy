@@ -18,7 +18,7 @@ public class IssueRenderController {
     private final IssueManagerService issueManagerService;
     private final SimpleIssueService simpleIssueService;
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public ModelAndView index() {
 
         IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
@@ -32,4 +32,17 @@ public class IssueRenderController {
         return mav;
     }
 
+    @GetMapping({"/", "/home"})
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/hello")
+    public void hello() {
+    }
+
+    @GetMapping("/login")
+    public void login() {
+
+    }
 }
