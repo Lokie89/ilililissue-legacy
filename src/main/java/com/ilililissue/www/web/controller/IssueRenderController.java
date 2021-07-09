@@ -32,40 +32,4 @@ public class IssueRenderController {
         return mav;
     }
 
-    @GetMapping("/signin")
-    public ModelAndView signin() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("signin");
-        return mav;
-    }
-
-    @GetMapping("/signup")
-    public ModelAndView signup() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("signup");
-        return mav;
-    }
-
-    @GetMapping("/list")
-    public ModelAndView list() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("list");
-        return mav;
-    }
-
-    @GetMapping("/hello")
-    public ModelAndView hello() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("hello");
-        mav.addObject("headerTitle", "방가");
-        return mav;
-    }
-
-    @GetMapping("/login")
-    public ModelAndView login() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("login");
-        mav.addObject("headerTitle", "로그인");
-        return mav;
-    }
 }
