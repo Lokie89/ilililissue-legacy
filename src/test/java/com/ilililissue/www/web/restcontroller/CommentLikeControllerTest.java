@@ -3,7 +3,6 @@ package com.ilililissue.www.web.restcontroller;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.like.CommentLikeService;
-import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,9 +25,6 @@ public class CommentLikeControllerTest {
 
     @Autowired
     WebApplicationContext applicationContext;
-
-    @Autowired
-    IssueManagerService issueManagerService;
 
     @Autowired
     SimpleIssueService simpleIssueService;

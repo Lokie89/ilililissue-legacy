@@ -2,9 +2,8 @@ package com.ilililissue.www.web.restcontroller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.manager.ManagerRole;
-import com.ilililissue.www.service.manager.IssueManagerService;
+import com.ilililissue.www.domain.member.IssueMember;
+import com.ilililissue.www.service.member.IssueMemberService;
 import com.ilililissue.www.web.dto.request.issue.SimpleIssueSaveRequest;
 import com.ilililissue.www.web.dto.response.SimpleIssueResponse;
 import org.junit.jupiter.api.*;
@@ -28,7 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class SimpleIssueControllerTest {
 
     @Autowired
-    IssueManagerService issueManagerService;
+    IssueMemberService issueMemberService;
 
     @Autowired
     WebApplicationContext applicationContext;
@@ -50,7 +49,7 @@ public class SimpleIssueControllerTest {
     @Order(1)
     @Test
     void createIssueTest() throws Exception {
-        IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
+        IssueMember master = issueMemberService.create(new IssueMember());
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
         SimpleIssueSaveRequest issue = SimpleIssueSaveRequest.builder().title("이슈 제목").build();
@@ -81,7 +80,7 @@ public class SimpleIssueControllerTest {
     @Order(3)
     @Test
     void cannotCreateIssueTest() throws Exception {
-        IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.LV1));
+        IssueMember master = issueMemberService.create(new IssueMember());
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("sign", master);
         SimpleIssueSaveRequest issue = SimpleIssueSaveRequest.builder().title("이슈 제목").build();

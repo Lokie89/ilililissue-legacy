@@ -1,7 +1,7 @@
 package com.ilililissue.www.web.restcontroller;
 
 import com.ilililissue.www.domain.issue.SimpleIssue;
-import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.web.dto.request.issue.SimpleIssueSaveRequest;
 import com.ilililissue.www.web.dto.response.SimpleIssueResponse;
@@ -24,7 +24,7 @@ public class SimpleIssueController {
 
     @PostMapping
     public ResponseEntity<SimpleIssueResponse> createIssue(HttpServletRequest request, @Valid @RequestBody SimpleIssueSaveRequest saveRequest) {
-        IssueManager creator = (IssueManager) request.getSession().getAttribute("sign");
+        IssueMember creator = (IssueMember) request.getSession().getAttribute("sign");
         saveRequest.setCreator(creator);
         SimpleIssue issue = toEntityForSave(saveRequest);
         return new ResponseEntity<>(toResponseDto(simpleIssueService.create(issue)), HttpStatus.CREATED);

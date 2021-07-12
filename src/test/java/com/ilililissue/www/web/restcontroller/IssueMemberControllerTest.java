@@ -1,8 +1,7 @@
 package com.ilililissue.www.web.restcontroller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.manager.ManagerRole;
+import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.web.dto.response.IssueMemberResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class IssueMemberControllerTest {
     @Order(1)
     @Test
     void createMemberTest() throws Exception {
-        IssueManager issueManager = new IssueManager(ManagerRole.MASTER);
+        IssueMember issueManager = new IssueMember();
         MvcResult response = mockMvc
                 .perform(post(urlPrefix)
                         .contentType(MediaType.APPLICATION_JSON)

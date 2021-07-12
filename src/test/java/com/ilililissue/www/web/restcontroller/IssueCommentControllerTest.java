@@ -6,12 +6,9 @@ import com.ilililissue.www.domain.comment.CommentPosition;
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.like.CommentLike;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.SimpleIssueService;
-import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import com.ilililissue.www.web.dto.request.comment.IssueCommentPatchRequest;
 import com.ilililissue.www.web.dto.request.comment.IssueCommentSaveRequest;
@@ -37,9 +34,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(properties = "application-test.properties", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class IssueCommentControllerTest {
-
-    @Autowired
-    IssueManagerService issueManagerService;
 
     @Autowired
     IssueMemberService issueMemberService;
@@ -71,7 +65,7 @@ public class IssueCommentControllerTest {
     @Order(1)
     @Test
     void createIssue() {
-        IssueManager master = issueManagerService.create(new IssueManager(ManagerRole.MASTER));
+        IssueMember master = issueMemberService.create(new IssueMember());
         SimpleIssue issueSaveDto = SimpleIssue.builder().creator(master).title("타이를").build();
         simpleIssueService.create(issueSaveDto);
         IssueMember member = IssueMember.builder().name("이름1").build();

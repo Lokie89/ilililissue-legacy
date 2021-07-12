@@ -1,6 +1,6 @@
 package com.ilililissue.www.web.dto.request.issue;
 
-import com.ilililissue.www.domain.manager.IssueManager;
+import com.ilililissue.www.domain.member.IssueMember;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -26,5 +26,5 @@ public class SimpleIssueSaveRequest {
     //TODO : 세터 삭제
     @ApiModelProperty(value = "생성자", required = true)
     @Setter
-    private IssueManager creator;
+    private IssueMember creator;
 }

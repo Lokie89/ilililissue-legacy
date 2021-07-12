@@ -2,16 +2,11 @@ package com.ilililissue.www.service.comment;
 
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.issue.SimpleIssue;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotRegisterCommentException;
-import com.ilililissue.www.exception.comment.CanNotRemoveCommentException;
 import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import com.ilililissue.www.service.issue.SimpleIssueService;
-import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
-import com.ilililissue.www.web.dto.request.comment.IssueCommentPatchRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,9 +26,6 @@ public class IssueCommentServiceTest {
     IssueCommentService issueCommentService;
 
     @Autowired
-    IssueManagerService issueManagerService;
-
-    @Autowired
     SimpleIssueService simpleIssueService;
 
     @Autowired
@@ -43,8 +35,8 @@ public class IssueCommentServiceTest {
     void setUp() {
         IssueMember issueMember = new IssueMember();
         issueMemberService.create(issueMember);
-        IssueManager manager = new IssueManager(ManagerRole.MASTER);
-        IssueManager master = issueManagerService.create(manager);
+        IssueMember manager = new IssueMember();
+        IssueMember master = issueMemberService.create(manager);
         SimpleIssue socialIssue = SimpleIssue.builder().creator(master).title("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images(new String[]{"image", "image2"}).description("내용").build();
         simpleIssueService.create(socialIssue);
     }

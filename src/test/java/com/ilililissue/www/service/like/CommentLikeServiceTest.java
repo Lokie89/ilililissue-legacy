@@ -2,22 +2,15 @@ package com.ilililissue.www.service.like;
 
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.issue.SimpleIssue;
-import com.ilililissue.www.domain.like.CommentLike;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.SimpleIssueService;
-import com.ilililissue.www.service.manager.IssueManagerService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("좋아요 서비스 테스트")
 @Transactional
@@ -30,9 +23,6 @@ public class CommentLikeServiceTest {
     IssueMemberService issueMemberService;
 
     @Autowired
-    IssueManagerService issueManagerService;
-
-    @Autowired
     SimpleIssueService simpleIssueService;
 
     @Autowired
@@ -42,8 +32,8 @@ public class CommentLikeServiceTest {
     void setUp() {
         IssueMember issueMember = new IssueMember();
         issueMemberService.create(issueMember);
-        IssueManager manager = new IssueManager(ManagerRole.MASTER);
-        IssueManager savedIssueManager = issueManagerService.create(manager);
+        IssueMember manager = new IssueMember();
+        IssueMember savedIssueManager = issueMemberService.create(manager);
 
         SimpleIssue socialIssue = SimpleIssue.builder().creator(savedIssueManager).title("신규확진 401명, 이틀째 400명대 초반... 사망자 16명 늘어").images(new String[]{"image", "image2"}).description("내용").build();
         simpleIssueService.create(socialIssue);

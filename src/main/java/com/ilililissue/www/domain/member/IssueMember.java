@@ -1,7 +1,5 @@
 package com.ilililissue.www.domain.member;
 
-import com.ilililissue.www.domain.manager.ManagerRole;
-import com.ilililissue.www.domain.manager.UnderControl;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @Entity
-public class IssueMember implements UnderControl, Serializable {
+public class IssueMember implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -22,8 +20,4 @@ public class IssueMember implements UnderControl, Serializable {
     @Column(name = "name")
     private String name;
 
-    @Override
-    public boolean isControlled(ManagerRole role) {
-        return role.isOverAuthorized(ManagerRole.MASTER);
-    }
 }

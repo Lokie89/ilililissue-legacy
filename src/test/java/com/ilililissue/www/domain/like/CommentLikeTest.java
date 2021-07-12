@@ -2,8 +2,6 @@ package com.ilililissue.www.domain.like;
 
 import com.ilililissue.www.domain.comment.IssueComment;
 import com.ilililissue.www.domain.issue.SimpleIssue;
-import com.ilililissue.www.domain.manager.IssueManager;
-import com.ilililissue.www.domain.manager.ManagerRole;
 import com.ilililissue.www.domain.member.IssueMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,7 @@ public class CommentLikeTest {
     @DisplayName("좋아요 객체 생성")
     @Test
     void createLikeCommentTest() {
-        IssueManager manager = new IssueManager(ManagerRole.MASTER);
+        IssueMember manager = new IssueMember();
 
         IssueMember likeMember = new IssueMember();
 

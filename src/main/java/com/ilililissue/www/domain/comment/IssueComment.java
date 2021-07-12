@@ -2,16 +2,12 @@ package com.ilililissue.www.domain.comment;
 
 import com.ilililissue.www.domain.BaseTimeEntity;
 import com.ilililissue.www.domain.issue.SimpleIssue;
-import com.ilililissue.www.domain.like.CommentLike;
-import com.ilililissue.www.domain.manager.ManagerRole;
-import com.ilililissue.www.domain.manager.UnderControl;
 import com.ilililissue.www.domain.member.IssueMember;
 import com.ilililissue.www.exception.comment.CanNotUpdateCommentException;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @EqualsAndHashCode(of = "id", callSuper = false)
@@ -20,7 +16,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @Entity
-public class IssueComment extends BaseTimeEntity implements UnderControl, Serializable {
+public class IssueComment extends BaseTimeEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -50,15 +46,6 @@ public class IssueComment extends BaseTimeEntity implements UnderControl, Serial
 
     public void drop() {
         status = 'd';
-    }
-
-    public boolean isControlled(IssueMember author) {
-        return this.author.equals(author);
-    }
-
-    @Override
-    public boolean isControlled(ManagerRole role) {
-        return role.isOverAuthorized(ManagerRole.LV3);
     }
 
     private void validateUpdateComment() {
