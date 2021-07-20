@@ -31,11 +31,11 @@
     padding: 10px;
 }
 
-.comment-container .comment .disagree {
+.comment-container .comment.DISAGREE {
     text-align: left;
 }
 
-.comment-container .comment .agree {
+.comment-container .comment.AGREE {
     text-align: right;
 }
 
@@ -46,11 +46,11 @@
     padding: 10px;
 }
 
-.comment-container .comment .disagree span {
+.comment-container .comment.DISAGREE span {
     background: #ff8580;
 }
 
-.comment-container .comment .agree span {
+.comment-container .comment.AGREE span {
     background: #8aa0ff;
 }
 

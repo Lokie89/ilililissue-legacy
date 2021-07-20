@@ -30,4 +30,9 @@ public class IssueMemberService {
         return repository.findById(id).orElseThrow(NoContentFromRequestException::new);
     }
 
+    @Transactional(readOnly = true)
+    public IssueMember getOneByName(String name) {
+        return repository.findByName(name).orElseThrow(NoContentFromRequestException::new);
+    }
+
 }

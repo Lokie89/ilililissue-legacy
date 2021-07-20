@@ -47,7 +47,7 @@ function loadComment(page) {
     //     data : JSON.stringify(issueComment),
     // });
 
-    $.get('/api/v1/comment' /*+ '?page=' + page*/, (commentList) => {
+    $.get('/api/v1/comments' /*+ '?page=' + page*/, (commentList) => {
         renderComment(commentList);
     })
 }

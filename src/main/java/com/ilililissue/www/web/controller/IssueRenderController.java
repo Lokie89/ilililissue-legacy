@@ -2,6 +2,7 @@ package com.ilililissue.www.web.controller;
 
 import com.ilililissue.www.domain.issue.SimpleIssue;
 import com.ilililissue.www.domain.member.IssueMember;
+import com.ilililissue.www.service.comment.IssueCommentService;
 import com.ilililissue.www.service.issue.SimpleIssueService;
 import com.ilililissue.www.service.member.IssueMemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class IssueRenderController {
     private final SimpleIssueService issueService;
     private final IssueMemberService issueMemberService;
     private final SimpleIssueService simpleIssueService;
+    private final IssueCommentService issueCommentService;
 
     @GetMapping("/")
     public ModelAndView index() {
@@ -28,6 +30,7 @@ public class IssueRenderController {
         mav.setViewName("dayissue");
         mav.addObject("headerTitle", "오늘의 이슈");
         mav.addObject("issue", issueService.getAll().get(0));
+        mav.addObject("comment", issueCommentService.getAll());
         return mav;
     }
 
